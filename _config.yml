@@ -14,22 +14,25 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 title:  AlloyTools
-email: alloytools@aQute.biz
+email: alloy@mit.edu 
 description: >
     "Alloy is a language for describing structures and a tool for exploring them. It has been used in a wide range of applications from finding holes in security mechanisms to designing telephone switching networks."
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://alloytools.org" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: alloytools
+# twitter_username: alloytools
 github_username:  AlloyTools
+stackoverflow:  Alloy
 
 # Build settings
 markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-seo
 
-reference:
-  output: true
+collections:
+  faq:
+    output: true
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

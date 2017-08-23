@@ -1,0 +1,8 @@
+---
+layout: page
+title: What research is being done with or about Alloy?
+---
+Sarfraz Khurshid (UT Austin) used Alloy in his Testera tool, which generates test cases automatically from representation invariants. Kevin Sullivan and David Coppit (Virginia) used Testera to find bugs in Galileo, a fault tree analyzer used by NASA. Mandana Vaziri (IBM) used Alloy to check Java methods against specifications; Mana Taghdiri (MIT) is extending this work with a method that infers specifications for called procedures automatically from their code.
+
+Christie Bolton (Oxford) has used Alloy to discover refinement relations automatically. Marcelo Frias (Buenos Aires) is working on extending Alloy with dynamic logic. Paulo Borba (Recife) is investigating sound object model transformations using Alloy. Jin Song Dong (Singapore) has developed techniques for applying Alloy to web ontology reasoning. Lee Momtahan (Oxford) is developing a mathematical theory that will allow inferences about unbounded cases to be inferred from Alloy's finite analysis. Chris Wallace (Bristol) has applied Alloy to business process modelling. Susan Stepney (York) is investigating mutation testing of Alloy models. Robert Seater (MIT) is looking at ways to help novices understand models by generating examples and non-examples. Felix Chang (MIT) is extending model checking technology with Alloy-like data structuring. Pamela Zave (AT&T) has used Alloy for modelling networks and telephone switching features. Dewayne Perry and Sarfraz Khurshid (UT Austin) are using Alloy for analyzing software architectures. Maria Nelson (Waterloo) used Alloy to explore axioms of geometry.
+

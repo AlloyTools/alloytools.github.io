@@ -4,9 +4,12 @@ layout: default
 
 <div class="home">
 
+	<img style="float:right"src="/image/logo.gif"/>
+	
   {{ content }}
-
-  <h1 class="page-heading">Posts</h1>
+  
+  
+  <h2 class="page-heading">posts</h2>
   
   <ul class="post-list">
     {% for post in site.posts %}
@@ -20,7 +23,5 @@ layout: default
       </li>
     {% endfor %}
   </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
 
 </div>
