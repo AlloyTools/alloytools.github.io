@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Syntax for assertions</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Syntax for <i>assert</i> statements</h2>
+
+<p> While a <b><tt>fact</b></tt> is used to <i>force</i> something to
+    be true of the model, an <b><tt>assert</b></tt> is a claim that
+    something <i>must already</i> be true due to the rest of the
+    model. Assertions are verified (or falsified) using a <a
+    href="sidenote-format-check.html"><b><tt>check</b></tt> statement</a>.
+
+<b><pre>
+  assert name-of-assertion {
+    // list of constraints
+  }
+</pre></b>
+
+example:
+<b><pre>
+  assert acyclic {
+    no d: Dir | d in d.^contents
+  }
+</pre></b>
+
+<p> Each assertion <i>must</i> have a name, since we will need
+    to refer to them by name in <b><tt>check</b></tt> statements.
+
+  </body>
+</html>

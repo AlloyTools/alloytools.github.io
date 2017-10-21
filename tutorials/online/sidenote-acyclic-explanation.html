@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Why acyclic holds</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Why <b><tt>acyclic</b></tt> holds</h2>
+
+<p> Imagine starting at <b><tt>Root</b></tt> and following the
+    <b><tt>contents</b></tt> relation.  Suppose you found a cyclic
+    path and followed it.  At some point, you will encounter a
+    directory which you have already visited.
+<ul>
+<li> The duplicated directory cannot be the root, since the root has
+     no parent (and we have constrained the contents and parent
+     relations to be reciprocal).</li>
+<li> The duplicated directory cannot be a non-root directory, say
+     <b>d</b>, since that would mean that <b>d</b> has two parents
+     (but that cannot be the case since the parent relation maps to
+     single directory, not a set of directories).</li>
+</ul>
+<p> Thus a cycle cannot exist.</p>
+
+  </body>
+</html>

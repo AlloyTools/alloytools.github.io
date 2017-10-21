@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Alternatives for defineContents</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Alternative ways to write defineContents</h2>
+
+
+<p> In File System Lesson I, we needed to express the fact that a
+    directory is the parent of its contents.  The following facts are
+    all equivalent ways of expressing that constraint.</p>
+
+<b><pre>
+fact { all d: Dir, o: d.contents | o.parent = d }
+
+fact { all d: Dir | all o: d.contents | o.parent = d }
+
+fact { all d: Dir, o: FSObject | o in d.contents => o.parent = d }
+
+fact { all d: Dir | all o: FSObject | o in d.contents => o.parent = d }
+</pre></b>
+
+  </body>
+</html>

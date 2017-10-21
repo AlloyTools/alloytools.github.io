@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <title>Multiplicity markings</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Multiplicity Markings</h2>
+
+<p>When defining a field of a signature to be a relation, you write something like this:</p>
+
+<pre><b>
+  sig University {
+    groupMember: Student -> Professor
+  }
+</b></pre>
+
+<p> Here, each University knows which student is a member of which
+    professor's research group.  That is, there is a relation from
+    Universities to Students to Professors.  By writing multiplicity
+    markings to the declaration of the relation, we can add additional
+    constraints in a concise way.  For example, </p>
+
+<pre><b>
+  sig University {
+    groupMember: Student -> one Professor
+  }
+</b></pre>
+
+<p> means that each student is in exactly one professor's research
+    group. If we instead wrote this,</p>
+
+<pre><b>
+  sig University {
+    groupMember: Student -> lone Professor
+  }
+</b></pre>
+
+<p> Then we are saying that some students may be in no research group,
+but no student is in more than one. Lastly, we can write</p>
+
+<pre><b>
+  sig University {
+    groupMember: Student -> some Professor
+  }
+</b></pre>
+
+<p> to say that each student is in one or more research groups.  When
+    no multiplicity markings are present, there are not
+    constraints.</p>
+
+<hr WIDTH="50%">
+
+<p> You can also write multiplicity markings before the arrow.  For example, </p>
+
+<pre><b>
+  sig University {
+    groupMember: Student some -> Professor
+  }
+</b></pre>
+
+<p> This says that every professor has at least one student in his or her
+    research group.  We can put markings on both sides of the arrow as
+    such:
+
+<pre><b>
+  sig University {
+    groupMember: Student some -> lone Professor
+  }
+</b></pre>
+
+<p> Here, every research group has at least one student, and each student is in up to one research group.</p>
+
+<hr WIDTH="50%">
+
+<p> You can also place the <b><tt>lone</tt></b> and
+    <b><tt>one</tt></b> multiplicity markings on signatures to control
+    how many copies of that signature can exist (or, really, how many
+    elements can ever be in that set defined by that signature).  For
+    example:</p>
+
+<pre><b>
+  one sig Root {...}
+  lone sig University {...}
+  some sig InitialState {...}
+</b></pre>
+
+  </body>
+</html>

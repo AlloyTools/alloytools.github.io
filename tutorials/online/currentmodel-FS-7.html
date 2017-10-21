@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <title>Alloy Tutorial Model</title>
+    <link   rel=stylesheet   href="style-currentmodel.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>File System Model (VI)</h2>
+
+<pre>
+<i>// File system objects</i>
+<b>abstract sig FSObject { }
+sig File, Dir extends FSObject { }</b>
+
+<i>// A File System</i>
+<b>sig FileSystem {
+  live: set FSObject,
+  root: Dir & live,
+  parent: (live - root) ->one (Dir & live),
+  contents: Dir -> FSObject
+}{</b>
+  <i>// live objects are reachable from the root</i>
+  <b>live in root.*contents</b>
+  <i>// parent is the inverse of contents</i>
+  <b>parent = ~contents
+}</b>
+
+<i>// Move x to directory d</i>
+<b>pred move [fs, fs': FileSystem, x: FSObject, d: Dir] {
+  (x + d) in fs.live
+  fs'.parent = fs.parent - x->(x.(fs.parent)) + x->d
+}</b>
+
+<i>// Delete the file or directory x</i>
+<b>pred remove [fs, fs': FileSystem, x: FSObject] {
+  x in (fs.live - fs.root)
+  fs'.root = fs.root
+  fs'.parent = fs.parent - x->(x.(fs.parent))
+}</b>
+
+<i>// Recursively delete the object x</i>
+<b>pred removeAll [fs, fs': FileSystem, x: FSObject] {
+  x in (fs.live - fs.root)
+  fs'.root = fs.root
+  let subtree = x.*(fs.contents) |
+      fs'.parent = fs.parent - subtree->(subtree.(fs.parent))
+}
+
+run move for 2 FileSystem, 4 FSObject
+run remove for 2 FileSystem, 4 FSObject
+run removeAll for 2 FileSystem, 4 FSObject</b>
+
+<i>// Moving doesn't add or delete any file system objects</i>
+<b>moveOkay: check {
+  all fs, fs': FileSystem, x: FSObject, d:Dir |
+    move[fs, fs', x, d] => fs'.live = fs.live
+} for 5</b>
+
+<i>// remove removes exactly the specified file or directory</i>
+<b>removeOkay: check {
+  all fs, fs': FileSystem, x: FSObject |
+    remove[fs, fs', x] => fs'.live = fs.live - x
+} for 5</b>
+
+<i>// removeAll removes exactly the specified subtree</i>
+<b>removeAllOkay: check {
+  all fs, fs': FileSystem, d: Dir |
+    removeAll[fs, fs', d] => fs'.live = fs.live - d.*(fs.contents)
+} for 5</b>
+
+<i>// remove and removeAll has the same effects on files</i>
+<b>removeAllSame: check {
+  all fs, fs1, fs2: FileSystem, f: File |
+    remove[fs, fs1, f] && removeAll[fs, fs2, f] => fs1.live = fs2.live
+} for 5</b>
+</pre>
+
+  </body>
+</html>

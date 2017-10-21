@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>relational join</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Relational Join</h2>
+
+<p> <b><tt>a.b</tt></b> is the composition of the relations
+    <b><tt>a</tt></b> and <b><tt>b</tt></b>.  For each tuple in
+    <b><tt>a</tt></b> of the form <tt>(a0, a1, ..., an, X)</tt>, and
+    each tuple in <b><tt>b</tt></b> of the form <tt>(X, b1, ...,
+    bn)</tt>, the new relation <b><tt>a.b</tt></b> contains a tuple
+    <tt>(a0, a1, ..., an, b1, ... bn)</tt>.  Only the last atom in
+    tuples of <tt><b>a</b></tt> are matched with the first atom in
+    tuples of <tt><b>b</b></tt>.  Note that the
+    matched atom is removed from the resulting tuple.
+</p>
+
+<p> Due to some clever definitions of Semantics, it can also be used
+    to access fields of a signature.  See <a
+    href="sidenote-levels-of-understanding.html">levels of understanding</a> for examples of different ways to
+    interpret the dot.</p>
+
+  </body>
+</html>

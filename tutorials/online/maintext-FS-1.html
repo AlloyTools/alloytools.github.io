@@ -1,0 +1,471 @@
+<html>
+  <head>
+    <title>Alloy Tutorial Main Text</title>
+    <link   rel=stylesheet   href="style-maintext.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>File System Lesson I</h2>
+
+    <a href="index.html" target="_top">Start Over</a> .
+    <a href="frame-FS-0.html" target="_top">back</a> . <a href="frame-FS-2.html" target="_top">next</a>
+
+<hr WIDTH="100%">
+
+<p> Our first Alloy model is located in the upper-righthand frame. It
+    is a short model of a file system.
+</p>
+
+<hr WIDTH="50%">
+
+<p> Alloy models can contain comments by beginning a line with
+    the character
+    sequence "<b><tt>//</b></tt>".
+</p>
+
+<i><pre>
+  // A file system object in the file system
+</pre></i>
+
+<p> There are actually three different <a
+    href="sidenote-format-comments.html" target="sidenote"> formats
+    for writing <i>comments</i></a> in Alloy, all reminiscent of other
+    programming languages.
+</p>
+
+<hr WIDTH="50%">
+
+
+<p> After the comment, comes our first <a
+    href="sidenote-format-sig.html" target="sidenote"> signature</a>
+    declaration, "<b><tt>sig FSObject</b></tt>".  It defines a set
+    named <b><tt>FSObject</b></tt>, representing the set of all
+    <i>file system objects</i> (both directories and files) in the
+    file system.
+</p>
+
+<b><pre>
+  sig FSObject {
+    parent: lone Dir
+  }
+</pre></b>
+
+<p> Following the signature declaration is its body, surrounded by
+    curly braces.  Here we can define relations that have this
+    signature as their domain.  Relations defined here behave like
+    fields of an object in the <a href="sidenote-OO-paradigm.html"
+    target="sidenote"> OO paradigm</a>.
+</p>
+
+<p> For instance, in the <b><tt>FSObject</b></tt> signature body, we
+    define a relation called <b><tt>parent</b></tt> which relates
+    <b><tt>FSObjects</b></tt> to <b><tt>Dirs</b></tt> (directories).
+    Just think of this as saying that each file system object has a
+    <b><tt>parent</b></tt> field which is a <b><tt>Dir</b></tt>.  The
+    keyword <b><tt>lone</b></tt> simply indicates that there are 0
+    or 1 <b><tt>parent</b></tt> dir for each
+    <b><tt>FSObject</b></tt>.  That is, not every file system object
+    has a parent.
+</p>
+
+<p> You can read more about <a href="sidenote-OO-paradigm.html"
+    target="sidenote"> how you can read Alloy is if it were an Object
+    Oriented language</a>, like Java or C++.  However, while the OO
+    metaphore is useful, a deeper (but still intuitive) <a
+    href="sidenote-levels-of-understanding.html" target="sidenote">set
+    theoretic understanding</a> will eventually be required, an
+    interested readers may like to know how Alloy really works <a
+    href="sidenote-relations-everywhere.html" target="sidenote">
+    behind the scenes</a>.
+</p>
+
+<p> The signatures <b><tt>Dir</tt></b> and <b><tt>Root</tt></b> are
+    defined later in the model; the order in which we define the
+    signatures is irrelevant.  In fact, more generally, the order of
+    paragraphs (statements) in an Alloy model does not affect its
+    meaning.  This is in the spirit of being <a
+    href="sidenote-operational-declarative.html" target="sidenote">
+    declarative rather than imperative </a> -- all the statements and
+    constraints must hold, but there is no notion of an order or
+    sequence to them.
+</p>
+
+<hr WIDTH="50%">
+
+
+<p> The signatures <b><tt>Dir</b></tt> and <b><tt>File</b></tt>
+    represent the directories and files in the file system:
+</p>
+
+<b><pre>
+  </b><i>// A directory in the file system</i><b>
+  sig Dir extends FSObject {
+    contents: set FSObject
+  }
+</pre></b>
+and later,
+<b><pre>
+  </b><i>// A file in the file system</i><b>
+  sig File extends FSObject { }
+</pre></b>
+
+<p> Both declarations end in "<b><tt>extends FSObject</b></tt>",
+    indicating that files and directories are subtypes of file system
+    objects.  This means two things: (1) the set of all
+    <b><tt>File</b></tt>s is a subset of the set of all
+    <b><tt>FSObject</b></tt>s, and (2) <b><tt>File</tt></b>s are
+    disjoint from other subtypes of <b><tt>FSObject</tt></b> (ie it is
+    disjoint from <b><tt>Dir</tt></b>).  Anything we can do to a
+    <b><tt>FSObject</tt></b> can also be done to a
+    <b><tt>File</tt></b> or a <b><tt>Dir</tt></b>.
+</p>
+
+<p> You may wish to read about other <a
+    href="sidenote-format-sig.html" target="sidenote"> options for
+    signatures</a>.
+</p>
+
+<hr WIDTH="50%">
+
+<p> It is not enough to simply define directories and files as we did
+    above.  We also need to add some basic sanity constraints to make
+    sure they behave the way we intuitively expect.  For example,
+    the offhand <tt><b>parent</b></tt> and
+    <b><tt>contents</b></tt> fields need not bear any particular
+    relation to one another.  Of course, when we added those fields we
+    had a very specific constraint in mind: a directory is the parent
+    of its contents.  So, we need to write the following constraint to
+    limit the behaviour of our model:
+</p>
+
+<b><pre>
+  </b><i>// A directory is the parent of its contents</i><b>
+  fact {
+     all d: Dir, o: d.contents | o.parent = d
+  }
+</pre></b>
+
+<p> In words: "Given any directory <b><tt>d</b></tt> and any
+    (<b><tt>FSObject</b></tt>) <b><tt>o</b></tt> in
+    <b><tt>d</b></tt>'s contents, <b><tt>d</b></tt> must be the parent
+    of <b><tt>o</b></tt>.".  You may wish to look over some <a
+    href="sidenote-alternative-defineContents.html" target="sidenote">
+    equivalent ways of writing this fact</a>.
+</p>
+
+<p> Had we omitted this fact, then we could have gotten situations
+like this:
+</p>
+
+<p>    <IMG SRC="crazy-fs1.png" BORDER=0>
+
+<p> There are many <tt>parent</tt> relationships among the objects,
+but no <tt>contents</tt> relationships!</p>
+
+<p> Upon seeing such an absurd example, we would have realized that we
+    forgot a sanity constraint or two.  We will describe the process
+    of debugging your model later; for now, let's keep looking at how
+    to write one in the first place. </p>
+
+<p> Alloy supports several
+    <a href="sidenote-quantifiers.html" target="sidenote">
+    quantifiers</a> including the standard
+    <i>universal</i> ("for all...") and <i>existential</i> ("there
+    exists...") quantifiers.
+</p>
+
+<p> A <a href="sidenote-format-fact.html" target="sidenote">
+    <b><tt>fact</b></tt> statement</a> in Alloy puts an explicit
+    constraint (or list of constraints) on the model.  When Alloy
+    searches for examples, it discards any which violate any fact.
+    Thus, if the fact is trivially false, then you will simply get no
+    examples of file systems (but won't be told that the model is
+    inconsistent).  Later we will see the 'run' command which helps
+    make sure that you have neither <a
+    href="sidenote-overconstraint.html" target="sidenote">
+    overconstrained</a> the model nor <a
+    href="sidenote-underconstraint.html" target="sidenote">
+    underconstrained</a> it.
+</p>
+
+<p> In some sense, facts are "always on"; all facts automatically
+    always apply.  Later, we will see <a
+    href="sidenote-format-functions.html" target="sidenote">
+    functions</a> and <a href="sidenote-format-pred.html"
+    target="sidenote"> predicates</a> , which can serve as 'optional
+    facts', allowing you to say things like "if constraint <i>A</i>
+    holds then constraint <i>B</i> must hold.".
+</p>
+
+<p> Here we see the '<b><tt>.</tt></b>' operator used for the first
+    time. Technically, the '<b><tt>.</tt></b>' operator is "<a
+    href="sidenote-relational-join.html" target="sidenote">relation
+    composition</a>" (relational join), but due to some clever
+    definitions of Alloy syntax it also serves to access the fields of
+    a signature.
+
+<hr WIDTH="50%">
+
+<p> By declaring the signatures <tt><b>Dir</b></tt> and
+    <b><tt>File</tt></b> to be extend <tt><b>FSObject</b></tt>, we
+    ensured that no <b><tt>FSObject</b></tt> is both a
+    <b><tt>File</b></tt> and a <b><tt>Dir</b></tt>.  However, we
+    have not excluded the possibility of some <b><tt>FSObject</b></tt>
+    being <i>neither</i>.  The following fact does so:
+</p>
+
+<b><pre>
+  </b><i>// All file system objects are either files or directories</i><b>
+  fact {
+    File + Dir = FSObject
+  }
+</pre></b>
+
+<p> Another way to enforce that constraint would be to mark
+    <b><tt>FSObject</tt></b> as <b><tt>abstract</tt></b>, by writing
+    </p>
+
+<pre><b>
+abstract sig FSObject {...}
+</b></pre>
+
+<p> An abstract
+    signature only contains atoms which are also contained in one of
+    its extending signatures.  Exception: if there are <i>no</i>
+    extending signatures, then the abstract keyword is ignored.</p>
+
+<p> The "<tt><b>+</b></tt>" indicates set union.  Thus this fact reads
+    "the union of all files and all directories is the same thing as
+    set of all file system objects".  In other words,
+    "<b><tt>File</b></tt> and <b><tt>Dir</b></tt> partition
+    <b><tt>FSObject</b></tt>"; there is no <b><tt>FSObject</b></tt>
+    which is neither a <b><tt>File</b></tt> nor a
+    <b><tt>Dir</b></tt>ectory.  Alloy supports other standard <a
+    href="sidenote-set-ops.html" target="sidenote"> set operations</a>
+    (such as intersection and difference).
+</p>
+
+<hr WIDTH="50%">
+
+
+<p> We still need to address the root directory of the file system.
+    We do so by creating a new signature, <tt><b>Root</b></tt>, which
+    extends <b><tt>Dir</tt></b>.  Since it is marked
+    <tt><b>one</b></tt>, there will always be exactly one instance of
+    it.  In the "appended fact" (in braces after the signature body),
+    we constrain the root to have no parent.
+</p>
+
+<pre>
+  <i>// There exists a root</i>
+  <b>one sig Root extends Dir { } { no parent }</b>
+</pre></b>
+
+<p> Of course, we could have avoided using the <a
+    href="sidenote-multiplicity.html" target="sidenote">
+    <b><tt>one</tt></b> keyword</a> and the <a
+    href="sidenote-format-appended-fact.html" target="sidenote">
+    appended fact syntax</a> by writing appropriate additional facts
+    to constrain the model.  There are a couple of <a
+    href="sidenote-alternative-static-appended.html"
+    target="sidenote"> alternatives to using <b><tt>one</b></tt>
+    and and appended fact</a>, although they are not as concise.
+
+<hr WIDTH="50%">
+</p>
+
+
+<p> We will now add our last "sanity" constraint, which makes sure
+    that the file system is connected.  After doing that, we will be
+    ready to run the Alloy analyzer and check some assertions about
+    the model.
+</p>
+
+<b><pre>
+  </b><i>// File system is connected</i><b>
+  fact {
+    FSObject in Root.*contents
+  }
+</pre></b>
+
+<p> In Alloy, <A href="sidenote-set-ops.html" target="sidenote">
+    <tt><b>in</b></tt></a> can be read as "<i>subset of</i>" (among
+    other things).  The operator "<b><tt>*</b></tt>" denotes <a
+    href="sidenote-rtc.html" target="sidenote"> reflexive transitive
+    closure</a>.  Thus, this fact says that the set of all file system
+    objects is a subset of everything reachable from the
+    <tt><b>Root</b></tt> by following the <tt><b>contents</b></tt>
+    relation zero or more times.
+</p>
+
+<p> Note that it is important that we use the <i>reflexive</i>
+    transitive closure, since Root doesn't contain itself directly or
+    indirectly but is part of the file system.
+</p>
+
+<p> Had we omitted this fact, we would get erroneous file systems such
+    as this one:
+</p>
+
+<p>    <IMG SRC="crazy-fs1.png" BORDER=0>  </p>
+
+<hr WIDTH="50%">
+
+
+<p> So far, we have described the basic structure of a file system
+    using <b><tt>sig</b></tt> declarations and have added some simple
+    sanity constraints using <b><tt>fact</b></tt> statements.  Now we
+    are ready to reap the fruits of our labor by checking some
+    properties of our model.  We will write <a
+    href="sidenote-format-assert.html" target="sidenote">
+    <b><tt>assert</b></tt> statements</a> in a manner very similar to
+    how we wrote <b><tt>fact</b></tt> statements, and then use the
+    <b><tt>check</b></tt> command to tell Alloy to automatically search
+    for counter examples to our assertions.
+</p>
+
+<p> A <b><tt>fact</b></tt> <i>forces</i> something to be true of the
+    model.  An <b><tt>assert</b></tt> claims that something must be
+    true due to the behaviour of the model.
+</p>
+
+<b><pre>
+  </b><i>// The contents path is acyclic</i><b>
+  assert acyclic {
+    no d: Dir | d in d.^contents
+  }
+</pre></b>
+
+<p> There is no directory which contains itself (directly or
+    indirectly).  That is, the containment relation among directories
+    has no cycles.  We express this constraint in Alloy using
+    (non-reflective) <a href="sidenote-nrtc.html" target="sidenote">
+    transitive closure</a>, denoted "<b><tt>^</b></tt>".
+</p>
+
+<p> Note that we do not want to use <i>reflexive</i> transitive
+    closure (like we did before) -- if you follow the contents
+    relation zero times you get back the same directory, making the
+    assertion trivially false!
+</p>
+
+<hr WIDTH="50%">
+
+
+<p> Next we <a href="sidenote-format-check.html" target="sidenote">
+    check</a> our assertion by searching for counterexamples (and
+    hopefully finding none).  We have to choose a finite scope for
+    Alloy to search within, so we choose <b><tt>5</tt></b>.  That is,
+    Alloy will examine all file systems with up to 5
+    <b><tt>FSObject</tt></b>s, and try to find one that violates the
+    <b><tt>acyclic</b></tt> assertion.  In general, saying "<b><tt>for
+    5</tt></b>", means that Alloy will examine all examples whose top
+    level signatures (those that don't <b><tt>extend</tt></b> other
+    signatures) have up to 5 instances. You can also say "<b><tt>for
+    exactly 5</tt></b>" if you don't want to examine scopes smaller
+    than 5.
+</p>
+
+<b><pre>
+  check acyclic for 5
+</pre></b>
+
+<p> When a <bb><t>check</b></tt> statement is executed, there are two
+    possible results (the exact message may vary depending on your
+    version of Alloy):
+</p>
+<ul>
+<li> "<tt><i>no solution found</i></tt>", meaning that there are no
+     counterexamples to the assertion for the specified scope or
+     smaller.  Alloy makes no guarantee about the property holding for
+     larger scopes, but there is evidence that most errors that can be
+     caught by models can be caught by examining only a small scope.
+     This is the so-called 'small scope hypothesis'.
+<li> "<tt><i>solution found</i></tt>", meaning that Alloy has found a
+     counterexample.  You can then visualize that example to try to
+     understand why it occurred.  Alloy does not guarantee that it
+     will return the smallest counterexample that exists, so you may
+     wish to try running the same <b><tt>check</b></tt> command on
+     smaller scopes to bring down the size for the solution before
+     visualizing it.
+</ul>
+
+<p> In the next lesson, the Alloy walkthrough, you will get a chance
+    to try running check statements yourself and visualizing
+    counterexamples.  For now, trust us that no counterexamples were
+    found.  In fact, it holds for any scope, but Alloy only guarantees
+    that it holds for up to a scope of 5.
+</p>
+
+<p> You should think for a moment about <i>why</i> it is that this
+    particular assertion holds.  Once you have thought about it, you
+    can look at our <a href="sidenote-acyclic-explanation.html"
+    target="sidenote"> intuitive explanation</a>.
+</p>
+
+<hr WIDTH="50%">
+
+
+<p> Next we write another assertion and check it, much like the last
+    one.  This time, we are checking that there is only one Root
+    directory, and that every <b><tt>FSObject</tt></b> is in at most
+    one directory.  We use a scope of 5 for both checks.
+</p>
+
+<b><pre>
+  </b><i>// File system has one root</i><b>
+  assert oneRoot {
+    one d: Dir | no d.parent
+  }
+
+  check oneRoot for 5
+
+  </b><i>// Every fsobject is in at most one directory</i><b>
+  assert oneLocation {
+    all o: FSObject | lone d: Dir | o in d.contents
+  }
+
+  check oneLocation for 5
+</pre></b>
+
+<p> Here we encountered the <b><tt>one</b></tt> and
+    <b><tt>lone</b></tt> quantifiers for the first time.  The
+    <b><tt>one</b></tt> quantifier means "exactly one", and the
+    <b><tt>lone</b></tt> quantifier means "zero or one" (you can think
+    of it as '<b>l</b>ess than or equal to <b>one</b>).  You may wish
+    to read more about these and other <a
+    href="sidenote-quantifiers.html" target="sidenote">
+    quantifiers</a>.
+</p>
+
+<p> We could have written these (or any other assertions) as facts,
+    but then they would be redundant (if they hold) or potentially
+    masking an important counterexample (if they don't hold).  It is
+    always better to check properties rather than redundantly forcing
+    them to be true.  If you don't understand why something does (or
+    does not) follow from the model, then you don't understand your
+    subject matter enough.  One of the benefits of modeling
+    (especially declarative modeling) is that it provides a relatively
+    painless way to develop such an understanding, along with checking
+    things you might otherwise have taken for granted.
+</p>
+
+<hr WIDTH="50%">
+
+
+<p> Before proceeding to Lesson II of the File System example, let's
+    take a look at the Alloy interface itself.  We will walkthrough
+    the basics of how to execute a command to check an Alloy model and
+    how to interpret the results.  We will do all of these in the
+    context of the first (our current) File System model, focussing on
+    checking the two assertions we made.
+</p>
+
+
+<hr WIDTH="100%">
+
+    <a href="index.html" target="_top">Start Over</a> .
+    <a href="frame-FS-0.html" target="_top">back</a> . <a href="frame-FS-2.html" target="_top">next</a>
+
+</body>
+</html>

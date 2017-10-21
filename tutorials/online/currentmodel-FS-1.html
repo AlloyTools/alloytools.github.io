@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Alloy Tutorial Model</title>
+    <link   rel=stylesheet   href="style-currentmodel.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>File System Model (I)</h2>
+
+<pre>
+<i>// A file system object in the file system</i>
+<b>sig FSObject { parent: lone Dir }</b>
+
+<i>// A directory in the file system</i>
+<b>sig Dir extends FSObject { contents: set FSObject }</b>
+
+<i>// A file in the file system</i>
+<b>sig File extends FSObject { }</b>
+
+<i>// A directory is the parent of its contents</i>
+<b>fact { all d: Dir, o: d.contents | o.parent = d }</b>
+
+<i>// All file system objects are either files or directories</i>
+<b>fact { File + Dir = FSObject }</b>
+
+<i>// There exists a root</i>
+<b>one sig Root extends Dir { } { no parent }</b>
+
+<i>// File system is connected</i>
+<b>fact { FSObject in Root.*contents }</b>
+
+<i>// The contents path is acyclic</i>
+<b>assert acyclic { no d: Dir | d in d.^contents }</b>
+
+<i>// Now check it for a scope of 5</i>
+<b>check acyclic for 5</b>
+
+<i>// File system has one root</i>
+<b>assert oneRoot { one d: Dir | no d.parent }</b>
+
+<i>// Now check it for a scope of 5</i>
+<b>check oneRoot for 5</b>
+
+<i>// Every fs object is in at most one directory</i>
+<b>assert oneLocation { all o: FSObject | lone d: Dir | o in d.contents }</b>
+
+<i>// Now check it for a scope of 5</i>
+<b>check oneLocation for 5</b>
+</pre>
+
+  </body>
+</html>
