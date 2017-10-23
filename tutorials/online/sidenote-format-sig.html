@@ -1,0 +1,154 @@
+<html>
+  <head>
+    <title>Syntax for sigs</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Syntax for writing <b><tt>sig</b></tt> statements</h2>
+
+In its simplest form, a <i>signature</i> looks like this:
+<b><pre>
+  sig name { }
+</pre></b>
+
+<p> Following each signature declaration, we find a signature body
+    whose within a pair of braces. In the signature body, we can
+    define a series of relations for which the set defined by the
+    signature is the domain.  For instance, in the
+    <b><tt>FSObject</b></tt> signature body, we define a relation
+    called "<b><tt>parent</b></tt>" which relates
+    <b><tt>FSObject</b></tt>s to <b><tt>Dir</b></tt>s.
+
+<p> A sig may also have fields, which look like this (brackets
+    indicate optional text):
+
+<b><pre>
+  sig name {
+    //most fields look like this:
+    field-name-1: field-type-1,
+    //A signature may refer to signatures not
+    // defined until later in the model.
+
+    //multiple fields with the same type look like this:
+    field-name-2a, field-name-2b: field-type-2
+  }
+</pre></b>
+
+<p> A signature extending another signature is a partition of that other
+    signature:
+
+<b><pre>
+  sig A extends C {
+    //fields
+  }
+
+  sig B extends C {
+    //fields
+  }
+</pre></b>
+
+<p> means that <b><tt>A</tt></b> and <b><tt>B</tt></b> are disjoint subsets of
+    <tt>C</tt></b>.
+    If <b><tt>A</tt></b> and
+    <b><tt>B</tt></b> have identical bodies, then we can get the same
+    effect by writing </p>
+
+<b><pre>
+  sig A, B extends C {
+    //fields
+  }
+</pre></b>
+
+<p> We can use <b><tt>in</tt></b> instead of <b><tt>extends</tt></b>
+    to get a slightly different effect -- <b><tt>in</tt></b> declares
+    that one sig is a subsets of another, but does not enforce that it is
+    disjoint from other sigs with the same parent. That is, </p>
+
+<b><pre>
+  sig A in C {
+    //fields
+  }
+
+  sig B in C {
+    //fields
+  }
+</pre></b>
+
+<p> means that <b><tt>A</tt></b> and <b><tt>B</tt></b> are both
+    subsets of <b><tt>C</tt></b>, but they are not necessarily
+    disjoint. Once again, if <b><tt>A</tt></b> and
+    <b><tt>B</tt></b> have identical bodies, we can use the shorthand
+    </p>
+
+<b><pre>
+  sig A, B in C {
+    //fields
+  }
+</pre></b>
+
+<p> In general, two (or more) sigs which have the same definition may
+    be declared together, like this: </p>
+
+<b><pre>
+  sig name1, name2 {
+    //fields
+  }
+</pre></b>
+
+<p> the <b><tt>abstract</tt></b> keyword is analogous to the
+    <b><tt>abstract</tt></b> keyword of OO languages like Java,
+    although it is not a perfect analogy. Consider some signature
+    defined as follows: </p>
+
+<b><pre>
+  abstract sig Foo {
+    //fields
+  }
+
+  sig Bar extends Foo {
+    //fields
+  }
+
+  sig Cuz extends Foo {
+    //fields
+  }
+</pre></b>
+
+<p> By using the <b><tt>abstract</tt></b> keyword, we make guarantee
+    that there will be no <b><tt>Foo</tt></b> that is not also either
+    a <b><tt>Bar</tt></b> or a <b><tt>Cuz</tt></b>.  However, had
+    there been no signatures declared as subsets of
+    <b><tt>Foo</tt></b> or extending it, then this restriction is
+    relaxed; if a signature has no subsets then writing
+    <b><tt>abstract</tt></b> has no effect. </p>
+
+<p> You can force there to always be exactly one instance of (element
+    in) a signature by using the <b><tt>one</tt></b> keyword.  This
+    also makes sure that every reference to this signature refers to
+    the same atom.
+
+<b><pre>
+  one sig name {
+      // fields
+  }
+</pre></b>
+
+<p> Examples: </p>
+<b><pre>
+  sig FSObject { }
+
+  sig Dir {
+      contents: set FSObject
+  }
+
+  sig FileSystem {
+      root: one Dir,
+      objects: set FSObject,
+      contents: Dir lone->set FSObject,
+      parent: FSObject set->lone Dir
+  }
+</pre></b>
+
+  </body>
+</html>

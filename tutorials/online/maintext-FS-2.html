@@ -1,0 +1,286 @@
+<html>
+  <head>
+    <title>Alloy Tutorial Main Text</title>
+    <link   rel=stylesheet   href="style-maintext.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>File System Lesson I Walkthrough</h2>
+
+    <a href="index.html" target="_top">Start Over</a> .
+    <a href="frame-FS-1.html" target="_top">back</a> . <a href="frame-FS-3.html" target="_top">next</a>
+
+<hr WIDTH="100%">
+
+
+<p> In this lesson, we take a look at the <i>Alloy</i> interface
+    itself.  We will walkthrough the basics of how to execute a
+    command to check an <i>Alloy</i> model and how to interpret the
+    results.  We will continue to use our running sample model of a
+    File system, and execute the <a href="sidenote-format-check.html"
+    target="sidenote"> <b><tt>check</tt></b></a> statements to verify
+    the <a href="sidenote-format-assert.html" target="sidenote">
+    <b><tt>assert</tt></b></a>ions made in the first version of the
+    model.</p>
+
+<hr WIDTH="50%">
+
+
+<h3>Disclaimer</h3>
+
+<p> The exact output that <i>Alloy</i> gives you (the messages that
+    pop up, and the interface to the visualizer) is subject to change.
+    However, the basics of using the <i>Alloy</i> interface (what you
+    can tell <i>Alloy</i> to do, the terminology we use, and the kind
+    of information Alloy returns) remains constant.  This walkthrough
+    analyzes our File System example, and to show examples of what the resulting output and
+    visualizations might look like. If you need additional help, or to report/clarify an
+    inconsistency, feel free to contact us.</p>
+
+<hr WIDTH="50%">
+
+
+<h3>Basics of using Alloy</h3>
+
+<p> At this point, you should open <i>Alloy</i>.  If you do not
+    already have <i>Alloy</i> installed, you can downloaded it from
+    the from the <a href="http://alloy.mit.edu/"
+    target="new"><i>Alloy</i> home page</a>.  Once you get
+    <i>Alloy</i> up and running, you will be presented with a screen
+    with two sections, looking something like this:</p>
+
+<p><IMG SRC="alloy-blank.gif" BORDER=0></p>
+
+<ul>
+<li> <b>Create a new model</b> by pasting in our current mode (shown to
+     the right of this window), and <b>save</b> it as
+     '<tt>fileSystem.als</tt>'</li>
+<li> <b>Select a command to execute</b> by choosing one from the
+     '<tt>Execute</tt>' menu the menu bar.  There will be
+     one entry in the menu for each <b><tt>run</tt></b> and each
+     <b><tt>check</tt></b> command.  For now, select the top choice:
+     "<b><tt>check acyclic for 5</tt></b>".</li>
+<li> <b>Execute the selected command</b> with the '<tt>Execute</tt>'
+     icon or by choosing <tt>Execute</tt> from the <tt>Tools</tt>
+     menu.  You will be told "<i>no counterexample found. Assertion may
+     be valid.</i>", meaning that there are no counter examples
+     to the <b><tt>acyclic</tt></b> assertion within a scope of 5.
+     Had there been solutions, you can click on message and display one such solution
+     in a new visualizer window.</li>
+<li> Now let's <b>check the second command</b> the same way.  Select
+     the second command ("<b><tt>check oneRoot for 5</tt></b>") from
+     the <tt>Execute</tt> menu, and execute it.  There are no
+     solutions found for this one either.</li>
+<li> Finally, <b>check the third command</b> the same way. There are n osolutions found for this one either.</li>
+</ul>
+
+<p>    <IMG SRC="alloy-msg.gif" BORDER=1></p>
+
+<hr WIDTH="50%">
+
+<p> In general, once you make a change to the model and want to see
+    its effect on a <b><tt>run</tt></b> or a <tt><b>check</b></tt>,
+    just execute that command again.  You do not need to click <b><tt>save</tt></b> first, since
+    the Alloy Analyzer will always use the text editor's version rather than
+    the version on disk.</p>
+
+<p> We'll see an example of visualizing a solution next.</p>
+
+<hr WIDTH="50%">
+
+
+<h3> Visualizing a counterexample to an incorrect assertion </h3>
+
+<p> Just for fun, let's write and check an assertion which <i>does</i>
+    have a solution (i.e. a counterexample).</p>
+
+<b><pre>
+  </b><i>// an assertion with a counterexample</i><b>
+  assert Wrong {
+    all obj, p: (FSObject - Root) | (obj.parent = p.parent)
+  }
+</pre></b>
+
+<p> That is, we are claiming that any two non-root file system objects
+    have the same parent.  Of course, if our file system is at all
+    sane, then this assertion will fail and a counterexample will be
+    found.  Let's check it and see.</p>
+
+<b><pre>
+  check Wrong for 3
+</pre></b>
+
+<p> Save the model, select our latest command from the
+    <tt>Execute</tt> menu, and execute it.  Alloy Analyzer will find a counterexample.
+    Click on it, and a new window will open up with a diagram similar to this:
+
+<p>    <IMG SRC="alloy-pic1.png" BORDER=0></p>
+
+<p> You can also browse a tree structure of the model by selecting the
+    "tree" button from the toolbar.  The tree view allows you to see
+    how the signatures and fields in your model evaluated in this
+    particular solution.  You can return to the diagram view by
+    choosing the "viz" button from the toolbar.</p>
+
+<p>    <IMG SRC="alloy-pic2.png" BORDER=0></p>
+
+<p> The exact appearance (and even the counter-example returned) may
+    vary between versions of Alloy, so don't worry if it looks a
+    little different.  Everything we say here will still apply.</p>
+
+<p> You can make the visualization more readable by customizing the
+    layout. You do this by clicking the "Theme" button from the toolbar.  You
+    can adjust what relations and sets are shown, and the style of
+    their presentation.  Here is a cleaner customization by clicking on the "contents"
+    relationship and setting its "Show as Arc" checkbox to false.</p>
+
+<p>    <IMG SRC="alloy-pic3.png" BORDER=0></p>
+
+<p> Now let's see what happens what would have happened if we'd chosen
+    a smaller scope:</p>
+
+<b><pre>
+  check Wrong for 2
+</pre></b>
+
+<p> Whoops!  No solutions were found.  If the scope is too small,
+    there may be no solutions found, just because the smallest
+    solution is larger than you allowed.  This is an unavoidable risk
+    of Model Checking, but it is mitigated by the "small scope
+    hypothesis".  <i>Alloy</i> <u>does</u> guarantee that if there is
+    any example within the specified scope that an example will be
+    returned to the user.  If there are several, you may not get the
+    smallest one, so it is often helpful to try smaller and smaller
+    scopes to find the smallest scope that still generates a solution.
+
+<b><pre>
+  check Wrong for 15
+</pre></b>
+
+We might get a solution such as this one:
+
+<p>    <IMG SRC="alloy-pic4.png" BORDER=0></p>
+
+<p> Or, with some minor customizations (by setting Dir to be blue parallelograms), we get the much more readable:</p>
+
+<p>    <IMG SRC="alloy-pic5.png" BORDER=0></p>
+
+<hr WIDTH="50%">
+
+<h3>Discussion: Non-Determinism</h3>
+
+<p> If you've gotten different results than we show here, don't be
+    alarmed; it may be because you have a different version of
+    <i>Alloy</i>, or it may be because of <i>Alloy</i>'s
+    non-deterministic nature.  That is, Alloy only guarantees that it
+    will return <i>a</i> solution, not the smallest and not even
+    necessarily the same one each time.</p>
+
+<hr WIDTH="50%">
+
+<h3>Discussion: Facts vs. Assertions</h3>
+
+<p> While a <b><tt>fact</tt></b> is used to <i>force</i> something to
+    be true of the model, an <b><tt>assert</tt></b> is a claim that
+    something <i>must already</i> be true due to the rest of the
+    model.  There are three ways of thinking about this difference,
+    which are worth reading through even if you think the difference
+    is obvious.</p>
+
+<p> One way of examining this difference is considering what happens
+    if you accidentally write a constraint which is trivially
+    false.</p>
+
+<ul>
+<li> A trivially false <b><tt>fact</tt></b> results in there being no
+     solutions to the model no matter what the rest of the model looks
+     like.  This is an extreme version of <a
+     href="sidenote-overconstraint.html" target="sidenote">
+     overconstraining</a> your model.  Overconstraint is dangerous,
+     since it means that any other <b><tt>assert</tt></b> statement
+     that you <b><tt>check</tt></b> will trivially have no solutions,
+     thus potentially masking both errors in your model and (worse)
+     failings in the subject matter you are modeling.
+</li>
+<li> A trivially false <b><tt>assert</tt></b> will result in
+     counterexamples being found when it is <b><tt>check</tt></b>ed.
+     Since anything makes such an assertion false, any example of the
+     system will be a counterexample.  As a result, the solution
+     returned may appear completely unrelated to the assertion it
+     falsifies. For this reason, <a
+     href="sidenote-overconstraint.html" target="sidenote">
+     vacuous</a> assertions are easy to identify but can be annoying to
+     track down and repair.
+</li>
+</ul>
+
+<p> Another way is to consider what happens if you mistakenly write a
+    constraint with one construct when you should have used the
+    other.</p>
+<ul>
+<li> An <b><tt>assert</tt></b>ion which should have been a
+     <b><tt>fact</tt></b> is something which is not necessarily true,
+     but which you are assuming is true.  These are usually sanity
+     constraints which you have simply forgotten to write down.  This
+     means that your model is <a href="sidenote-underconstraint.html"
+     target="sidenote"> underconstrained</a>; you are permitting
+     possibilities you wished to discount.  You can use the <a
+     href="sidenote-format-run.html" target="sidenote">
+     <b><tt>run</tt></b> command to help identify underconstraint</a>,
+     since random instances of an underconstrained model tend to be
+     absurd in obvious ways.</li>
+<li> A <i>true</i> <b><tt>fact</tt></b> which should have been an
+     <b><tt>assert</tt></b>ion is redundant; it is implied by the
+     other constraints on your model, and yet you have explicitly (and
+     redundantly) forced it to hold.</li>
+<li> A <i>false</i> <b><tt>fact</tt></b> which should have been an
+     <b><tt>assert</tt></b>ion is dangerous; it results in an <a
+     href="sidenote-overconstraint.html" target="sidenote">
+     overconstraint</a> on your system, potentially making all other
+     <b><tt>check</tt></b> statements trivially find no
+     counterexamples (even when they are checking preposterous
+     assertions).</li>
+</ul>
+
+<p> Yet another way to think about the difference is in terms of their
+    interaction.</p>
+<ul>
+<li> <b><tt>Facts</tt></b> are "always on"; Alloy discounts any
+     solution to the model which violates any fact.  In this sense,
+     every fact interacts with every other fact, since all of them
+     always apply.</li>
+<li> <b><tt>Assert</tt></b>ions can only be checked one at a time, and
+     thus do not interact at all.  If you want to check more than one
+     assertion at a time (or you want to see a counterexample which
+     satisfies several different assertions), then write a new
+     assertion which asserts the component assertions.</li>
+<li> In the next lesson (Lesson II), we will learn about functions
+     (<b><tt>fun</tt></b>) and predicates (<b><tt>pred</tt></b>) which
+     fall somewhere inbetween facts and assertions in terms of how
+     they interact with each other.  We will be able to say things
+     like "if <i>A</i> holds then each <i>X</i> must satisfy
+     <i>B</i>"; these functions don't have to be checked one at a time
+     (as opposed to assertions) but they can be selectively applied
+     (as opposed to facts).</li>
+</ul>
+
+<hr WIDTH="50%">
+
+<h3>Before Moving On</h3>
+
+<p> Before proceeding to the second version of the File System
+    example, it is a good idea to read about the <a
+    href="sidenote-levels-of-understanding.html"
+    target="sidenote">three levels of abstraction for reading an
+    <i>Alloy</i> model</a>, if you have not already done so.  You have
+    now had enough opportunity to play around with Alloy to benefit
+    from seeing different ways of looking at it.</p>
+
+
+<hr WIDTH="100%">
+
+    <a href="index.html" target="_top">Start Over</a> .
+    <a href="frame-FS-1.html" target="_top">back</a> . <a href="frame-FS-3.html" target="_top">next</a>
+
+</body>
+</html>

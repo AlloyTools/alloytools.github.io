@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <title>Relations Everywhere</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Everything is a Relation (or an Atom) in Alloy</h2>
+
+<p> The Alloy universe consists of <i>atoms</i> and <i>relations</i>,
+    although everything that you can get your hands on and describe in
+    the language is a relation.  Atoms only exist behind the scenes.
+
+<p> An <i>atom</i> is a primary entity which is
+<ul>
+<li> <i>indivisible</i>: it cannot be broken down into smaller parts,
+<li> <i>immutable</i>: it's properties don't change over time, and
+<li> <i>uninterpreted</i>: it doesn't have any built-in properties
+     (the way objects can in the OO paradigm).
+</ul>
+
+<p> A <i>relation</i> is a structure which relates atoms.  Each
+    relation is a set of ordered tuples (vectors of atoms).  Each
+    tuple indicates that those atoms are related in a certain way (as
+    dictated by the relation itself).  The "<i>arity</i>" of the
+    relation is the number of atoms in each tuple.
+
+<p> For instance, one might have an arity-2 relation called "works-in"
+    which relates engineers with their cubicles.  Each tuple indicates
+    an engineer (an atom) and the cubicle he works in (another atom).
+    If several engineers share the same cubicle <b><tt>C</b></tt>,
+    then there will be more than one tuple in the "works-in" relation
+    with <b><tt>C</b></tt> in the second slot.  If an engineer
+    <b><tt>D</b></tt> works in more than one cubicle, then there will
+    be more than once tuple in the "works in" relation with
+    <b><tt>D</b></tt> in the first slot.
+
+<p> In the real world, essentially nothing is atomic, but that won't
+    stop us from modelling them as such.  In fact, our modeling
+    approach has no built-in notion of composits at all; to model some
+    <b><tt>X</b></tt> consisting of parts <b><tt>A</b></tt> and
+    <b><tt>B</b></tt>, we would make <b><tt>X</b></tt>,
+    <b><tt>A</b></tt>, and <b><tt>B</b></tt> all atomic.  To represent
+    the fact that <b><tt>X</b></tt> is related to <b><tt>A</b></tt>
+    and <b><tt>B</b></tt> in a special way, we would adjust the
+    <i>contains</i> relation to map <b><tt>X</b></tt> to both
+    <b><tt>A</b></tt> and <b><tt>B</b></tt>.  Containment is just one
+    example of a structural relationship, and there is little reason
+    to single it out for special treatment.
+
+<p> Alloy does not contain explicit notions of sets and scalars, but
+    they are easy to simulat.  A set is simply an atom which the
+    containment relation map to the contents of that set.  When you
+    declare a signature (using the <a href="sidenote-format-sig.html"> <b><tt>sig</b></tt> construct</a> ), you are
+    defining both an atom which will behave as a set (and the body of
+    the signature defines relations from that atom to other
+    signatures.
+
+<p> Alloy does not distinguish between an atom and the set containing
+    just that atom.  Another concequence is that set membership and
+    subset are the same thing; both are denoted <b><tt>in</tt></b>.
+    Otherwise, Alloy <a href="sidenote-set-ops.html">set operations</a> behave as you would expect.
+    Alloy syntax does not permit you to directly refer to atoms.  If
+    you wish to constraint a particular atom, you can do what amounts
+    to writing the equivalent constraint for the singleton set
+    containing that atom and no other atoms.  That is what we are
+    doign when we write constraints about the Root directory, in
+    Chapter 1.
+
+  </body>
+</html>

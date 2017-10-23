@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>Syntax for facts</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Syntax for <i>fact</i> statements</h2>
+
+<b><pre>
+  fact [name] {
+       constraint1
+       constraint2
+       constraint3
+  }
+</pre></b>
+
+<p> Facts do not need to have names, and are never refered to by name.
+    However, good names improve clarity tremendously. </p>
+
+<p> <i>A warning</i><b>:</b> When Alloy searches for examples, it
+    discards any which violate any <b><tt>fact</tt></b>.  Thus, if the
+    fact is trivially false, then you will simply get no examples of anything,
+    even if the assertion you are checking has counterexamples.  It will appear the same as if the model were bug
+    free and the assertion you are checking is correct.  You can use
+    the <a href="sidenote-format-run.html"> <b><tt>run</tt></b> command</a> to check for such simpleminded <a
+    href="sidenote-overconstraint.html"> overconstraints<a/>.  More advanced overconstraint detection tools
+    will be available in future versions of Alloy. </p>
+
+<p> Many facts can also be written as <a
+    href="sidenote-format-appended-fact.html"> <i>appended facts</i></a>, which can make your models clearer and
+    more concise. </p>
+
+  </body>
+</html>

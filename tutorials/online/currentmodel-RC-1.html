@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>Alloy Tutorial Model</title>
+    <link   rel=stylesheet   href="style-currentmodel.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>River Crossing Model</h2>
+
+<pre>
+<i>/* Impose an ordering on the State. */</i>
+<b>open util/ordering[State]
+
+</b><i>/* Farmer and his possessions are objects. */</i><b>
+abstract sig Object { eats: set Object }
+one sig Farmer, Fox, Chicken, Grain extends Object {}
+
+</b><i>/* Defines what eats what and the farmer is not around. */</i><b>
+fact { eats = Fox->Chicken + Chicken->Grain}
+
+</b><i>/* Stores the objects at near and far side of river. */</i><b>
+sig State { near, far: set Object }
+
+</b><i>/* In the initial state, all objects are on the near side. */</i><b>
+fact { first.near = Object && no first.far }
+
+</b><i>/* At most one item to move from 'from' to 'to' */</i><b>
+pred crossRiver [from, from', to, to': set Object] {
+  one x: from | {
+    from' = from - x - Farmer - from'.eats
+    to' = to + x + Farmer
+  }
+}
+
+</b><i>/* crossRiver transitions between states */</i><b>
+fact {
+  all s: State, s': s.next {
+    Farmer in s.near =>
+      crossRiver [s.near, s'.near, s.far, s'.far]
+    else
+      crossRiver [s.far, s'.far, s.near, s'.near]
+  }
+}
+
+</b><i>/* the farmer moves everything to the far side of the river. */</i><b>
+run { last.far=Object } for exactly 8 State
+</pre></b>
+
+  </body>
+</html>

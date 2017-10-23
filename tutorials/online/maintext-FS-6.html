@@ -1,0 +1,204 @@
+<html>
+  <head>
+    <title>Alloy Tutorial Main Text</title>
+    <link   rel=stylesheet   href="style-maintext.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>File System Lesson V</h2>
+
+    <a href="index.html" target="_top">Start Over</a> .
+    <a href="frame-FS-5.html" target="_top">back</a> . <a href="frame-FS-7.html" target="_top">next</a>
+
+<hr WIDTH="100%">
+
+<p> Now that we've built a model that ensures the structural
+    correctness of our file system, we can begin to analyze operations
+    that mutate file systems.  Let's begin with a function to define
+    the <b><tt>move</b></tt> operation.  But first, a philosophical
+    note...
+
+<hr WIDTH="50%">
+
+<p> In an <a href="sidenote-operational-declarative.html"
+    target="sidenote"> imperative</a> model, you might ask yourself
+    "<i>how can I make X happen?</i>".  In a <a
+    href="sidenote-operational-declarative.html"
+    target="sidenote">declarative</a> model (like Alloy), you ask
+    yourself "<i>how would I recognize that X has been
+    accomplished?</i>".
+
+<p> One reflection of this is that functions in Alloy only ever
+    evaluate to <i>true</i> or <i>false</i>.  In an imperative
+    language, you might make the <b><tt>move</tt></b> function take a
+    file system, an object to be moved, and a directory to move it to
+    as arguments, and then have it return a new file system where that
+    object has been moved to that directory.  What we do in Alloy is
+    to make all those things arguments to the function, including the
+    'output'.  The function then returns true if the output parameter
+    is valid given the input parameters, and false if it is not.  If
+    we later say "make sure this function is always true", then you
+    will only get back examples where valid moves occur.
+
+<b><pre>
+1. pred move [fs, fs': FileSystem, x: FSObject, d: Dir] {
+2.     (x + d) in fs.live
+3.     fs'.parent = fs.parent - x->(x.(fs.parent)) + x->d
+4. }
+</b></pre>
+
+<p> The predicate <b><tt>move</b></tt> is true if file system
+    <b><tt>fs'</b></tt> is the result of moving file system object
+    <b><tt>x</b></tt> to directory <b><tt>d</b></tt> in file system
+    <b><tt>fs</b></tt>.  In this function, we can think of file system
+    <b><tt>fs</b></tt> as the pre-state and <b><tt>fs'</b></tt> as the
+    post-state, but the prime character has no semantic meaning in and
+    of itself.  Although it would be confusing, we could have named
+    the pre-state <b><tt>fs'</b></tt> and the post-state
+    <b><tt>fs</b></tt>.
+
+<p> Line 2 stipulates that the object to be moved and the destination
+    directory of the move must both exist in the pre-state file
+    system.  Line 3 is a little tricky.  It states that the <b><tt>parent</tt></b> relation
+    in the post state is the same as the pre state, except that the mapping from <b><tt>x</tt></b>
+    to <b><tt>x</tt></b>'s old parent
+    is replaced by the mapping from <b><tt>x</tt></b> to <b><tt>x</tt></b>'s new parent <b><tt>d</tt></b>.</p>
+
+<hr WIDTH="50%">
+
+<p> We can view an example of a move by adding the following command
+    to our model and then executing it.
+
+<b><pre>
+  run move for 2 FileSystem, 4 FSObject
+</b></pre>
+
+<hr WIDTH="50%">
+
+<p> Now let's add an assertion to give us confidence that the
+    <b><tt>move</tt></b> is correct. The following check claims
+    that the move operation does not
+    alter the set of objects in the file system.
+
+<b><pre>
+  moveOkay: check {
+    all fs, fs': FileSystem, x: FSObject, d:Dir |
+      move[fs, fs', x, d] => fs'.live = fs.live
+  } for 5
+</b></pre>
+
+<p>The above syntax combines the definition of an assertion with
+the scope you intend to search for. And it's equivalent to the following
+longer form:</p>
+
+<b><pre>
+  assert moveOkay {
+    all fs, fs': FileSystem, x: FSObject, d:Dir |
+      move[fs, fs', x, d] => fs'.live = fs.live
+  }
+
+  check moveOkay for 5
+</b></pre>
+
+<p> If you go to the Executes menu item in the menu bar, and select <tt><b>moveOkay</b></tt>,
+    Alloy Analyzer will report that there is no counterexample to this assertion within a scope of 5.
+
+<hr WIDTH="50%">
+
+<p> Our <b><tt>move</b></tt> predicate seems to work fine, so let's
+    move on to writing a remove predicate. In fact, we will write two
+    remove predicates: one to remove a single file or empty directory,
+    and one to perform recursive removal:
+
+<b><pre>
+1. pred remove [fs, fs': FileSystem, x: FSObject] {
+2.   x in (fs.live - fs.root)
+3.   fs'.parent = fs.parent - x->(x.(fs.parent))
+4. }
+
+1. pred removeAll [fs, fs': FileSystem, x: FSObject] {
+2.   x in (fs.live - fs.root)
+3.   let subtree = x.*(fs.contents) |
+4.      fs'.parent = fs.parent - subtree->(subtree.(fs.parent))
+5. }
+</pre></b>
+
+<p> Line 2 is the same in <b><tt>remove</tt></b> and
+    <b><tt>removeAll</tt></b>. It stipulates that the file system
+    object to be deleted, <b><tt>x</tt></b>, must be in the pre-state
+    file system, <b><tt>fs</tt></b>, but that it cannot be the root of
+    <b><tt>fs</tt></b>.  Certainly, it doesn't make sense to delete a
+    file from a file system if it isn't there; nor does it make sense
+    to delete the root of a file system (since we require all file
+    systems to have roots).
+
+<p> Line 3 of <b><tt>remove</tt></b> constrains the post-state
+    file system to be the same as the pre-state file system, except
+    with the mapping from <b><tt>x</tt></b> to <b><tt>x</tt></b>'s parent removed.
+
+<p> Line 3 of <b><tt>removeAll</tt></b> uses a <b><tt>let</tt></b> statement. A
+    let statement acts as a macro replacing the right-side of the
+    assignment wherever the left-side of the assignment appears. That
+    is, lines 3 and 4 desugar to (and are interpreted by Alloy as) the
+    following:
+
+<b><pre>
+  fs'.parent = fs.parent - (x.*(fs.contents)) -> (x.*(fs.contents)).(fs.parent)
+</b></pre>
+
+<p> Because it is just syntactic sugar, the let construct is never
+    necessary, but it can make Alloy model more understandable.
+
+<p> The expression on the right hand side of the assignment,
+    <b><tt>x.*(fs.contents)</tt></b>, is the set of files and
+    directories obtained by following the <b><tt>contents</tt></b> relation in file
+    system <b><tt>fs</tt></b> zero or more times starting at file
+    system object <b><tt>x</tt></b>. In other words, it is the set of
+    all file system objects in the subtree rooted at
+    <b><tt>x</tt></b>. Thus, this constraint states that the <b><tt>parent</tt></b>
+    relation in the post-state file system is the <b><tt>parent</tt></b> relation in
+    the pre-state minus all mappings from objects in the subtree to their parents.
+
+<hr WIDTH="50%">
+
+<p> Now let's verify the correctness of our remove functions with
+    assertions. Our assertions claim that the functions to do not
+    alter the root of the file system; that the rows in the contents
+    relation of the post-state is a subset of the rows in the
+    pre-state; and that they remove exactly the objects they should.
+
+<b><pre>
+  removeOkay: check {
+    all fs, fs': FileSystem, x: FSObject  |
+      remove[fs, fs', x] => fs'.live = fs.live - x
+  } for 5
+</b></pre>
+<p> and
+<b><pre>
+  removeAllOkay: check {
+    all fs, fs': FileSystem, d: Dir |
+      removeAll[fs, fs', d] => fs'.live = fs.live - d.*(fs.contents)
+  } for 5
+</b></pre>
+
+<p> Alloy produces a counterexample for each of these commands; so the
+    assertions must not be true. But before we even begin to inspect
+    the counterexamples, let's first lower the scope of the check
+    commands to 4, recompile, and execute the commands again. Again,
+    alloy produces counterexamples.  Then we try a scope of 3, then 2,
+    and finally 1. It turns out the smallest scope in which a
+    counterexample still exists is 2. It is typically helpful to
+    progressively lower the scope on the check commands until no more
+    counterexamples are found.
+
+<p> We will examine and correct these errors in the next lesson.
+
+
+<hr WIDTH="100%">
+
+    <a href="index.html" target="_top">Start Over</a> .
+    <a href="frame-FS-5.html" target="_top">back</a> . <a href="frame-FS-7.html" target="_top">next</a>
+
+</body>
+</html>
+

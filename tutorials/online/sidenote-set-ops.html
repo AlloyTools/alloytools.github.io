@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>Set Operations</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Set Operations</h2>
+
+Alloy supports the standard set operations:
+<ul>
+<li> union (<b><tt>+</b></tt>): <b><tt>t</tt></b> is in
+     <b><tt>p+q</tt></b> if and only if <b><tt>t</tt></b> is in
+     <b><tt>p</tt></b> <i>or</i> <b><tt>t</tt></b> is in
+     <b><tt>q</tt></b>.
+
+<li> intersection (<b><tt>&</tt></b>): <b><tt>t</tt></b> is in
+     <b><tt>p&q</tt></b> if and only if <b><tt>t</tt></b> is in
+     <b><tt>p</tt></b> <i>and</i> <b><tt>t</tt></b> is in
+     <b><tt>q</tt></b>.
+
+<li> set subtraction (<b><tt>-</tt></b>): <b><tt>t</tt></b> is in
+     <b><tt>p-q</tt></b> if and only if <b><tt>t</tt></b> is in
+     <b><tt>p</tt></b> <i>but</i> <b><tt>t</tt></b> is <i>not</i> in
+     <b><tt>q</tt></b>.
+
+<li> set membership/subset (<b><tt>in</tt></b>): Set membership and
+     subsets are both denoted <b><tt>in</tt></b>.  The same symbol is
+     used, since Alloy does not distinguish between atoms and
+     singleton sets.  To understand why atoms and singleton sets are
+     treated this way, you should read more about how <a
+     href="sidenote-relations-everywhere.html">everything is a relation in Alloy<a>.
+</ul>
+
+  </body>
+</html>

@@ -1,0 +1,116 @@
+<html>
+  <head>
+    <title>Alloy Tutorial Main Text</title>
+    <link   rel=stylesheet   href="style-maintext.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>File System Lesson III</h2>
+
+    <a href="index.html" target="_top">Start Over</a> .
+    <a href="frame-FS-3.html" target="_top">back</a> . <a href="frame-FS-5.html" target="_top">next</a>
+
+<hr WIDTH="100%">
+
+<p> The model we developed in Lesson 2 still has some problems. For
+    instance, the following file system is desperately in need of
+    help:</p>
+
+<p>   <IMG SRC="alloy-pic7.png" BORDER=0></p>
+
+<p> The problem with this instance is that the File is
+    reachable from the root, but is not considered to be a live object in
+    the file system (it is not labeled 'live').  When we wrote</p>
+
+<b><pre>
+  live in root.*contents
+</b></pre>
+
+<p> we ensured that all live objects in the file system are reachable from
+    the root, but failed to guarantee that all objects reachable from
+    the root are live.  We should instead have written</p>
+
+<b><pre>
+  live = root.*contents
+</pre></b>
+
+
+<hr WIDTH="50%">
+
+<p> After this change, the model may still generate erroneous solutions like this one:</p>
+
+<p>    <IMG SRC="alloy-pic8.png" BORDER=0></p>
+
+<p> Our previous problem is gone, but now there are stray
+    <a href="sidenote-relations-are-ordered-pairs.html"
+    target="sidenote"> tuples</a> in the <b><tt>contents</tt></b> and <b><tt>parent</tt></b>
+    relations. That is, the <b><tt>contents</b></tt> relation is
+    defining relationships between file system objects which are not
+    live in this file system.  We can fix this by constraining all the
+    tuples in the contents relation to be between objects that are live
+    in this file system. Adding the following constraint to the appended
+    fact achieves this</p>
+
+<b><pre>
+  contents in live->live
+</pre></b>
+
+<p> Recall that <a href="sidenote-relations-are-ordered-pairs.html"
+    target="sidenote"> an Alloy relation is just a set of tuples</a>
+    and also that the "<b><tt>-></b></tt>" operator denotes <a
+    href="sidenote-format-arrow.html" target="sidenote"> relational
+    product</a>.  Thus <b><tt>live->live</tt></b> is a way of
+    saying "a relation from live objects to live objects" or "all the 2-element tuples
+    where both elements are live objects".  This constraint says that the
+    <b><tt>contents</tt></b> relation of a file system only maps
+    between <b><tt>live</tt></b> objects of that file system.</p>
+
+<p> The resulting bug-free model is shown in the upper-right frame.
+    In the next lesson, we look at a different way to solve these same
+    problems.</p>
+
+<p> We can view samples solutions to the model by executing the
+    <b><tt>run</tt></b> command. Since this is a <b><tt>run</b></tt>
+    command, not a <b><tt>check</tt></b> command, solutions it
+    generates are not counterexamples -- no claim has been made so
+    there's nothing to disprove! If you execute the
+    <b><tt>run</tt></b> command, you will probably get a trivial
+    solution such as this one:</p>
+
+<p>    <IMG SRC="alloy-pic9.png" BORDER=0>
+
+<p> We can enforce some degree of non-triviality by changing the <b><tt>example</tt></b> predicate:</p>
+
+<b><pre>
+  pred example {
+    all fs: FileSystem | #fs.live > 2
+  }
+</pre></b>
+
+<p> Now you'll get something that is pleasantly non-trivial.
+    Initially, you will get an ugly mess of lines and nodes. We can
+    clean this up by editing the customizations for the display:</p>
+
+<ol>
+<li>First, you probably want to ensure you are projecting over the FileSystem sig.
+<li>Then you can click on the "contents" field and set "Show as Arcs" to be false.
+<li>Finally, you can click on the "Dir" sig, and change it to "blue" "parallelograms".
+</ol>
+
+<p> Once you've made these changes, you can save the resulting customization by clickong Theme on the top menu bar (not the toolbar!)
+    and click "save theme".  For your convenience, we've created this theme file for you which
+    you can download it here: <a href="filesystem.thm" target="new">filesystem.thm</a>.
+    Put this file in the same directory as your model.  When you have
+    a solution displayed, click Theme on to top menu bar (not the toolbar!) then click "load theme" to load this theme.</p>
+
+<p> Now we may see a nice non-trivial example such as this one: </p>
+
+<p>    <IMG SRC="alloy-pics10.png" BORDER=0>
+
+<hr WIDTH="100%">
+
+    <a href="index.html" target="_top">Start Over</a> .
+    <a href="frame-FS-3.html" target="_top">back</a> . <a href="frame-FS-5.html" target="_top">next</a>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>Overconstraint</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Overconstraint - the bane of declarative modeling</h2>
+
+<p> Overconstraint means that you have accidentally constrained your
+system to eliminate possibilities which you intended to allow.</p>
+
+<p> In the extreme, it eliminate all examples.  This is particularly
+    dangerous, since it means that there are no counterexamples to
+    your other assertions because there are no examples at all, not
+    because they are actually true.  You can use the
+    <a href="sidenote-format-run.html" ><b><tt>run</b></tt> command
+    to help spot overconstraint</a>.</p>
+
+<p> In more subtle cases, it may mask examples which would revealed
+    faults or safety concerns.  Currently, there isn't tool support
+    for this, and most modelers find it to be the main time-cost when
+    debugging a model.</p>
+
+<p> Alloy Analyzer can be configured to use <i>unsat core extraction</i>
+    technology to provide a tool which not only helps identify
+    overconstraints, but also narrows down where you need to look for
+    the source of overconstraints you are aware of.</p>
+
+<p> The flip side of overconstraint is <a href="sidenote-underconstraint.html" > underconstraint</a>,
+    in which you allow possibilities which you
+    had meant to disallow.  It is a much less serious problem, and
+    much easier to identify.</p>
+
+  </body>
+</html>

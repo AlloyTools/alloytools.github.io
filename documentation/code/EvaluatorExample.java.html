@@ -1,0 +1,56 @@
+<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="http://alloy.mit.edu/alloy/hola/css/alloy.css"/></head><body>
+
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">java.io.File</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4.A4Reporter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4.XMLNode</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.ast.Command</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.ast.Expr</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.ast.Module</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.parser.CompUtil</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.translator.A4Options</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.translator.A4Solution</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.translator.A4SolutionReader</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.translator.TranslateAlloyToKodkod</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EvaluatorExample</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">model</span> <span class="o">=</span> <span class="s">&quot;sig Point {} \n&quot;</span> <span class="o">+</span> <span class="s">&quot;\n&quot;</span> <span class="o">+</span> <span class="s">&quot;run { #Point &gt; 1 } for 3 but 3 Int&quot;</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">outputfilename</span> <span class="o">=</span> <span class="s">&quot;/tmp/myissue.xml&quot;</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">A4Reporter</span> <span class="n">rep</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A4Reporter</span><span class="o">();</span>
+        <span class="n">File</span> <span class="n">tmpAls</span> <span class="o">=</span> <span class="n">CompUtil</span><span class="o">.</span><span class="na">flushModelToFile</span><span class="o">(</span><span class="n">model</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+        <span class="o">{</span>
+            <span class="n">Module</span> <span class="n">world</span> <span class="o">=</span> <span class="n">CompUtil</span><span class="o">.</span><span class="na">parseEverything_fromString</span><span class="o">(</span><span class="n">rep</span><span class="o">,</span> <span class="n">model</span><span class="o">);</span>
+            <span class="n">A4Options</span> <span class="n">opt</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A4Options</span><span class="o">();</span>
+            <span class="n">opt</span><span class="o">.</span><span class="na">originalFilename</span> <span class="o">=</span> <span class="n">tmpAls</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">();</span>
+            <span class="n">opt</span><span class="o">.</span><span class="na">solver</span> <span class="o">=</span> <span class="n">A4Options</span><span class="o">.</span><span class="na">SatSolver</span><span class="o">.</span><span class="na">SAT4J</span><span class="o">;</span>
+            <span class="n">Command</span> <span class="n">cmd</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="na">getAllCommands</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+            <span class="n">A4Solution</span> <span class="n">sol</span> <span class="o">=</span> <span class="n">TranslateAlloyToKodkod</span><span class="o">.</span><span class="na">execute_command</span><span class="o">(</span><span class="n">rep</span><span class="o">,</span> <span class="n">world</span><span class="o">.</span><span class="na">getAllReachableSigs</span><span class="o">(),</span> <span class="n">cmd</span><span class="o">,</span> <span class="n">opt</span><span class="o">);</span>
+            <span class="k">assert</span> <span class="n">sol</span><span class="o">.</span><span class="na">satisfiable</span><span class="o">();</span>
+            <span class="n">sol</span><span class="o">.</span><span class="na">writeXML</span><span class="o">(</span><span class="n">outputfilename</span><span class="o">);</span>
+
+            <span class="c1">// eval with existing A4Solution</span>
+            <span class="n">Expr</span> <span class="n">e</span> <span class="o">=</span> <span class="n">CompUtil</span><span class="o">.</span><span class="na">parseOneExpression_fromString</span><span class="o">(</span><span class="n">world</span><span class="o">,</span> <span class="s">&quot;univ&quot;</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sol</span><span class="o">.</span><span class="na">eval</span><span class="o">(</span><span class="n">e</span><span class="o">));</span>
+            <span class="n">e</span> <span class="o">=</span> <span class="n">CompUtil</span><span class="o">.</span><span class="na">parseOneExpression_fromString</span><span class="o">(</span><span class="n">world</span><span class="o">,</span> <span class="s">&quot;Point&quot;</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sol</span><span class="o">.</span><span class="na">eval</span><span class="o">(</span><span class="n">e</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="c1">// reload everything from files</span>
+        <span class="o">{</span>
+            <span class="n">XMLNode</span> <span class="n">xmlNode</span> <span class="o">=</span> <span class="k">new</span> <span class="n">XMLNode</span><span class="o">(</span><span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">outputfilename</span><span class="o">));</span>
+            <span class="n">String</span> <span class="n">alloySourceFilename</span> <span class="o">=</span> <span class="n">xmlNode</span><span class="o">.</span><span class="na">iterator</span><span class="o">().</span><span class="na">next</span><span class="o">().</span><span class="na">getAttribute</span><span class="o">(</span><span class="s">&quot;filename&quot;</span><span class="o">);</span>
+            <span class="n">Module</span> <span class="n">ansWorld</span> <span class="o">=</span> <span class="n">CompUtil</span><span class="o">.</span><span class="na">parseEverything_fromFile</span><span class="o">(</span><span class="n">rep</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">alloySourceFilename</span><span class="o">);</span>
+            <span class="n">A4Solution</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">A4SolutionReader</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">ansWorld</span><span class="o">.</span><span class="na">getAllReachableSigs</span><span class="o">(),</span> <span class="n">xmlNode</span><span class="o">);</span>
+
+            <span class="n">Expr</span> <span class="n">e</span> <span class="o">=</span> <span class="n">CompUtil</span><span class="o">.</span><span class="na">parseOneExpression_fromString</span><span class="o">(</span><span class="n">ansWorld</span><span class="o">,</span> <span class="s">&quot;univ&quot;</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ans</span><span class="o">.</span><span class="na">eval</span><span class="o">(</span><span class="n">e</span><span class="o">));</span>
+            <span class="n">e</span> <span class="o">=</span> <span class="n">CompUtil</span><span class="o">.</span><span class="na">parseOneExpression_fromString</span><span class="o">(</span><span class="n">ansWorld</span><span class="o">,</span> <span class="s">&quot;Point&quot;</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ans</span><span class="o">.</span><span class="na">eval</span><span class="o">(</span><span class="n">e</span><span class="o">));</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+</head></body>

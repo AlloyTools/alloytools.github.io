@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <title>Syntax for run</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Syntax for the <b><tt>run</b></tt> command</h2>
+
+<p> The <b><tt>run</tt></b> command lets you generate sample solutions
+    to your model.</p>
+
+<b><pre>
+  run pred-name for # but # sig-name, # sig-name
+  run pred-name for # sig-name, # sig-name, # sig-name, # sig-name
+</pre></b>
+
+<p> If no default is given (the first # in the first of the two
+    templates shown above, then it is assumed to be 3).
+</p>
+
+<p> One benefit of using the <b><tt>run</b></tt> is that it will
+    increase your confidence that your model is not <a
+    href="sidenote-underconstraint.html" >underconstrained</a>.
+    When you use <b><tt>run</b></tt> to
+    generate an example of an underconstrained model, you will usually
+    see an absurd situation in one of the first few attempts.  Of
+    course, there are no guarantees that you won't happen to see only
+    good examples -- that's what check statements are for!
+</p>
+
+<p> Doing runs to periodically check up on your system helps identify
+    <a href="sidenote-overconstraint.html" >overconstraint</a>; if Alloy is unable to find <i>any</i>
+    solutions when it should have, then your model is surely
+    overconstrained.
+</p>
+
+  </body>
+</html>

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Quick Guide
+title: quick guide
 ---
 
 This user guide is divided into the following sections:

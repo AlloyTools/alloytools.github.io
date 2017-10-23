@@ -1,0 +1,242 @@
+<html>
+  <head>
+    <title>Alloy Tutorial Main Text</title>
+    <link   rel=stylesheet   href="style-maintext.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>River Crossing</h2>
+
+    <a href="index.html" target="_top">Start Over</a> .
+    <a href="frame-FS-7.html" target="_top">back</a>
+
+<hr WIDTH="100%">
+
+<p> In this tutorial, we will be modelling and finding a solution to
+    the <a href="sidenote-RC-puzzle.html" target="sidenote"> Farmer
+    River Crossing Puzzle</a>:
+
+<p> A farmer is on one shore of a river and has with him a <b>fox</b>,
+    a <b>chicken</b>, and a sack of <b>grain</b>. He has a boat that
+    fits one object besides himself.  In the presense of the farmer
+    nothing gets eaten, but if left without the farmer, the fox will
+    eat the chicken, and the chicken will eat the grain.  How can the
+    farmer get all three possessions across the river safely?
+
+<p> In this chapter, we are not trying to verify a global property of
+    a system, nor are we verifying that particular operations fulfill
+    their specifications, as in the file system example. Rather, we
+    are trying to find a single solution, or trace, of a given state
+    machine. The solution to this puzzle will be a sequence of states
+    that represent the farmer's trips across the river.  We will look
+    for a trace satisfing the puzzle in exactly the same manner we
+    would search for a (counter)example satisfying some definition of
+    an unsafe or undesirable circumstance.
+
+<hr WIDTH="100%">
+
+<p> The model begins with an <b><tt>open</tt></b> statement which
+    imposes an ordering on the set of State atoms in the model.
+    For now, ignore the <b><tt>open</tt></b> statement.
+
+<p> Next we define a <a href="sidenote-format-sig.html" target="sidenote"> signature</a>
+    <b><tt>Object</b></tt>, which represents the set of the Farmer and
+    his possessions. We partition the <b><tt>Object</b></tt> set into
+    four singleton subsets: <b><tt>Farmer</b></tt>,
+    <b><tt>Fox</b></tt>, <b><tt>Chicken</b></tt>, and
+    <b><tt>Grain</b></tt>.
+
+<b><pre>
+  abstract sig Object { eats: set Object }
+  one sig Farmer, Fox, Chicken, Grain extends Object {}
+</pre></b>
+
+<p> The fox will eat the chicken if the farmer is not with them, and the chicken will
+    eat the grain if the farmer is not with them. We represent this relationship with
+    the <b><tt>eats</tt></b> relation from Object to Object, and we constrain the exact
+    value of the <b><tt>eats</tt></b> relation using the following fact:</p>
+
+<b><pre>
+  fact { eats = Fox->Chicken + Chicken->Grain}
+</pre></b>
+
+<p> We then create a signature called <b><tt>State</b></tt>, which
+    represents the set of states in our model. In each state, there
+    are a certain set of objects on the near side of the river, and a
+    certain set on the far side of the river.
+
+<b><pre>
+  sig State { near, far: set Object }
+</pre></b>
+
+<p> We would now like to say that all the <b><tt>Object</b></tt>s are
+    on the near side of the river in the first state. We would also
+    like to ask Alloy to find a solution in which all the objects are
+    on the far side of the river in the last state. The problem is we
+    do not yet have a way of talking about the first state, the last
+    state, or the fact that one may come before or after another. In
+    sum, we need a way to construct a linear ordering of states and
+    refer to properties of that ordering. Luckily, Alloy comes with a
+    polymorphic linear ordering module that can do that work for
+    us. We <a href="sidenote-combining-modules.html"
+    target="sidenote"> import this module</a> by adding the following
+    line to the beginning of our model.  We parametarize on
+    <b><tt>State</tt></b>, so now we can call order comparison
+    operations on elements of the <b><tt>State</tt></b> signature.
+</p>
+
+<b><pre>
+   open util/ordering[State]
+</pre></b>
+
+<p> The util/ordering module imposes a total ordering on the atoms of State, and
+    provides a few useful functions you can use, including <b><tt>first</tt></b>,
+    <b><tt>next</tt></b>, and <b><tt>last</tt></b>.</p>
+
+<blockquote>
+ <b><tt>first</tt></b> returns the first State atom in the linear ordering.<br>
+ <b><tt>last</tt></b> returns the last State atom in the linear ordering.<br>
+ <b><tt>next</tt></b> maps each State atom (except the last atom) to the next State atom.
+</blockquote>
+
+<p> Now that we've loaded util/ordering,
+    this is how we can use the <b><tt>util/ordering</b></tt> module to say all
+    the <b><tt>Object</b></tt>s are on the near side of the river and
+    none are on the far side in the initial state:
+</p>
+
+<b><pre>
+   fact { first.near = Object && no first.far }
+</pre></b>
+
+<p> If you're thinking about this problem in terms of a state machine,
+    this fact constrained the starting state of the state machine. Now
+    let's describe a transition function between states.
+</p>
+
+<p> At any state, we will call the side of the river the farmer is
+    currently on the '<b><tt>from</b></tt>' side and the other side
+    the '<b><tt>to</b></tt>' side. So our function will stipulate how
+    the set of objects on the '<b><tt>from</b></tt>' and
+    '<b><tt>to</b></tt>' sides change from state to state. Thus, we
+    have the following signature for our transition function:
+</p>
+
+<b><pre>
+   pred crossRiver [from, from', to, to': set Object] { . . . }
+</pre></b>
+
+<p> Here is one way we might write this predicate: </p>
+
+<b><pre>
+   pred crossRiver [from, from', to, to': set Object] {
+     one x: from | {
+       from' = from - x - Farmer - from'.eats
+       to' = to + x + Farmer
+     }
+   }
+</pre></b>
+
+<p> We know the farmer can take at most one object with him
+    across the river. We use "one x: from" to pick exactly one item from the <b><tt>from</tt></b> set.
+    There are two possibilities here:</p>
+
+<p>
+    If x is not Farmer, then the predicate says that both the Farmer and x travel from <b><tt>from</tt></b>
+    to <b><tt>to</tt></b>, and if there were objects that would eat each other when left alone
+    then the eating happens.
+</p>
+
+<p> If x is Farmer, then the predicate says the Farmer travels alone from <b><tt>from</tt></b>
+    to <b><tt>to</tt></b>, and if there were objects that would eat each other when left alone
+    then the eating happens.
+</p>
+
+<hr WIDTH="100%">
+
+<p> Next we must constrain each consecutive pair of States to
+    abide by the transition function. If the farmer is on the near
+    side of the river, then the near side of the river is the 'from'
+    side and the far side of the river is the 'to' side. And if the
+    farmer is on the far side, then the far side is 'from' and the
+    near side 'to'. We express this constraint in the following Alloy
+    fact.
+</p>
+
+<b><pre>
+   fact {
+     all s: State, s': s.next {
+       Farmer in s.near =>
+         crossRiver [s.near, s'.near, s.far, s'.far]
+       else
+         crossRiver [s.far, s'.far, s.near, s'.near]
+     }
+   }
+</pre></b>
+
+<p> The function <b><tt>next</b></tt> in the above fact is provided
+    by the <b><tt>util/ordering</b></tt> module. It returns the state that
+    follows its argument in the linear ordering. That is,
+    <b><tt>s.next</b></tt> returns the state immediately following
+    <b><tt>s</b></tt>; unless <b><tt>s</b></tt> is the last state in
+    the linear order, in which case it returns the empty set. So the
+    quantifying expression "<b><tt>all s: State, s': s.next</b></tt>"
+    effectively says "for all consecutive pairs
+    of states". It is equivalent to writing "<b><tt>all s, s': State |
+    s' = s.next => ...</b></tt>".
+</p>
+
+<p> Here we see <b><tt>=></b></tt> followed by two expressions
+    (separated by the <b><tt>else</tt></b> keyword) used to denote a conditional (if-then-else)
+    <a href="sidenote-logic-ops.html" target="sidenote"> logical
+    operation</a>.
+</p>
+
+<p> Now that our state machine is defined, we must ask Alloy to
+    produce a trace of the state machine in which all the objects are
+    on the far side of the river in the final state. To do so, we ask
+    Alloy to find a solution where at the last State, we see every Object is at the far side:
+</p>
+
+<b><pre>
+   run { last.far = Object }
+</pre></b>
+
+<p> Recall that <b><tt>Object</b></tt> is just a set and can be read
+    as "the set of all Objects".  That is, we are saying that, in the
+    last State, the set of things on the far shore equals the set of
+    all things.  This is a place where the rough OO level
+    understanding of Alloy will mislead you (that is, thinking of
+    <b><tt>Object</b></tt> as a class), and a set theoric level of
+    understanding is required to make sense of the model.  (Recall our
+    earlier discussion of <a
+    href="sidenote-levels-of-understanding.html"
+    target="sidenote">three levels of abstractness</a> for
+    interpreting an Alloy model</a>.)
+</p>
+
+<hr WIDTH="100%">
+
+<p> Without specifying a scope, Alloy will assume there are 3 atoms of everything unless
+    specified otherwise. In this case, Alloy will assume there are 3 State atoms.
+    But Alloy Analyzer knows that there are exactly 4 Objects since it is already defined
+    to be the union of 4 singleton disjoint atoms Farmer, Chicken, Fox, and Grain.
+
+<p> Not surprisingly, Alloy finds no solutions, because the problem
+    can't be solved in only three states. If we steadily increase the
+    scope on the set of States, we eventually reach a point at which
+    Alloy can find a solution at a scope of 8. Thus, the command that
+    finds the smallest solution to this puzzle is
+</p>
+
+<b><pre>
+   run { last.far = Object } for exactly 8 State
+</pre></b>
+
+<hr WIDTH="100%">
+
+    <a href="index.html" target="_top">Start Over</a> .
+    <a href="frame-FS-7.html" target="_top">back</a>
+
+</body>
+</html>

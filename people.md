@@ -17,5 +17,6 @@ Alloy is a product of the [Software Design Group](http://sdg.csail.mit.edu) at [
 
 ### Former Team Members
 
-Major contributions to earlier versions of Alloy were made by: Jonathan Edwards, Robert Seater, Derek Rayside, Greg Dennis, Ilya Shlyakhter, Mana Taghdiri, Mandana Vaziri, Sarfraz Khurshid, and Manu Sridharan.
+Major contributions to earlier versions of Alloy were made by: Felix
+Chang, Jonathan Edwards, Robert Seater, Derek Rayside, Greg Dennis, Ilya Shlyakhter, Mana Taghdiri, Mandana Vaziri, Sarfraz Khurshid, and Manu Sridharan.
 

@@ -1,0 +1,129 @@
+<html>
+  <head>
+    <title>Alloy Tutorial Sidenote</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Relations as Ordered Tuples</h2>
+
+<p> Alloy represents relations as sets of ordered tuples, and it can
+    some times be useful to think of them this way.  Intuitively, this
+    is just an exhaustive list of every way to legally fill in the
+    relation.
+
+<p> A (binary) relation mapping file system objects to their parent
+    directories is really a set of ordered pairs.  The first entry in
+    each pair is a file system object and the second is its parent
+    directory.  In one instance, it's entries might look like this:
+
+<pre>
+{< fileA, DirA >,
+ < fileB, DirB >,
+ < fileC, DirA >}
+</pre>
+
+<p> Now consider a relation that maps pairs of nodes in a network to
+    their cost.  This relation would be said to have <i>arity 3</i>,
+    and its tuples might look like this:
+
+<pre>
+{< nodeA, nodeB, 100 >,
+ < nodeA, nodeC, 25 >,
+ < nodeB, nodeD, 37 >,
+ < nodeC, nodeD, 14 >}
+</pre>
+
+<p> Of course, if we didn't write sufficient constraints on the model,
+    the relaion might have more than one cost per pair:
+
+<pre>
+{< nodeA, nodeB, 100 >,
+ < nodeA, nodeB, 50 >,
+ < nodeA, nodeC, 14 >,
+ < nodeC, nodeA, 37 >}
+</pre>
+
+<hr WIDTH="50%">
+
+<p> Since relations are just sets, you can take intersections, unions,
+    set differences, and so on on them, just like any other sets.  For
+    instance, you might have a relation <b><tt>roads</tt></b>, which
+    is an arity-2 relation on cities, stating which one have roads
+    connecting them.  It's tuples might look like this:
+
+<pre>
+{< cityA, cityB >
+ < cityA, cityC >
+ < cityB, cityD >
+ < cityC, cityD >}
+</pre>
+
+<p> There might be another relation <b><tt>dirtRoads</tt></b> which is
+    also a relation on pairs of cities.  We might write the constraint
+
+<b><pre>
+  fact physicalWorld {
+    </b><i>//dirt roads are roads</i><b>
+    dirtRoads in roads
+
+    </b><i>//roads are two-way</i><b>
+    roads = ~roads
+    dirtRoads = ~dirtRoads
+  }
+</pre></b>
+
+<p> The <b><tt></tt></b>~ operator reverses a relation by reversing
+    the tuples in the relation.  Thus our earlier sample falue for
+    <b><tt>roads</tt></b> did not satisfy the
+    <b><tt>physicalWorld</tt></b> fact.  It should have been
+
+<pre>
+{< cityA, cityB >
+ < cityB, cityA >
+ < cityA, cityC >
+ < cityC, cityA >
+ < cityB, cityD >
+ < cityD, cityB >
+ < cityC, cityD >
+ < cityD, cityC >}
+</pre>
+
+<p> We also might want to talk about non-dirt roads, by writing
+    something like this:
+
+<b><pre>
+  all r:(roads - dirtRoads) | r.foo ...
+</pre></b>
+
+<p> If <b><tt>dirtRoads</tt></b> were
+
+<pre>
+{< cityC, cityD >
+ < cityD, cityC >}
+</pre>
+
+<p> then <b><tt>(roads - dirtRoads)</tt></b> would have to be
+
+<pre>
+{< cityA, cityB >
+ < cityB, cityA >
+ < cityA, cityC >
+ < cityC, cityA >
+ < cityB, cityD >
+ < cityD, cityB >
+</pre>
+
+<p> and <b><tt>r</tt></b> might be any of those tuples.
+
+<hr WIDTH="50%">
+
+<p> You can compose two relations, <b><tt>A</tt></b> and
+    <b><tt>B</tt></b>, to create a new relation, <b><tt>A.B</tt></b>.
+    Each tuple <b><tt>ab</tt></b> of the new relation is created by
+    taking a tuple a from A and a typle b from B where the last entry
+    in a matches the first entry in b.  Concatenate the tuples, but
+    leave out the matched entry.</p>
+
+  </body>
+</html>
