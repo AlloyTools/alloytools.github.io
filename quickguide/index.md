@@ -25,3 +25,4 @@ This user guide is divided into the following sections:
 *   [private namespace](private.html)
 *   [unsatisfiable core](unsat.html)
 *   [meta capability](meta.html)
+*   [macros](macros.html)
