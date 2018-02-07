@@ -94,8 +94,8 @@
 BODY {font-family: 'Droid Serif', Trebuchet, 'Times New Roman', Times, serif;
       font-size:75%; font-weight:normal; line-height:1.5em; letter-spacing:1px; color:#323232;}
 html>body {font-size: 14px;}
-h1, h2, h3, h4, h5, h6 {color:#000; font-family: 'Droid Sans', Verdana, Arial, Helvetica, sans-serif;font-weight:bold;}
-p, ol, ul, blockquote, code, dl, dt, dd{color:#333;font-size:1em;font-weight:normal;letter-spacing:.02em;line-height:1.5em;}
+h1, h2, h3, h4, h5, h6 {color:#000; font-family: 'Droid Sans', Verdana, Arial, Helvetica, sans-serif;font-weight:bold}
+p, ol, ul, blockquote, code, dl, dt, dd{color:#555;font-size:1.1em;font-weight:normal;letter-spacing:0em;line-height:1.5em;}
 h1 {font-size:2em;line-height:1.74em;letter-spacing:-.03em;margin:0px 0px .5em 0px;}
 h2 {font-size:1.8em;line-height:2.01em;letter-spacing:-.03em;margin:0px 0px .5em 0px;}
 h3 {font-size:1.6em;line-height:2.32em;letter-spacing:-.03em;margin:0px 0px .5em 0px;}
@@ -125,7 +125,10 @@ dd {margin:0 0 0 3em;}
 sup, sub {font-size:75%;}
 sup{vertical-align:super;}
 sub{vertical-align:sub;}
-a:link, a:visited { color: #00aa00;  text-decoration:none;}
+/* a:link, a:visited { color: #00aa00;  text-decoration:none;} */
+
+a:link, a:visited { color: #1477cb; text-decoration:none;}
+
 a:visited { color: #898989; }
 a[id]:hover { text-decoration:none; }
 a:hover, ba:active { text-decoration:underline;}
@@ -134,4 +137,3 @@ code, pre, var, samp{font-family:"Droid Sans Mono", Courier, monospace;}
 small{font-size:80%; vertical-align:middle;}
 big{font-size:120%; vertical-align:middle;}
 .typegrid {background:url(../images/notjustagrid/misc/typegrid.gif) top left; }
-

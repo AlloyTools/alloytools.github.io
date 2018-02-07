@@ -12,12 +12,12 @@ and includes the source code. See the release notes for details of new
 features. To execute, simply double-click on the jar file, or type
 java -jar alloy4.jar in a console.
 
-# Experimental Versions
+### experimental versions
 
 |----------- | ------------|
 |Latest build | Alloy 4.2_2015-02-22:  [jar](download/alloy4.2_2015-02-22.jar) (platform independent), [dmg](download/alloy4.2_2015-02-22.dmg) (OS X)|
 
-# Stable Releases
+### stable releases
 
 |----------- | ------------|
 |[alloy4.2.jar](download/alloy4.2.jar) |Alloy 4.2 (platform independent). Requires Java 6.|
