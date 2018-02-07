@@ -1,14 +1,14 @@
 ---
 layout: page
 title: applications
-main: apps
+main: uses
 ---
 
 Alloy is used in a wide variety of applications. The page provides links to some tools built 
 on Alloy and [Kodkod](http://alloy.mit.edu/kodkod/) (Alloy’s model finding engine), and to lists of 
 citations from Google Scholar of papers that discuss applications of Alloy.
 
-## Alloy Citations
+### alloy citations
 
 | --------- | ------------- |
 | [Google scholar](http://scholar.google.com/scholar?q=alloy+language+OR+model+-hysteresis+-metal+-steel+-thermal+-titanium+-surface+-magnetic+-weld+-anneal&hl=en&num=100&as_sdt=1,22&as_ylo=1997&as_subj=eng) | A sample of over 1200 papers discussing Alloy|
@@ -18,7 +18,7 @@ citations from Google Scholar of papers that discuss applications of Alloy.
 | [theses](citations/theses.html) | Theses about Alloy |
 
 
-## Select Tools Built on Alloy and Kodkod
+### select tools built on alloy and kodkod
 
 | --------- | ------------- |
 | [Alloy*](http://alloy.mit.edu/alloy/hola/) | A general-purpose, higher-order, relational constraint solver |
