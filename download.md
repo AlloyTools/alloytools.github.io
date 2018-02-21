@@ -15,13 +15,13 @@ java -jar alloy4.jar in a console.
 ### experimental versions
 
 |----------- | ------------|
-|Latest build | Alloy 4.2_2015-02-22:  [jar](download/alloy4.2_2015-02-22.jar) (platform independent), [dmg](download/alloy4.2_2015-02-22.dmg) (OS X)|
+| [Latest build](https://github.com/AlloyTools/org.alloytools.alloy/releases) | Alloy 5.0 (includes the version for macOS High Sierra)|
 
 ### stable releases
 
 |----------- | ------------|
-|[alloy4.2.jar](download/alloy4.2.jar) |Alloy 4.2 (platform independent). Requires Java 6.|
-|[alloy4.2.dmg](download/alloy4.2.dmg) |Alloy 4.2 (for OS X). Requires Java 6.|
+|[alloy4.2.jar](download/alloy4.2_2015-02-22.jar) |Alloy 4.2 (platform independent). Requires Java 6.|
+|[alloy4.2.dmg](download/alloy4.2_2015-02-22.dmg) |Alloy 4.2 (for OS X). Requires Java 6.|
 |[alloy4.jar](download/alloy4.jar) |Alloy 4.1 (platform independent). Requires Java 5.|
 |[alloy4.dmg](download/alloy4.dmg) |Alloy 4.1 (for OS X). Requires Java 5.|
 
