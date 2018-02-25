@@ -129,7 +129,6 @@ sub{vertical-align:sub;}
 
 a:link, a:visited { color: #1477cb; text-decoration:none;}
 
-a:visited { color: #898989; }
 a[id]:hover { text-decoration:none; }
 a:hover, ba:active { text-decoration:underline;}
 hr {height:1px;color:#444;background-color:#444;clear:both;margin:20px 30px 20px 30px;border:none;}
