@@ -6,7 +6,7 @@ layout: default
 ## Alloy Models
 
 <table>
-{% assign contents = site.openapi | sort:'index' %}
+{% assign contents = site.models | sort:'index' %}
 {% for page in contents %}
 <tr>
       <td class="title" onclick="location.href='{{page.url}}'">
