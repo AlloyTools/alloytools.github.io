@@ -1,5 +1,7 @@
 ---
 title: Web Attacks Intro
+layout: page
+description: A model that shows a web attack based on credentials stealing and cookie hijacking
 ---
 
 # Web Attacks

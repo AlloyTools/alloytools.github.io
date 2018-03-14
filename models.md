@@ -1,5 +1,7 @@
 ---
-layout: default
+layout: page
+title: Alloy Models
+description: Alloy Models Index Page
 ---
 
 
