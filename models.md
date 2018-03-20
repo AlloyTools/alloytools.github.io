@@ -7,6 +7,8 @@ description: Alloy Models Index Page
 
 ## Alloy Models
 
+Models for Alloy.
+
 <table>
 {% assign contents = site.models | sort:'index' %}
 {% for page in contents %}
