@@ -29,3 +29,17 @@ h1,h2,h3 {font-weight:400;}
 .credits {font-size:0.8em; color:#777; margin:0;}
 .credits a {color:#777;}
 .clear {clear:both;}
+
+table {
+    border-collapse: collapse;
+    margin-bottom: 1em;
+}
+td {
+ #   border: 1px solid black;
+    padding: 2px;
+    vertical-align: top;
+}
+tr td:first-child {
+    width: 5em;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
