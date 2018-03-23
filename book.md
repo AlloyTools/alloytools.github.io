@@ -5,9 +5,9 @@ main: book
 ---
 
 <div style="float:right;width:200px; margin-left:20px;">
-<a href="https://mitpress.mit.edu/books/software-abstractions"><img  src="http://alloy.mit.edu/alloy/images/cover.jpg"/></a>
+<a href="https://mitpress.mit.edu/books/software-abstractions"><img  src="image/cover.jpg"/></a>
 <br/>
-<a href="https://www.amazon.co.jp/%E6%8A%BD%E8%B1%A1%E3%81%AB%E3%82%88%E3%82%8B%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E8%A8%AD%E8%A8%88-Alloy%E3%81%A7%E3%81%AF%E3%81%98%E3%82%81%E3%82%8B%E5%BD%A2%E5%BC%8F%E6%89%8B%E6%B3%95-Daniel-Jackson/dp/4274068587/ref=sr_1_4?ie=UTF8&qid=1503508238&sr=8-4&keywords=software+abstractions"><img  style="margin-top:20px" src="http://alloy.mit.edu/alloy/images/cover-japanese.jpg"/></a>
+<a href="https://www.amazon.co.jp/%E6%8A%BD%E8%B1%A1%E3%81%AB%E3%82%88%E3%82%8B%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E8%A8%AD%E8%A8%88-Alloy%E3%81%A7%E3%81%AF%E3%81%98%E3%82%81%E3%82%8B%E5%BD%A2%E5%BC%8F%E6%89%8B%E6%B3%95-Daniel-Jackson/dp/4274068587/ref=sr_1_4?ie=UTF8&qid=1503508238&sr=8-4&keywords=software+abstractions"><img  style="margin-top:20px" src="image/cover-japanese.jpg"/></a>
 </div>
 
 A revised edition of the book was published in November 2011 is now available from [MIT Press](http://mitpress.mit.edu/catalog/item/default.asp?ttype=2&tid=12880). There is a [Japanese translation](https://sites.google.com/site/softwareabstractionsja/) of the revised edition. The book has its own [website](http://softwareabstractions.org/) that includes sample chapters and downloadable models for all the examples in the book.
