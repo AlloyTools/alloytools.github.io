@@ -160,7 +160,7 @@
 1. fact {
 2.   all fs: FileSystem {
 3.     no fs.root.(fs.parent)
-4.     fs.live in fs.root.(fs.contents)
+4.     fs.live in fs.root.*(fs.contents)
 5.     fs.parent = ~(fs.contents)
 6.   }
 7. }
