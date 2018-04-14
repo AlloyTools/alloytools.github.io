@@ -61,7 +61,7 @@
   </b><i>//Does any directory contain itself?</i><b>
   some d: Dir | d.parent = d
 
-  </b><i>//every file is is some directory</i><b>
+  </b><i>//every file is some directory</i><b>
   all f:File | some d:Dir | f.parent = d
 
   </b><i>//no two directories have exactly the same contents</i><b>
