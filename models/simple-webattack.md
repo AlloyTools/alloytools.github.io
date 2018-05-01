@@ -7,7 +7,7 @@ description: A simple model of a web attack, looking at cookies and logins with 
 
 This model shows a store and provides a number of requests to modify the store. It then shows how 
 to use the store with a good user `Alice` and have a bad user `Eve` that do not give any credentials.
-Eve should therefore never be able to login or buy anything.
+Eve should therefore never be able to login or buy anything..
 
 ## Preamble
 
