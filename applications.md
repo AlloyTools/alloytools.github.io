@@ -32,3 +32,5 @@ citations from Google Scholar of papers that discuss applications of Alloy.
 | [Nitpick](http://www4.in.tum.de/~blanchet/nitpick.html) | A counterexample generator for Isabelle/HOL |
 | [Margrave](http://www.margrave-tool.org/) | A security policy analyzer for firewalls |
 | [Secrecy Modeling Language (SML)](http://www.site.uottawa.ca/~whassan/public_html.old/Languages/index.html) | A language for composing and validating security models.|
+| [Lightning](http://www.lightning.gforge.uni.lu) | An Eclipse plugin allowing to specify graphical DSLs in Alloy|
+| [Echo](http://haslab.github.io/echo/) | A tool for model repair and transformation built over Alloy|
