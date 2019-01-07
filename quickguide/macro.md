@@ -24,8 +24,13 @@ Currying: if you call a macro with insufficient number of arguments, then the re
 ### Applying Macros
 
       let apply [a,b,c] = a[b,c]
-      let add [x,y] = x+y
+      let add [x,y] = x.plus[y]
       check { apply[add, 2, 3] = 5 }
+
+or even:
+
+      check { apply[plus, 2, 3] = 5 }
+
 
 ### Implementing "then" using currying
 
@@ -36,12 +41,12 @@ Currying: if you call a macro with insufficient number of arguments, then the re
     one sig Light { brightness: Int one->  Time }
 
     pred brighter [t, t': Time] {
-        Light.brightness.t' = Light.brightness.t + 1
+        Light.brightness.t' = Light.brightness.t.plus[1]
         t' = t.next
     }
 
     pred dimmer [t, t': Time] {
-        Light.brightness.t' = Light.brightness.t - 1
+        Light.brightness.t' = Light.brightness.t.minus[1]
         t' = t.next
     }
 
@@ -68,7 +73,7 @@ It is easy to have `in` parameter and an `out` parameter for an imperative event
 
     let a[x,t,t'] { ... }
 
-It is easy to have local variables in an imperative event, as long as the local variable is written to at most once. Just add a `ome x:SomeType` in front of the body. eg. 
+It is easy to have local variables in an imperative event, as long as the local variable is written to at most once. Just add a `some x:SomeType` in front of the body. eg. 
 
     some x, y:Int | a[x].then[b].then[c[x,y]].then[d[y]]
 
