@@ -2,7 +2,7 @@
 layout: page
 title: Plan for the reference manual
 description: Plan for the reference manual as written by Hillel
----
+index: 0
 ---
 
 
