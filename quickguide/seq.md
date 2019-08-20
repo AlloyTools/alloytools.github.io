@@ -89,8 +89,6 @@ To make it easier to manipulate sequences, we provide a number of helper functio
 | **s.delete [i]** | Precondition: 0 <= i. It returns the result of deleting the element at index i. Unsatisfiable if precondition is not satisfied. *Note:* if i >= #s, the input sequence is returned.|
 | **a.append [b]** | Returns the result of concatenating sequence a and sequence b. (If the resulting sequence is too longer, it will be truncated)|
 | **s.subseq [from, to]** | Returns the subsequence between from and to, inclusively. *Note:* if the bounds are not within the sequence's limits, i.e., from < 0 or to >= #s, then the empty sequence is returned.|
-
-
 | **#s** | Return the number of elements in sequence s. |
 | **s.elems** | Return the set of elements in sequence s.|
 | **s.first** | If #s > 0, it returns the first element of s. Otherwise, it returns the empty set |
