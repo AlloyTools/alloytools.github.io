@@ -54,23 +54,3 @@ To make it easier to manipulate sequences, we provide a number of helper functio
 | **s.delete [i]** | Precondition: 0 <= i. It returns the result of deleting the element at index i. Unsatisfiable if precondition is not satisfied. *Note:* if i >= #s, the input sequence is returned.|
 | **a.append [b]** | Returns the result of concatenating sequence a and sequence b. (If the resulting sequence is too longer, it will be truncated)|
 | **s.subseq [from, to]** | Returns the subsequence between from and to, inclusively. *Note:* if the bounds are not within the sequence's limits, i.e., from < 0 or to >= #s, then the empty sequence is returned.|
-| **#s** | Return the number of elements in sequence s. |
-| **s.elems** | Return the set of elements in sequence s.|
-| **s.first** | If #s > 0, it returns the first element of s. Otherwise, it returns the empty set |
-| **s.last** | If #s > 0, it returns the last element of s. Otherwise, it returns the empty set|
-| **s.rest** | If #s > 1, it returns s with its first element removed. Otherwise, it returns the empty sequence|
-| **s.butlast** | If #s > 1, it returns s with its last element removed. Otherwise, it returns the empty sequence|
-| **s.isEmpty** | It returns true if #s==0.|
-| **s.hasDups** | It returns true if s contains duplicate elements.|
-| **s.inds** | If #s > 0, it returns the set of integers `{0 .. (#s)-1}`. Otherwise, it returns the empty set|
-| **s.lastIdx** | If #s > 0, it returns the integer `(#s)-1`. Otherwise, it returns the empty set|
-| **s.afterLastIdx** | If (#s < the longest allowed sequence length), it returns `#s`. Otherwise, it returns the empty set|
-| **s.idxOf [x]** | If x does not appear in s, it returns the empty set. Otherwise, it returns the first index where x appears in s.|
-| **s.lastIdxOf [x]** | If x does not appear in s, it returns the empty set. Otherwise, it returns the last index where x appears in s.|
-| **s.indsOf [x]** |If x does not appear in s, it returns the empty set. Otherwise, it returns the set of indices where x appears in s.|
-| **s.add [x]** | If (#s < the longest allowed sequence length), it appends x to s. Otherwise, it returns s.|
-| **s.setAt [i, x]** | Precondition: 0 <= i < #s. It returns a new sequence where the i-th entry is changed to x.|
-| **s.insert [i, x]** | Precondition: 0 <= i <= #s It returns a new sequence where x is inserted at index i. *Note:* if #s was already equal to the longest allowed sequence length, then the last element of s will be removed first.|
-| **s.delete [i]** | Precondition: 0 <= i < #s. It returns the result of deleting the element at index i|
-| **a.append [b]** | Returns the result of concatenating sequence a and sequence b. (If the resulting sequence is too longer, it will be truncated)|
-| **s.subseq [from, to]** | Precondition: 0 <= from <= to < #s. Returns the subsequence between from and to, inclusively.|
