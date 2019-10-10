@@ -28,7 +28,7 @@ java -jar alloy4.jar in a console.
 ### Alloy extensions
 
 #### Electrum
-- Public web page: http://haslab.github.io/Electrum
+- Public web page: [http://haslab.github.io/Electrum](http://haslab.github.io/Electrum)
 - Authors: Nuno Macedo, Julien Brunel, David Chemouil, Alcino Cunha
 - Synopsis: Electrum extends Alloy with mutable signatures and fields as well as connectives from Linear Temporal Logic (with Past), it is well suited to model systems featuring both structural and behavioral aspects. Verification relies on bounded and unbounded model-checking; and the Visualizer is extended to allow interactive exploration of traces.
 
