@@ -25,3 +25,11 @@ java -jar alloy4.jar in a console.
 |[alloy4.jar](download/alloy4.jar) |Alloy 4.1 (platform independent). Requires Java 5.|
 |[alloy4.dmg](download/alloy4.dmg) |Alloy 4.1 (for OS X). Requires Java 5.|
 
+### Alloy extensions
+
+#### Electrum
+- Public web page: http://haslab.github.io/Electrum
+- Authors: Nuno Macedo, Julien Brunel, David Chemouil, Alcino Cunha
+- Synopsis: Electrum extends Alloy with mutable signatures and fields as well as connectives from Linear Temporal Logic (with Past), it is well suited to model systems featuring both structural and behavioral aspects. Verification relies on bounded and unbounded model-checking; and the Visualizer is extended to allow interactive exploration of traces.
+
+
