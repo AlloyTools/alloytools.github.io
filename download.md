@@ -12,12 +12,14 @@ and includes the source code. See the release notes for details of new
 features. To execute, simply double-click on the jar file, or type
 java -jar alloy4.jar in a console.
 
-### experimental versions
+### released versions
 
 |----------- | ------------|
-| [Latest build](https://github.com/AlloyTools/org.alloytools.alloy/releases) | Alloy 5.0 (includes the version for macOS High Sierra)|
+| [Latest build](https://github.com/AlloyTools/org.alloytools.alloy/releases) | Alloy 5 (includes the version for macOS High Sierra)|
 
-### stable releases
+### old releases
+
+Many of these releases no longer work on MacOS out of the box.
 
 |----------- | ------------|
 |[alloy4.2.jar](download/alloy4.2_2015-02-22.jar) |Alloy 4.2 (platform independent). Requires Java 6.|
