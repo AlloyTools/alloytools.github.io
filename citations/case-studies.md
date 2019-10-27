@@ -12,7 +12,6 @@ Selected papers that describe applications of Alloy:
 | [Introducing Alloy in a Software Modelling Course](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.190.3847&amp;rep=rep1&amp;type=pdf#page=87) | Formal Methods in Computer Science | J Noble, DJ Pearce..., 2008.|
 | [Chief Chefs of Z to Alloy: Using a Kitchen Example to Teach Alloy with Z](http://www.di.uminho.pt/tfm09/TFM09slides/3.2%20-%20Tarkan/TFM09tarkan.pdf)|Teaching Formal Methods | S Tarkan... - 2009 |
 | [Workshop-modeling software the alloy way](http://ww.fie-conference.org/fie2008/papers/1584.pdf)|Frontiers in Education Conference (FIE) | MJ Lutz..., 2008 |
-| [A Lightweight Visual Approach to Teaching Formal Access Control Model for Computer Science Students](http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=5990370)|PACCS  2011 |Z Chen..., 2011 |
 | [Experiences of Teaching a Lightweight Formal Method](http://eprints.dcs.warwick.ac.uk/361/1/formed.pdf)| Electronic Notes in Theoretical Computer Science | RC Boyatt..., 2008 |
 | [A Guide To Alloy](http://www.doc.ic.ac.uk/project/examples/2007/271j/suprema_on_alloy/Final%20Report/LaTeX/report.pdf)| | EYS Wong, M Herrmann... |
 |[Experiences with Alloy in undergraduate formal methods](https://ritdml.rit.edu/bitstream/handle/1850/7595/MLutzConfProc06-18-2006.pdf?sequence=1)| | M Lutz - 2006|
