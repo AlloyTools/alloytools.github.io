@@ -38,6 +38,11 @@ collections:
   manual:
     output: true
 
+scholar:
+  bibliography_template: bib
+  sort_by: year
+  order: descending
+
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.

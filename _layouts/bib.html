@@ -1,0 +1,46 @@
+---
+---
+<div class='reference'>
+
+<!--Publication title-->
+    {% if entry.doi %}
+        <a class='title' href="{{ entry.doi }}">{{ entry.title }}</a>
+    {% else if entry.url %}
+        <a class='title' href="{{ entry.url }}">{{ entry.title }}</a>
+    {% else %}
+        <div class='title'>{{ entry.title }}.</div>
+    {% endif %}
+
+<!--Authors list-->
+    <div class='authors'>
+    {% for author in entry.author_array %}
+        <div class='author'>{{ author.first }} {{ author.last }}{% if forloop.last != true %},{% endif %} </div>
+    {% endfor %}
+    </div>
+
+<!--Publication-->
+    {% case entry.type %}
+        {%  when 'article' %}
+            <div class='location'>
+                {{ entry.journal }}, {{ entry.month | capitalize }} {{ entry.year }}
+            </div>
+        {% when 'inproceedings' %}
+            <div class='location'>
+                {{ entry.booktitle }}, {{ entry.year }}
+            </div>
+    {% endcase %}
+
+<!--Extras-->
+    <div class='links'>
+        {% if entry.abstract %}
+        <details>
+            <summary>abstract</summary>
+            <p>{{ entry.abstract }}</p>
+        </details>
+        {% endif %}
+        <details>
+            <summary>bibtex</summary>
+            <pre>{{ entry.bibtex }}</pre>
+        </details>
+    </div>
+</div>

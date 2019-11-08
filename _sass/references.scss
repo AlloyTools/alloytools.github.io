@@ -1,0 +1,72 @@
+$indent: 1em;
+
+.bibliography {
+  list-style-type: none;
+}
+
+.reference {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1em;
+
+  .title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #555;
+  }
+
+  a.title:hover {
+    color: #1477cb;
+  }
+
+  .authors {
+
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: $indent;
+
+    .author {
+      flex: 0 0 auto;
+      font-size: 14px;
+      color: #555;
+      padding-right: 0.35em;
+    }
+
+  }
+
+  .location {
+
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: $indent;
+    font-size: 14px;
+    color: grey;
+
+  }
+
+  .links {
+
+    display: flex;
+    flex-direction: column;
+    padding-left: $indent;
+
+    details {
+
+      summary {
+        cursor: pointer;
+        font-size: 14px;
+        color: #555;
+      }
+
+      p, pre {
+        font-size: 14px;
+        padding: 1em;
+        margin: 0;
+        background-color: #dddddd;
+      }
+
+    }
+
+  }
+
+}
