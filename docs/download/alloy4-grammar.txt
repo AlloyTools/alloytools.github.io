@@ -1,0 +1,111 @@
+Core Alloy4 Syntax (minus some obscure compatibility syntax retained for Alloy3)
+================================================================================
+
+Precendence (from LOW to HIGH)
+
+1)    let    all a:X|F   no a:X|F   some a:X|F   lone a:X|F   one a:x|F   sum a:x|F
+2)    ||
+3)    <=>
+4)    =>     => else
+5)    &&
+6)    !
+7)    in     =        <        >       <=      >=      !in   !=   !<   !>  !<=  !>=
+8)    no X   some X   lone X   one X   set X   seq X
+9)    <<     >>       >>>
+10)   +      -
+11)   #X
+12)   ++
+13)   &
+14)   ->
+15)   <:
+16)   :>
+17)   []
+18)   .
+19)   ~    *     ^
+
+All binary operators are left-associative, except the arrow operators (->),
+the implication (a=>b), and if-then-else (a=>b else c).
+
+================================================================================
+
+specification ::= [module] open* paragraph*
+
+module ::= "module" name  [ "["  ["exactly"] name  ("," ["exactly"] num)*    "]" ]
+
+open ::= ["private"]  "open"  name  [ "[" ref,+ "]" ]  [ "as" name ]
+
+paragraph ::= factDecl | assertDecl | funDecl | cmdDecl | enumDecl | sigDecl
+
+factDecl ::= "fact" [name] block
+
+assertDecl ::= "assert" [name] block
+
+funDecl ::= ["private"] "fun" [ref "."] name "(" decl,* ")" ":" expr block
+funDecl ::= ["private"] "fun" [ref "."] name "[" decl,* "]" ":" expr block
+funDecl ::= ["private"] "fun" [ref "."] name                ":" expr block
+
+funDecl ::= ["private"] "pred" [ref "."] name "(" decl,* ")" block
+funDecl ::= ["private"] "pred" [ref "."] name "[" decl,* "]" block
+funDecl ::= ["private"] "pred" [ref "."] name                block
+
+cmdDecl ::= [name ":"] ("run"|"check") (name|block) scope
+
+scope ::= "for" number                   ["expect" (0|1)]
+scope ::= "for" number "but" typescope,+ ["expect" (0|1)]
+scope ::= "for"              typescope,+ ["expect" (0|1)]
+scope ::=                                ["expect" (0|1)]
+
+typescope ::= ["exactly"] number [name|"int"|"seq"]
+
+sigDecl ::= sigQual* "sig" name,+ [sigExt] "{" decl,* "}" [block]
+
+enumDecl ::= "enum" name "{" name  ("," name)*  "}"
+
+sigQual ::= "abstract" | "lone" | "one" | "some" | "private"
+
+sigExt ::= "extends" ref
+sigExt ::= "in" ref ["+" ref]*
+
+expr ::= "let" letDecl,+ blockOrBar
+       | quant decl,+    blockOrBar
+       | unOp expr
+       | expr binOp   expr
+       | expr arrowOp expr
+       | expr ["!"|"not"] compareOp expr
+       | expr ("=>"|"implies") expr "else" expr
+       | expr "[" expr,* "]"
+       |     number
+       | "-" number
+       | "none"
+       | "iden"
+       | "univ"
+       | "Int"
+       | "seq/Int"
+       | "(" expr ")"
+       | ["@"] name
+       | block
+       | "{" decl,+ blockOrBar "}"
+
+decl ::= ["private"] ["disj"] name,+ ":" ["disj"] expr
+
+letDecl ::= name "=" expr
+
+quant ::= "all" | "no" | "some" | "lone" | "one" | "sum"
+
+binOp ::= "||" | "or" | "&&" | "and" | "&" | "<=>" | "iff"
+        | "=>" | "implies" | "+" | "-" | "++" | "<:" | ":>" | "." | "<<" | ">>" | ">>>"
+
+arrowOp ::= ["some"|"one"|"lone"|"set"] "->" ["some"|"one"|"lone"|"set"]
+
+compareOp ::= "=" | "in" | "<" | ">" | "=<" | ">="
+
+unOp ::= "!" | "not" | "no" | "some" | "lone" | "one" | "set" | "seq" | "#" | "~" | "*" | "^"
+
+block ::= "{" expr* "}"
+
+blockOrBar ::= block
+blockOrBar ::= "|" expr
+
+name ::= ("this" | ID) ["/" ID]*
+
+ref ::= name | "univ" | "Int" | "seq/Int"

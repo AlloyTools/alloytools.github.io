@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Alloy Tutorial Model</title>
+    <link   rel=stylesheet   href="style-currentmodel.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>File System Model (II)</h2>
+
+<b><pre>
+</b><i>// A file system object in the file system</i><b>
+abstract sig FSObject { }
+
+</b><i>// File system objects must be either directories or files.</i><b>
+sig File, Dir extends FSObject { }
+
+</b><i>// A File System</i><b>
+sig FileSystem {
+  root: Dir,
+  live: set FSObject,
+  contents: Dir lone-> FSObject,
+  parent: FSObject ->lone Dir
+}{
+  </b><i>// root has no parent</i><b>
+  no root.parent
+  </b><i>// live objects are reachable from the root</i><b>
+  live in root.*contents
+  </b><i>// parent is the inverse of contents</i><b>
+  parent = ~contents
+}
+
+pred example { }
+
+run example for exactly 1 FileSystem, 4 FSObject
+</pre></b>
+
+  </body>
+</html>

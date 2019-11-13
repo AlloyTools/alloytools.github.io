@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<alloy>
+
+<view>
+
+<projection> <type name="FileSystem"/> </projection>
+
+<node shape="Parallelogram" color="Blue">
+   <type name="Dir"/>
+</node>
+
+<edge visible="no">
+   <relation name="contents"> <type name="Dir"/> <type name="FSObject"/> </relation>
+</edge>
+
+</view>
+
+</alloy>

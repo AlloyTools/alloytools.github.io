@@ -1,0 +1,102 @@
+<html>
+  <head>
+    <title>levels of understanding</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>How to think about an Alloy model: 3 levels</h2>
+
+There are three basic levels of abstraction at which you can read an
+Alloy model.
+<ul>
+<li> The highest level of abstraction is the OO paradigm.  This level
+     is helpful for getting started and for understanding a model at a
+     glance; the syntax is probably familiar to you and usually does
+     what you'd expect it to do.
+<li> The middle level of abstraction is set theory.  You will probably
+     find yourself using this level of understanding the most
+     (although the OO level will still be useful).
+<li> The lowest level of abstraction is atoms and relations, and
+     corresponds to the true semantics of the language.  However, even
+     advanced users rarely think about things this way.
+</ul>
+
+<hr WIDTH="50%">
+
+<p> Consider the following excerpt.  A signature <b><tt>sig
+    S</b></tt>, extending <b><tt>E</b></tt>, has a field
+    <b><tt>F</b></tt> of type <b><tt>T</b></tt>.
+
+<b><pre>
+  sig S extends E {
+      F: one T
+  }
+
+  fact {
+      all s:S | s.F in T
+  }
+</pre></b>
+
+<hr WIDTH="50%">
+
+<p> The fragment can be roughly interpreted in an Object Oriented
+    sense.
+<ul>
+<li> <b><tt>S</b></tt> is a class
+<li> <b><tt>S</b></tt> extends its superclass <b><tt>E</b></tt>
+<li> <b><tt>F</b></tt> is a field of <b><tt>S</b></tt> pointing to a
+      <b><tt>T</b></tt>
+<li> <b><tt>s</b></tt> is an instance of <b><tt>S</b></tt>
+<li> <b><tt>.</b></tt> accesses a field
+<li> <b><tt>s.F</b></tt> returns something of type <b><tt>T</b></tt>
+</ul>
+
+<hr WIDTH="50%">
+
+<p> The fragment can be safely read as being about sets, elements, and
+    relations among those sets and elements.  Most users find this way
+    of thinking intuitive after a little practice and does not lead to
+    errors as the OO approach occasionally does.
+<ul>
+<li> <b><tt>S</b></tt> is a set (and so is <b><tt>E</b></tt>)
+<li> <b><tt>S</b></tt> is a subset of <b><tt>E</b></tt>
+<li> <b><tt>F</b></tt> is a relation which maps each <b><tt>S</b></tt>
+     to exactly one <b><tt>T</b></tt>
+<li> <b><tt>s</b></tt> is an element of <b><tt>S</b></tt>
+<li> <b><tt>.</b></tt> composes relations
+<li> <b><tt>s.F</b></tt> composes the unary relation <b><tt>s</tt></b>  with the binary
+     relations <b><tt>F</b></tt>, returning a unary relation of type
+     <b><tt>T</b></tt>
+</ul>
+
+<p> In some sense, we are modeling a field of a class as a relation
+    which maps instances of that class to instances of that field.
+
+<hr WIDTH="50%">
+
+<p> The technical meaning is in terms of
+    <a href="sidenote-relations-everywhere.html" >atoms and relations</a>,
+    and is rather hairy.  Most users do not need this level of understanding most of the
+    time, but you may be curious about how things are working on the
+    inside.
+
+<ul>
+<li> <b><tt>S</b></tt> is an atom (and so is <b><tt>E</b></tt>)
+<li> the containment relation maps <b><tt>E</b></tt> to
+     <b><tt>S</b></tt> (among other things it does)
+
+<li> <b><tt>F</b></tt> is a relation from <b><tt>S</b></tt> to
+     <b><tt>T</b></tt>
+<li> the containment relation maps <b><tt>S</b></tt> to
+     <b><tt>s</b></tt> (among other things)
+
+<li> <b><tt>.</b></tt> composes relations
+<li> <b><tt>s.F</b></tt> composes the unary relation <b><tt>s</b></tt>
+     with the binary relations <b><tt>F</b></tt>, resulting in a unary
+     relation <b><tt>t</b></tt>, such that the containment relation
+     maps <b><tt>T</b></tt> to <b><tt>t</b></tt>
+</ul>
+
+  </body>
+</html>

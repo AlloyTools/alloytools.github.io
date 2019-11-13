@@ -1,0 +1,31 @@
+div.header {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	width: 100%;
+	border-radius: 9px;
+	display: flex;	
+	justify-content: space-between;
+	background-color: #F0F0F0;
+	padding: 4px 12px 4px 12px ;
+	
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f2f2f2+0,dbdbdb+100 */
+	background: #f2f2f2; /* Old browsers */
+background: -moz-linear-gradient(top, #f2f2f2 0%, #dbdbdb 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #f2f2f2 0%,#dbdbdb 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #f2f2f2 0%,#dbdbdb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f2f2', endColorstr='#dbdbdb',GradientType=0 ); /* IE6-9 */
+
+}
+div.header span a:link {
+	color: black;
+	padding: 4px;
+}
+div.header span {
+	width: 100px;
+	list-style-type: none;
+	text-align: center;
+}
+div.header  span a:hover {
+	color:  white;
+	background-color: black;
+}

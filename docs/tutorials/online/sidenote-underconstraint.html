@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Underconstraint</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Underconstraint - a great win of declarative modeling</h2>
+
+<p> When you haven't written enough constraints, and are allow absurd
+    solutions which shouldn't even be considered, then you are facing
+    a problem of underconsrtaint.  This kind of bug is actually pretty
+    easy to catch.  You'll spot it when you get a bogus
+    counterexample; one that shouldn't exist at all, and thus isn't a
+    legitimate counterexample.  Look at it and formulate <i>why</i> it
+    is ill-formed, then simply add a constraint to prevent solutions
+    of that form.  However, make sure that the situation can't
+    actually occur in the system you are modeling, and be wary of
+    ruling out desirable solutions in your effort to prevent the bad
+    one that you have found.</p>
+
+<p> You can use the <a href="sidenote-format-run.html"> <b><tt>run</b></tt> command help identify
+    underconstraints</a>.</p>
+
+<p> The other side of the coin is <a href="sidenote-overconstraint.html">overconstraint</a>.</p>
+
+  </body>
+</html>

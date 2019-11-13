@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <title>ternary relations</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Thinking about higher order relations</h2>
+
+<h3>Higher Order Relations</h3>
+
+<p> The <i>arity</i> of a relation is the size of the tuples it
+    defines.  Another way of thinking of it is that an arity <i>n</i>
+    relation is one that takes <i>(n-1)</i> arguments and pairs them
+    with another element (this is the same style of thinking as for
+    lambda calculus currying, if that helps).  Of course, <a
+    href="sidenote-relations-are-ordered-pairs.html"> relations are not necessarily functions</a>, so
+    it might pair them with zero, one, or many elements (thus,
+    thinking of the first
+    <i>(n-1)</i> entries in the tuples as <i>arguments</i> can be
+    misleading).
+
+<ul>
+<li> unary - atoms (0 arguments)
+<li> binary - relation forming order pairs (1 argument)
+<li> ternary - relation forming ordered triple (2 arguments)
+<li> n-ary - relation forming n-tuples (n-1 arguments)
+</ul>
+
+<p> A <i>higher order</i> relation usually refers to one which is
+    ternary or greater.  For example, in the following Alloy fragment
+    (from File System Lesson II),
+    <b><tt>contents</b></tt> and <b><tt>parent</b></tt> are ternary
+    relations.
+
+<pre><b>
+  sig FileSystem {
+    root: Dir,
+    objects: set FSObject,
+    contents: Dir lone-> FSObject,
+    parent: FSObject ->lone Dir
+  }
+</pre></b>
+
+<p> Given a filesystem (<b><tt>FileSystem</b></tt>), you can ask for
+    its contents field, which gets you a relation from directories
+    (<b><tt>Dir</b></tt>) to file system objects
+    (<b><tt>FSObject</b></tt>).  That is, given a file system
+    <i>and</i> a Directory, you get some set of file system objects.
+    For now, don't worry about the "<b><tt>lone</b></tt>". </p>
+
+  </body>
+</html>

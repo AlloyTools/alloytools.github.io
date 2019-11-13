@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <title>Pretending Alloy is OO</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Pretending Alloy is Object Oriented ("OO")</h2>
+
+<p> Several clever definitions of Alloy language constructs allow you
+    to write models which look like a lot like Java/C++ OO code.  The
+    key to getting this to work is the interpretation of signature
+    declarations (a "<b><tt>sig</tt></b>" statements) and the
+    "<b><tt>.</tt></b>" operator (relational composition).  Signatures
+    are technically sets, but they can be thought of as objects in
+    the OO paradigm.
+
+<p> Consider the following excerpt.  A signature <b><tt>sig
+    S</b></tt>, extending <b><tt>E</b></tt>, has a field
+    <b><tt>F</b></tt> of type <b><tt>T</b></tt>. </p>
+
+<p> we write:
+<b><pre>
+  sig S extends E {
+    F:T
+  }
+
+  fact {
+    all s:S | s.F in X
+  }
+</pre></b>
+
+<p> The fragment can be interpreted in an Object Oriented sense.
+
+<ul>
+<li> <b><tt>S</b></tt> is a class
+<li> <b><tt>S</b></tt> extends its superclass <b><tt>E</b></tt>
+<li> <b><tt>F</b></tt> is a field of <b><tt>S</b></tt> pointing to a
+     <b><tt>T</b></tt>
+<li> <b><tt>s</b></tt> is an instance of <b><tt>S</b></tt>
+<li> <b><tt>.</b></tt> accesses a field
+<li> <b><tt>s.F</b></tt> returns something of type <b><tt>T</b></tt>
+</ul>
+
+<p> The OO interpretation can be helpful for understanding a model at
+    a glance, but can be dangerous if you don't have any deeper
+    understanding.  As you become more familiar with Alloy, you will
+    find yourself thinking in <a
+    href="sidenote-levels-of-understanding.html">set
+    theoretic</a> terms.
+
+  </body>
+</html>

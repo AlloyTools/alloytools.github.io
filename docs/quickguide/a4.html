@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="alternate" type="application/rss+xml" title="alloy" href="/feed.xml">
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+  
+    
+    
+    <a class="site-title" href="/">alloy</a>
+  
+    
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          
+            
+            
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/about.html">about</a>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/applications.html">uses</a>
+            
+          
+            
+            
+            <a class="page-link" href="/book.html">book</a>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/community.html">community</a>
+            
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/documentation.html">docs</a>
+            
+          
+            
+            
+            <a class="page-link" href="/download.html">download</a>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        </div>
+      </nav>
+    
+  </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">New Syntactic Features in Alloy 4</h1>
+  </header>
+
+  <div class="post-content">
+    <p>The syntax of Alloy 4 differs very slightly from the syntax of Alloy 3. Changes were made for three reasons: to make the syntax more uniform; to add some new features for greater convenience; to simplify the grammar to allow faster parsing and to make it easier for others to implement tools for Alloy. The grammar is now LALR(1), and compilation is instantaneous for all but the largest models.</p>
+
+<p>The changes are explained in detail below. For each change, the rationale is explained, and short comments highlight the small changes that users are likely to need to make to Alloy 3 models. We expect that, for most users, the only changes needed will be replacing round by square brackets in invocations, and adding aliases for imported modules.</p>
+
+<h2 id="to-cast-between-integers-and-int-atoms-use-int--and-int-">To cast between integers and Int atoms, use Int[ ] and int[ ]</h2>
+
+<p><em>Change:</em> To cast from integer to an Int atom, you must use the new “Int[ ]” function. Likewise, to cast from Int to integer, you should use the new “int[ ]” function.</p>
+
+<p><em>Rationale:</em> This simplifies the grammar by using the function invocation syntax to do type casts.</p>
+
+<p><em>Impact:</em> To update an Alloy3 model, you need to replace <em>sum X</em> and <em>int X</em> with <em>int[X]</em>, and replace <em>Int X</em> with <em>Int[X]</em>.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Alloy 3</strong></td>
+      <td>    int SomeIntegerSet</td>
+      <td>    Int 2</td>
+    </tr>
+    <tr>
+      <td><strong>Alloy 4</strong></td>
+      <td>    int[SomeIntegerSet]</td>
+      <td>    Int[2]</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="the--symbol-can-only-be-used-to-declare-a-variable-or-field">The “:” symbol can only be used to declare a variable or field.</h2>
+
+<p><em>Change:</em> To say an expression has a particular multiplicity, you must now use the “in” operator rather than the “:” operator.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><em>Rationale:</em> The “:” symbol in Alloy 3 has two meanings. The first meaning is to introduce a new name. For example: “some a:A</td>
+      <td>a!=b”. The second meaning is to say that an expression has a particular multiplicity. For example: “bank.accounts : Person -&gt; one Account”. The second usage intuitively fits better with the existing meaning of the “in” keyword.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Impact:</em> Inside a formula, the “:” operator must be changed to the “in” operator.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Alloy 3:</strong>  </td>
+      <td>  bank.accounts : Person -&gt; one Account</td>
+    </tr>
+    <tr>
+      <td><strong>Alloy 4:</strong>  </td>
+      <td>  bank.accounts in Person -&gt; one Account</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="if-then-else-is-now-written-as-conditionx-else-y">if-then-else is now written as “condition=&gt;x else y”</h2>
+
+<p>In Alloy 3, if-then-else formulas are written as “condition=&gt;formula1,formula2” where as if-then-else expressions are written as “if condition then x else y”.</p>
+
+<p>In Alloy 4, both forms are now replaced by “condition=&gt;x else y”.</p>
+
+<h2 id="functionpredicate-calls-must-use-the-same-operators---and--as-relational-joins">Function/predicate calls must use the same operators [ ] and . as relational joins.</h2>
+
+<p>To invoke <strong>f(a,b)</strong>, you must write it as <strong>f[a,b]</strong>, <strong>f[a][b]</strong>, <strong>a.f[b]</strong>, or <strong>b.(a.f)</strong></p>
+
+<p>To invoke <strong>f(a)</strong>, you must write it as <strong>f[a]</strong> or <strong>a.f</strong></p>
+
+<p>To invoke <strong>f()</strong>, you must write it as <strong>f[ ]</strong> or simply <strong>f</strong></p>
+
+<p>In particular, note that <strong>a.add[b].sub[c]</strong> is equivalent to <strong>sub[add[a,b],c]</strong></p>
+
+<p>Likewise, a function or predicate can be declared using [ ]:</p>
+
+<p>    <strong>pred</strong> contains <strong>[</strong> m<strong>:</strong>Map<strong>,</strong> k<strong>:</strong>Key<strong>,</strong> v<strong>:</strong>Value <strong>]</strong> <strong>{</strong>…<strong>}</strong></p>
+
+<p>Furthermore, if the list of arguments is empty, the [ ] can be omitted:</p>
+
+<p>    <strong>pred</strong> acyclic <strong>{</strong>…<strong>}</strong></p>
+
+<p>Finally, the first argument can be declared using the receiver syntax:</p>
+
+<p>    <strong>pred</strong> List<strong>.</strong>contains <strong>[</strong> e<strong>:</strong>Element <strong>]</strong> <strong>{</strong>…<strong>}</strong></p>
+
+<p>is internally converted into</p>
+
+<p>    <strong>pred</strong> contains <strong>[</strong> this<strong>:</strong>List<strong>,</strong> e<strong>:</strong>Element <strong>]</strong> <strong>{</strong>…<strong>}</strong></p>
+
+<h2 id="grammar-for-int-expressions-setrelation-expressions-and-formulas-are-unified">Grammar for int expressions, set/relation expressions, and formulas are unified.</h2>
+
+<p>This means some expressions legal in Alloy 3 may require additional parentheses for it to parse.</p>
+
+<p><strong>Operator Precedence (from low to high)</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let    all a:X|F   no a:X|F   some a:X|F   lone a:X|F
+one a:x|F   sum a:x|F
+||
+&lt;=&gt;
+=&gt;     =&gt; else
+&amp;&amp;
+!
+in    =    &lt;    &gt;   &lt;=   &gt;=
+!in   !=   !&lt;   !&gt;  !&lt;=  !&gt;=
+no X   some X   lone X   one X   set X   seq X
+&lt;&lt;     &gt;&gt;       &gt;&gt;&gt;
++      -
+#X
+++
+&amp;
+-&gt;
+&lt;:
+:&gt;
+[]
+.
+~    *     ^
+</code></pre></div></div>
+
+<h2 id="you-can-no-longer-set-a-separate-scope-on-the-number-of-int-atoms">You can no longer set a separate scope on the number of Int atoms.</h2>
+
+<p>Its scope is always exactly equal to the number of possible integers corresponding to the current 
+bitwidth (default is 4).</p>
+
+<p>To set the bitwidth, use the “int” keyword in a run or check command.</p>
+
+<p>For example, if you write “<strong>check MyAssertion for 4 int</strong>”, the assertion will be checked with integer bitwidth of 4. That means there are exactly 16 Int atoms ranging from -8 to 7.</p>
+
+<h2 id="you-can-no-longer-declare-a-signature-that-extends-int-or-declare-a-signature-to-be-a-subset-of-int">You can no longer declare a signature that extends Int, or declare a signature to be a subset of Int</h2>
+
+<h2 id="we-dont-allow-part-and-exh-in-declarations-any-more">We don’t allow “part” and “exh” in declarations any more.</h2>
+
+<h2 id="module-search-path">Module Search Path:**</h2>
+
+<p>When importing a module, Alloy 4 first searches in the installation directory. If not found, it 
+will attempt to derive a relative path based on the current module’s name and the name of 
+the module being imported.</p>
+
+<p>For example, if the following model is <strong>/Desktop/MyProject/main.als</strong>, then we will infer 
+that the “helper” module is located at <strong>/Desktop/MyProject/additonal/helper.als</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module MyProject/main
+open MyProject/additional/helper
+...
+</code></pre></div></div>
+
+<h2 id="module-declaration-is-now-optional">module” declaration is now optional.</h2>
+
+<p>If a model is not parametric, you can omit the “module” declaration.</p>
+
+<h3 id="example-1">Example 1</h3>
+
+<p>In this example, the first line is require, since it lists the parameters:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module MyProject/main[T]
+...
+</code></pre></div></div>
+
+<h3 id="example-2">Example 2</h3>
+
+<p>In this example, the first line is optional. But its presense or absense will affect where Alloy 4 searches for imported modules.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>module MyProject/main
+open MyProject/library/helper
+...
+</code></pre></div></div>
+
+<p>If the module line is specified, then Alloy 4 will infer that the <strong>helper</strong> module is located in a 
+subdirectory called <strong>library</strong>.</p>
+
+<p>If the module line is omitted, then Alloy 4 assumes the main file has no path. Thus, the <strong>helper</strong> module 
+is assumed to be in the subdirectory <strong>MyProject/library</strong>.</p>
+
+<h2 id="you-can-now-write-check--and-run-">You can now write “check {…}” and “run {…}”</h2>
+
+<p>Instead of declaring an assertion X and then write <strong>check X</strong>, you can now combine them by 
+just writing <strong>check {some formula}</strong>.</p>
+
+<p>Likewise, instead of declaring a predicate X and then write <strong>run X</strong>, you can now combine them by just 
+writing <strong>run {some formula}</strong>.</p>
+
+<p>For example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>check { A!=B } for 3
+</code></pre></div></div>
+
+<p>is equivalent to</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>assert NOTEQUAL { A!=B }
+check NOTEQUAL for 3
+</code></pre></div></div>
+
+<p>These are called “anonymous” assertions and predicates. Alternatively, you can prepend an explicit label 
+if you wish. For example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>somelabel: check { A != B } for 3
+somelabel: run { some a:A, b:B | a=b } for 3
+</code></pre></div></div>
+
+<h2 id="predicates-functions-and-fields-can-now-overload-each-other">predicates, functions, and fields can now overload each other.</h2>
+
+<p>That is, you can declare functions, predicates, and fields with the same name. When there’s an 
+ambiguity, we’ll use the following rule to determine whether each candidate is compatible:</p>
+
+<p>1 First of all, its value must be relevant to the overall expression.
+2 Furthermore, if it’s a predicate or function, then the type of each parameter 
+  must have nonempty intersection with the type of each argument.</p>
+
+<p>If exactly one function, predicate, or field is compatible, Alloy 4 will choose it automatically. 
+Otherwise, an ambiguity error will be reported.</p>
+
+<h2 id="when-necessary-alloy4-will-add-int-int-and-int-int-casts-automatically">When necessary, Alloy4 will add int-&gt;Int and Int-&gt;int casts automatically.</h2>
+
+<p>For example, given an atom X, then the relational product <strong>X-&gt;3</strong> is illegal, since both operands of <strong>-&gt;</strong> must be set or relation values. Alloy4 knows the only way for this to be legal is to add an int-to-Int cast, so Alloy4 will parse it as if the user wrote <strong>X-&gt;Int[3]</strong></p>
+
+<p>Likewise, given an Int atom X, then the left shift expression <strong>X«2</strong> is illegal, since both operands of <strong>«</strong> must be int values. Alloy4 knows the only way for this to be legal is to add an Int-to-int cast, so Alloy4 will parse it as if the user wrote <strong>int[X]«2</strong>.</p>
+
+<p><strong>Note:</strong> When there are two ways to make an expression legal, by adding either Int-to-int cast or int-to-Int cast, then Alloy4 <strong>prefers the Int-to-int cast since it is cheaper</strong>.</p>
+
+<p>For example, given an Int atom X, then the expression <strong>X+3</strong> is illegal, since both operands of <strong>+</strong> must be of the same type. Alloy4 knows there are two ways for this to be legal:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>convert X to int[X], and you get the int value representing the sum of X and 3.
+convert 3 to Int[3], and you get the union containing two atoms ("X" and "3").
+</code></pre></div></div>
+
+<p>Since Alloy4 <strong>prefers the Int-to-int cast since it is cheaper</strong>, so Alloy4 will parse it as if the user wrote <strong>int[X]+3</strong>&lt;/div&gt;</p>
+
+<h2 id="alloy4-now-has-syntax-support-for-sequence-of-atoms">Alloy4 now has syntax support for “sequence of atoms”.</h2>
+
+<p>For more information, please click <a href="seq.html">this</a>.&lt;/div&gt;</p>
+
+<h2 id="alloy4-now-has-syntax-support-for-private-namespace">Alloy4 now has syntax support for “private namespace”</h2>
+
+<p>Alloy4 allows you to declare a sig, a field, a function, or a predicate as “private” to the module, and not visible from other modules. For more information, please click <a href="private.html">this</a>.&lt;/div&gt;</p>
+
+<h2 id="alloy4-now-supports-all-the-standard-operations-on-int-values">Alloy4 now supports all the standard operations on int values</h2>
+
+<table>
+  <tbody>
+    <tr>
+      <td>addition</td>
+      <td>a.add[b]</td>
+      <td>(If unambiguous, you can shorten this to be a+b)</td>
+    </tr>
+    <tr>
+      <td>subtraction</td>
+      <td>a.sub[b]</td>
+      <td>(If unambiguous, you can shorten this to be a-b)</td>
+    </tr>
+    <tr>
+      <td>multiplication</td>
+      <td>a.mul[b]</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>division</td>
+      <td>a.div[b]</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>remainder</td>
+      <td>a.rem[b]</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>negation</td>
+      <td>- a</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>equal</td>
+      <td>a = b</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>not equal</td>
+      <td>a != b</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>less than</td>
+      <td>a &lt; b</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>greater than</td>
+      <td>a &gt; b</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>less than or equal to</td>
+      <td>a &lt;= b</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>greater than or equal to</td>
+      <td>a &gt;= b</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>left-shift</td>
+      <td>a « b</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>sign-extended right-shift</td>
+      <td>a » b</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>zero-extended right-shift</td>
+      <td>a »&gt; b</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Note:</strong> The first five operators (<strong>add, sub, mul, div, and rem</strong>) requires that you add “<strong>open util/integer</strong>” to your model.</p>
+
+  </div>
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+	<table  style="border:none; color:#CCC">
+		<colgroup>
+			<col style="witdh:33%"/>
+			<col style="witdh:34%"/>
+			<col style="witdh:33%"/>
+		</colgroup>
+		<tr>
+			<td  style="border:none;text-align:left;">© 2019 AlloyTools</td>
+			<td style="border:none;text-center;"><a href="https://groups.google.com/forum/#!forum/alloytools">Forum</a></td>
+			<td style="border:none;text-align:right;">
+				<a href="https://github.com/AlloyTools"><span class="icon icon--github"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username">AlloyTools</span></a>
+
+			</td>			
+		</tr>
+	</table>
+
+</footer>
+
+
+  </body>
+
+</html>

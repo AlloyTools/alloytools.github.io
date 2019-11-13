@@ -1,0 +1,98 @@
+<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="http://alloy.mit.edu/alloy/hola/css/alloy.css"/></head><body>
+
+<div class="highlight"><pre><span class="cm">/* Alloy Analyzer 4 -- Copyright (c) 2006-2009, Felix Chang</span>
+<span class="cm"> *</span>
+<span class="cm"> * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files</span>
+<span class="cm"> * (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify,</span>
+<span class="cm"> * merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is</span>
+<span class="cm"> * furnished to do so, subject to the following conditions:</span>
+<span class="cm"> *</span>
+<span class="cm"> * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</span>
+<span class="cm"> *</span>
+<span class="cm"> * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES</span>
+<span class="cm"> * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE</span>
+<span class="cm"> * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF</span>
+<span class="cm"> * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</span>
+<span class="cm"> */</span>
+
+<span class="kn">package</span> <span class="n">edu</span><span class="o">.</span><span class="na">mit</span><span class="o">.</span><span class="na">csail</span><span class="o">.</span><span class="na">sdg</span><span class="o">.</span><span class="na">alloy4whole</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4.A4Reporter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4.Err</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4.ErrorWarning</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.ast.Command</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.ast.Module</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.parser.CompUtil</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.translator.A4Options</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.translator.A4Solution</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.translator.TranslateAlloyToKodkod</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4viz.VizGUI</span><span class="o">;</span>
+
+<span class="cm">/** This class demonstrates how to access Alloy4 via the compiler methods. */</span>
+
+<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">ExampleUsingTheCompiler</span> <span class="o">{</span>
+
+    <span class="cm">/*</span>
+<span class="cm">     * Execute every command in every file.</span>
+<span class="cm">     *</span>
+<span class="cm">     * This method parses every file, then execute every command.</span>
+<span class="cm">     *</span>
+<span class="cm">     * If there are syntax or type errors, it may throw</span>
+<span class="cm">     * a ErrorSyntax or ErrorType or ErrorAPI or ErrorFatal exception.</span>
+<span class="cm">     * You should catch them and display them,</span>
+<span class="cm">     * and they may contain filename/line/column information.</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Err</span> <span class="o">{</span>
+
+        <span class="c1">// The visualizer (We will initialize it to nonnull when we visualize an Alloy solution)</span>
+        <span class="n">VizGUI</span> <span class="n">viz</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="c1">// Alloy4 sends diagnostic messages and progress reports to the A4Reporter.</span>
+        <span class="c1">// By default, the A4Reporter ignores all these events (but you can extend the A4Reporter to display the event for the user)</span>
+        <span class="n">A4Reporter</span> <span class="n">rep</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A4Reporter</span><span class="o">()</span> <span class="o">{</span>
+            <span class="c1">// For example, here we choose to display each &quot;warning&quot; by printing it to System.out</span>
+            <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="n">warning</span><span class="o">(</span><span class="n">ErrorWarning</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">&quot;Relevance Warning:\n&quot;</span><span class="o">+(</span><span class="n">msg</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">trim</span><span class="o">())+</span><span class="s">&quot;\n\n&quot;</span><span class="o">);</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">};</span>
+
+        <span class="k">for</span><span class="o">(</span><span class="n">String</span> <span class="nl">filename:</span><span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+            <span class="c1">// Parse+typecheck the model</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;=========== Parsing+Typechecking &quot;</span><span class="o">+</span><span class="n">filename</span><span class="o">+</span><span class="s">&quot; =============&quot;</span><span class="o">);</span>
+            <span class="n">Module</span> <span class="n">world</span> <span class="o">=</span> <span class="n">CompUtil</span><span class="o">.</span><span class="na">parseEverything_fromFile</span><span class="o">(</span><span class="n">rep</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">filename</span><span class="o">);</span>
+
+            <span class="c1">// Choose some default options for how you want to execute the commands</span>
+            <span class="n">A4Options</span> <span class="n">options</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A4Options</span><span class="o">();</span>
+
+            <span class="n">options</span><span class="o">.</span><span class="na">solver</span> <span class="o">=</span> <span class="n">A4Options</span><span class="o">.</span><span class="na">SatSolver</span><span class="o">.</span><span class="na">SAT4J</span><span class="o">;</span>
+
+            <span class="k">for</span> <span class="o">(</span><span class="n">Command</span> <span class="nl">command:</span> <span class="n">world</span><span class="o">.</span><span class="na">getAllCommands</span><span class="o">())</span> <span class="o">{</span>
+                <span class="c1">// Execute the command</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;============ Command &quot;</span><span class="o">+</span><span class="n">command</span><span class="o">+</span><span class="s">&quot;: ============&quot;</span><span class="o">);</span>
+                <span class="n">A4Solution</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">TranslateAlloyToKodkod</span><span class="o">.</span><span class="na">execute_command</span><span class="o">(</span><span class="n">rep</span><span class="o">,</span> <span class="n">world</span><span class="o">.</span><span class="na">getAllReachableSigs</span><span class="o">(),</span> <span class="n">command</span><span class="o">,</span> <span class="n">options</span><span class="o">);</span>
+                <span class="c1">// Print the outcome</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ans</span><span class="o">);</span>
+                <span class="c1">// If satisfiable...</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">ans</span><span class="o">.</span><span class="na">satisfiable</span><span class="o">())</span> <span class="o">{</span>
+                    <span class="c1">// You can query &quot;ans&quot; to find out the values of each set or type.</span>
+                    <span class="c1">// This can be useful for debugging.</span>
+                    <span class="c1">//</span>
+                    <span class="c1">// You can also write the outcome to an XML file</span>
+                    <span class="n">ans</span><span class="o">.</span><span class="na">writeXML</span><span class="o">(</span><span class="s">&quot;alloy_example_output.xml&quot;</span><span class="o">);</span>
+                    <span class="c1">//</span>
+                    <span class="c1">// You can then visualize the XML file by calling this:</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">viz</span><span class="o">==</span><span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">viz</span> <span class="o">=</span> <span class="k">new</span> <span class="n">VizGUI</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="s">&quot;alloy_example_output.xml&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+                    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                        <span class="n">viz</span><span class="o">.</span><span class="na">loadXML</span><span class="o">(</span><span class="s">&quot;alloy_example_output.xml&quot;</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+</head></body>

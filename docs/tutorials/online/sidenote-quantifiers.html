@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <title>Quantifiers</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Quantifiers</h2>
+
+<p> The Alloy quantifiers are </p>
+<ul>
+<li> <tt><b> all x:X | formula </b></tt> - every <b><tt>x</b></tt> of type
+     <b><tt>X</b></tt> satisfies <b><tt>formula</b></tt>.  If there are
+     no <b><tt>X</b></tt>, then this statement is trivially true.</li>
+<li> <tt><b> some x:X | formula </b></tt> - one or more
+     <b><tt>x</b></tt> of type <b><tt>X</b></tt> satisfy
+     <b><tt>formula</b></tt>. If there are no <b><tt>X</tt></b>, then this statement
+     is trivially false.</li>
+<li> <tt><b> no x:X | formula </b></tt> - exactly zero
+     <b><tt>x</b></tt> of type <b><tt>X</b></tt> satisfy
+     <b><tt>formula</b></tt></li>
+<li> <tt><b> one x:X | formula </b></tt> - exactly one <b><tt>x</b></tt>
+     of type <b><tt>X</b></tt> satisfies <b><tt>formula</b></tt></li>
+<li> <tt><b> lone x:X | formula </b></tt> - either zero or one
+     <b><tt>x</b></tt> of type <b><tt>X</b></tt> satisfies
+     <b><tt>formula</b></tt></li>
+</ul>
+
+<p> Note that a 'formula' is something that evaluates to a boolean
+    value, as opposed to an 'expression' which evaluates to a
+    (relational) value. With "some", "no", one", and "lone", you can also apply
+     them to a set or a relation like this:</p>
+
+<ul>
+<li> <tt><b> some X </b></tt> - there is at least one
+     <b><tt>X</b></tt></li>
+<li> <tt><b> no X </b></tt> - there are no <b><tt>X</b></tt>'s</li>
+<li> <tt><b> one X </b></tt> - there is exactly one <b><tt>X</b></tt></li>
+<li> <tt><b> lone X </b></tt> - there are either zero or one
+     <b><tt>X</b></tt>'s</li>
+</ul>
+
+<hr WIDTH="100%">
+
+<p> The basic format for a quantifier is</p>
+
+<b><pre>
+  quantifier variable:type | formula
+</b></pre>
+
+<p> where the formula may includes references to the quantifier
+    variable.  An alternative notation is:</p>
+
+<b><pre>
+  quantifier variable:type { formula }
+</b></pre>
+
+<p> Examples:</p>
+
+<b><pre>
+  </b><i>//Does any directory contain itself?</i><b>
+  some d: Dir | d.parent = d
+
+  </b><i>//every file is some directory</i><b>
+  all f:File | some d:Dir | f.parent = d
+
+  </b><i>//no two directories have exactly the same contents</i><b>
+  no dir1, dir2: Dir | dir1!=dir2 && dir1.contents=dir2.contents
+</b></pre>
+
+<hr WIDTH="50%">
+<p> The above features can, of course, be combined to produce
+    arbitrarily complex formulas.</p>
+
+<p> However, be warned that nested quantifiers may cause your model to
+    become intractable.  In generaly, try not to stack more than two
+    or three of them together.</p>
+
+  </body>
+</html>

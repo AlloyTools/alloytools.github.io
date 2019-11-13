@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>Syntax for comments</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Commenting Styles and Syntax</h2>
+
+<p> There are three ways to indicate a comment in Alloy:
+<ul>
+<li> To comment out several lines of text, place "<b><tt>/*</tt></b>"
+     before the text and "<b><tt>*/</tt></b>" after the text.  All
+     intervening text (including linebreaks and whitepace) will be
+     ingored.  Some users follow the convention of putting a
+     <b><tt>*</tt></b> in front of each line in the comment, but this
+     is not necessary. <br><br>
+<li> A single line can be commented by placing "<b><tt>//</tt></b>" at
+     the beginning of the comment.  All text (including whitespace)
+     after the slashes and before the the next linebreak will be
+     ignored. <br><br>
+<li> A single line can also be commented by placing
+     "<b><tt>--</tt></b>" at the beginning of the comment.  All text
+     (including whitespace) after the dashes and before the the next
+     linebreak will be ignored.
+</ul>
+
+<p> For example, in the following text, the <i><tt>c</tt></i>'s are
+    commented text, and the <b><tt>A</tt></b>'s are uncommented Alloy
+    code:
+
+<b><pre>
+AA AA AAAAA AA AA
+AAAAA </b><i>//cccccccc</i><b>
+AAAA AA AA AAA AA </b><i>--cccccccc</i><b>
+
+</b><i>/* cc cccccc
+ccccccc
+ccccc */</i><b>
+
+AA AAA AAA AAAAA
+AAAAAA AA AA </b><i>/* c cc cccc */</i><b> AA AAAA </b><i>/*ccc*/</i><b> AAA A AAAA
+
+</b><i>/*
+ * ccc c ccc cc ccccc
+ * ccccccc cccccc-ccc
+ */</i><b>
+
+AAAAAA
+</b><i>-- cccccc</i><b>
+</b><i>--ccccc</i><b>
+AAAAAAA A AA A
+</b><i>// ccccc</i><b>
+</b><i>//ccccc</i><b>
+AAA AAAA AA A A A
+</pre></b>
+
+  </body>
+</html>

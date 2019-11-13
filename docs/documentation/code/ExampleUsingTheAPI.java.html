@@ -1,0 +1,105 @@
+<!DOCTYPE html><html><head><link rel="stylesheet" type="text/css" href="http://alloy.mit.edu/alloy/hola/css/alloy.css"/></head><body>
+
+<div class="highlight"><pre><span class="cm">/* Alloy Analyzer 4 -- Copyright (c) 2006-2009, Felix Chang</span>
+<span class="cm"> *</span>
+<span class="cm"> * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files</span>
+<span class="cm"> * (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify,</span>
+<span class="cm"> * merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is</span>
+<span class="cm"> * furnished to do so, subject to the following conditions:</span>
+<span class="cm"> *</span>
+<span class="cm"> * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</span>
+<span class="cm"> *</span>
+<span class="cm"> * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES</span>
+<span class="cm"> * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE</span>
+<span class="cm"> * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF</span>
+<span class="cm"> * OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</span>
+<span class="cm"> */</span>
+
+<span class="kn">package</span> <span class="n">edu</span><span class="o">.</span><span class="na">mit</span><span class="o">.</span><span class="na">csail</span><span class="o">.</span><span class="na">sdg</span><span class="o">.</span><span class="na">alloy4whole</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">edu</span><span class="o">.</span><span class="na">mit</span><span class="o">.</span><span class="na">csail</span><span class="o">.</span><span class="na">sdg</span><span class="o">.</span><span class="na">alloy4</span><span class="o">.</span><span class="na">A4Reporter</span><span class="o">.</span><span class="na">NOP</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">static</span> <span class="n">edu</span><span class="o">.</span><span class="na">mit</span><span class="o">.</span><span class="na">csail</span><span class="o">.</span><span class="na">sdg</span><span class="o">.</span><span class="na">alloy4compiler</span><span class="o">.</span><span class="na">ast</span><span class="o">.</span><span class="na">Sig</span><span class="o">.</span><span class="na">UNIV</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Arrays</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4.Err</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4.Util</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.ast.Attr</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.ast.Command</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.ast.Decl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.ast.Expr</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.ast.ExprConstant</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.ast.Func</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.ast.Sig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.ast.Sig.PrimSig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.translator.A4Options</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.translator.A4Solution</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">edu.mit.csail.sdg.alloy4compiler.translator.TranslateAlloyToKodkod</span><span class="o">;</span>
+
+<span class="cm">/** This class demonstrates how to access Alloy4 via the API. */</span>
+
+<span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">ExampleUsingTheAPI</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Err</span> <span class="o">{</span>
+
+        <span class="c1">// Chooses the Alloy4 options</span>
+        <span class="n">A4Options</span> <span class="n">opt</span> <span class="o">=</span> <span class="k">new</span> <span class="n">A4Options</span><span class="o">();</span>
+        <span class="n">opt</span><span class="o">.</span><span class="na">solver</span> <span class="o">=</span> <span class="n">A4Options</span><span class="o">.</span><span class="na">SatSolver</span><span class="o">.</span><span class="na">SAT4J</span><span class="o">;</span>
+
+        <span class="c1">// abstract sig A {}</span>
+        <span class="n">PrimSig</span> <span class="n">A</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PrimSig</span><span class="o">(</span><span class="s">&quot;A&quot;</span><span class="o">,</span> <span class="n">Attr</span><span class="o">.</span><span class="na">ABSTRACT</span><span class="o">);</span>
+
+        <span class="c1">// sig B {}</span>
+        <span class="n">PrimSig</span> <span class="n">B</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PrimSig</span><span class="o">(</span><span class="s">&quot;B&quot;</span><span class="o">);</span>
+
+        <span class="c1">// one sig A1 extends A {}</span>
+        <span class="n">PrimSig</span> <span class="n">A1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PrimSig</span><span class="o">(</span><span class="s">&quot;A1&quot;</span><span class="o">,</span> <span class="n">A</span><span class="o">,</span> <span class="n">Attr</span><span class="o">.</span><span class="na">ONE</span><span class="o">);</span>
+
+        <span class="c1">// one sig A2 extends A {}</span>
+        <span class="n">PrimSig</span> <span class="n">A2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PrimSig</span><span class="o">(</span><span class="s">&quot;A2&quot;</span><span class="o">,</span> <span class="n">A</span><span class="o">,</span> <span class="n">Attr</span><span class="o">.</span><span class="na">ONE</span><span class="o">);</span>
+
+        <span class="c1">// A { f: B lone-&gt;lone B }</span>
+        <span class="n">Expr</span> <span class="n">f</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="na">addField</span><span class="o">(</span><span class="s">&quot;f&quot;</span><span class="o">,</span> <span class="n">B</span><span class="o">.</span><span class="na">lone_arrow_lone</span><span class="o">(</span><span class="n">B</span><span class="o">));</span>
+        <span class="c1">// Since (B lone-&gt;lone B) is not unary,  the default is &quot;setOf&quot;,  meaning &quot;f:set (B lone-&gt;lone B)&quot;</span>
+
+        <span class="c1">// A { g: B }</span>
+        <span class="n">Expr</span> <span class="n">g</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="na">addField</span><span class="o">(</span><span class="s">&quot;g&quot;</span><span class="o">,</span> <span class="n">B</span><span class="o">);</span>
+        <span class="c1">// The line above is the same as:   A.addField(null, &quot;g&quot;, B.oneOf())  since B is unary.</span>
+        <span class="c1">// If you want &quot;setOf&quot;, you need:   A.addField(null, &quot;g&quot;, B.setOf())</span>
+
+        <span class="c1">// pred someG { some g }</span>
+        <span class="n">Func</span> <span class="n">someG</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Func</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">&quot;SomeG&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">g</span><span class="o">.</span><span class="na">some</span><span class="o">());</span>
+
+        <span class="c1">// pred atMostThree[x:univ, y:univ] { #(x+y) &gt;= 3 }</span>
+        <span class="n">Decl</span> <span class="n">x</span> <span class="o">=</span> <span class="n">UNIV</span><span class="o">.</span><span class="na">oneOf</span><span class="o">(</span><span class="s">&quot;x&quot;</span><span class="o">);</span>
+        <span class="n">Decl</span> <span class="n">y</span> <span class="o">=</span> <span class="n">UNIV</span><span class="o">.</span><span class="na">oneOf</span><span class="o">(</span><span class="s">&quot;y&quot;</span><span class="o">);</span>
+        <span class="n">Expr</span> <span class="n">body</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">plus</span><span class="o">(</span><span class="n">y</span><span class="o">.</span><span class="na">get</span><span class="o">()).</span><span class="na">cardinality</span><span class="o">().</span><span class="na">lte</span><span class="o">(</span><span class="n">ExprConstant</span><span class="o">.</span><span class="na">makeNUMBER</span><span class="o">(</span><span class="mi">3</span><span class="o">));</span>
+        <span class="n">Func</span> <span class="n">atMost3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Func</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="s">&quot;atMost3&quot;</span><span class="o">,</span> <span class="n">Util</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">x</span><span class="o">,</span><span class="n">y</span><span class="o">),</span> <span class="kc">null</span><span class="o">,</span> <span class="n">body</span><span class="o">);</span>
+
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Sig</span><span class="o">&gt;</span> <span class="n">sigs</span> <span class="o">=</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="k">new</span> <span class="n">Sig</span><span class="o">[]{</span><span class="n">A</span><span class="o">,</span> <span class="n">B</span><span class="o">,</span> <span class="n">A1</span><span class="o">,</span> <span class="n">A2</span><span class="o">});</span>
+
+        <span class="c1">// run { some A &amp;&amp; atMostThree[B,B] } for 3 but 3 int, 3 seq</span>
+        <span class="n">Expr</span> <span class="n">expr1</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="na">some</span><span class="o">().</span><span class="na">and</span><span class="o">(</span><span class="n">atMost3</span><span class="o">.</span><span class="na">call</span><span class="o">(</span><span class="n">B</span><span class="o">,</span><span class="n">B</span><span class="o">));</span>
+        <span class="n">Command</span> <span class="n">cmd1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Command</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="n">expr1</span><span class="o">);</span>
+        <span class="n">A4Solution</span> <span class="n">sol1</span> <span class="o">=</span> <span class="n">TranslateAlloyToKodkod</span><span class="o">.</span><span class="na">execute_command</span><span class="o">(</span><span class="n">NOP</span><span class="o">,</span> <span class="n">sigs</span><span class="o">,</span> <span class="n">cmd1</span><span class="o">,</span> <span class="n">opt</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;[Solution1]:&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sol1</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+        <span class="c1">// run { some f &amp;&amp; SomeG[] } for 3 but 2 int, 1 seq, 5 A, exactly 6 B</span>
+        <span class="n">Expr</span> <span class="n">expr2</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="na">some</span><span class="o">().</span><span class="na">and</span><span class="o">(</span><span class="n">someG</span><span class="o">.</span><span class="na">call</span><span class="o">());</span>
+        <span class="n">Command</span> <span class="n">cmd2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Command</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="n">expr2</span><span class="o">);</span>
+        <span class="n">cmd2</span> <span class="o">=</span> <span class="n">cmd2</span><span class="o">.</span><span class="na">change</span><span class="o">(</span><span class="n">A</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+        <span class="n">cmd2</span> <span class="o">=</span> <span class="n">cmd2</span><span class="o">.</span><span class="na">change</span><span class="o">(</span><span class="n">B</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+        <span class="n">A4Solution</span> <span class="n">sol2</span> <span class="o">=</span> <span class="n">TranslateAlloyToKodkod</span><span class="o">.</span><span class="na">execute_command</span><span class="o">(</span><span class="n">NOP</span><span class="o">,</span> <span class="n">sigs</span><span class="o">,</span> <span class="n">cmd2</span><span class="o">,</span> <span class="n">opt</span><span class="o">);</span>
+
+        <span class="k">while</span> <span class="o">(</span><span class="n">sol2</span><span class="o">.</span><span class="na">satisfiable</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;[Solution2]:&quot;</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sol2</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+            <span class="n">sol2</span> <span class="o">=</span> <span class="n">sol2</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+</head></body>

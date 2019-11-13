@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <title>Alternatives for "one" and appended facts</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Alternatives to "one" and appended facts</h2>
+
+In <i>File System Lesson 1</i>, we wrote
+
+<b><pre>
+  </b><i>// There exists a root</i><b>
+  one sig Root extends Dir { } { no parent }
+</b></pre>
+
+Equivalently, we could have accomplished the same effect by writing
+two additional facts:
+
+<pre>
+  <b>sig Root extends Dir { }
+  fact { one Root }
+  fact { no Root.parent }</b>
+</b></pre>
+
+<p> We could also combine those two <tt><b>fact</b></tt> statements
+    into one.  Notice that when more than one constraint appears in a
+    fact, they are automatically conjoined together as if you used the &amp;&amp; operator.
+
+<pre>
+  <b>sig Root extends Dir { }
+  fact {
+    one Root
+    no Root.parent
+  }</b>
+</pre>
+
+<p> We could also reword the second constraint in the fact (although
+    there is no particular reason to do so) as follows:
+
+<pre>
+  <b>sig Root extends Dir { }
+  fact {
+    one Root
+    all r:Root | no r.parent
+  }</b>
+</pre>
+
+<p> this rewriting works because "<b><tt>.</tt></b>" gets mapped onto
+    the elements of a set it is applies to.
+
+<p> Both of these syntatic shorthands can make a model more concise
+    and clearer, but are not always appropriate.  When and how you use
+    them is a matter of style.
+
+  </body>
+</html>

@@ -1,0 +1,85 @@
+Solutions to Logic Exercises
+
+-------------------------------------------------------------------------------
+
+Properties of Binary Relations
+(solution by Martin Ouimet)
+
+1. The non-empty property can be removed.
+   Relation satisfying the remaining properties:
+        univ = {}
+        r = {}
+
+2. The transitive property can be removed.
+   Relation satisfying the remaining properties:
+        univ = {a,b}
+        r = {(a,b), (b,a)}
+
+3. The irreflexive property can be removed.
+   Relation satisfying the remaining properties:
+        univ = {a,b}
+        r = {(a,a),(b,b)}
+
+No other individual property can be removed such that the remaining properties
+are satisfied.
+
+-------------------------------------------------------------------------------
+
+Distributivity of Join
+(solution by Michael Craig)
+
+Proof for part a) was not necessary.
+
+a) Distributivity of join over union holds: for a set s and relations p and q,
+   suppose (A0) is in s.(p+q). Then for some AX,  (AX) is in s and (AX,A0) is
+   in p or q, or both. Then (A0) is in  either s.p or s.q, or both, so it is
+   certainly in s.p + s.q.
+
+   Now assume (A0) is in s.p + s.q. Then for some (AX) in s, (AX,A0) is in
+   either p or q. Thus (AX,A0) is certainly in p+q, so that s.(p+q) must
+   contain (A0).
+
+   In other words, for any atom A0, A0 is in s.(p+q) iff it is in s.p + s.q.
+
+b) Distributivity of join over difference does not hold: consider the set s =
+   {(A0,A1)} and the relations p = {(A0,A1)} and q = {(A1,A1)}. Then s.(p-q) =
+   s.({(A0,A1)}) = {(A1)}, but s.p - s.q = {(A1)} - {(A1)} = {}.
+
+c) Distributivity of join over intersection does not hold: consider the set s =
+   {(A0),(A1)} and the relations p = {(A0,A0)} and q = {(A1,A0)}. Then s.(p&q)
+   = s.({}) = {}, but s.p & s.q = {(A0)} & {(A0)} = {(A0)}.
+
+-------------------------------------------------------------------------------
+
+Modeling the Tube
+(solution by Greg Dennis)
+
+There are multiple equivalent constraints. If you found different solutions,
+you can use the Alloy Analyzer to test whether they are equivalent.
+
+a) named stations are on exactly the lines as shown in graphic
+  Stanmore in (JubileeStation - CentralStation) - CircleStation
+  BakerStreet in (JubileeStation & CircleStation) - CentralStation
+  Epping in (CentralStation - JubileeStation) - CircleStation
+
+b) no station (including those unnamed) is on all three lines
+  no (JubileeStation & CentralStation & CircleStation)
+
+c) the Circle line forms a circle
+  all s: CircleStation {
+    one s.circle
+    CircleStation in s.^circle
+  }
+
+d) Jubilee is a straight line starting at Stanmore
+  JubileeStation in Stanmore.*jubilee
+  all s: JubileeStation {
+    lone s.jubilee
+    s not in s.^jubilee
+  }
+
+e) there's a station between Stanmore and BakerStreet
+  let reach = ^jubilee | some Stanmore.reach & reach.BakerStreet
+
+f) it is possible to travel from BakerStreet to Epping
+  Epping in BakerStreet.^(jubilee + central + circle)

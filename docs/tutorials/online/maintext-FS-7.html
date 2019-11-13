@@ -1,0 +1,84 @@
+<html>
+  <head>
+    <title>Alloy Tutorial Main Text</title>
+    <link   rel=stylesheet   href="style-maintext.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>File System Lesson VI</h2>
+
+    <a href="index.html" target="_top">Start Over</a> .
+    <a href="frame-FS-6.html" target="_top">back</a> . <a href="frame-RC-1.html" target="_top">next</a>
+
+<hr WIDTH="100%">
+
+<p> The scope 2 counterexample for removeOkay and removeAllOkay is the same:</p>
+
+<p> &nbsp; <img align=absmiddle src="bug1.png"> -&gt; <img align=absmiddle src="bug2.png"></p>
+
+<p>
+    In the pre state, Dir0 is the root, and Dir1 is the directory to be removed.
+    So far so good. In the post state, indeed there is no longer a <b><tt>parent</tt></b>
+    relationship between Dir0 and Dir1. However, Dir1 is chosen as the new root!
+</p>
+
+<hr WIDTH="50%">
+
+<p> Why can this happen? First, let's note that both remove and removeAll predicates
+    cause the rows of the parent relation in the post-state to be a
+    subset of the rows in the pre-state. And we know the
+    <b><tt>FileSystem</tt></b> appended facts "<b><tt>live in
+    root.*contents</tt></b>" constrains the root of the file system
+    to be the root of the contents relation. So if the post-state has
+    a non-empty <b><tt>contents</tt></b> relation, it will have the
+    same root as the pre-state. However if delete function causes the
+    post-state to have an empty contents relation, then the root is
+    free to change arbitrarily, to any directory available.  Bet you
+    didn't see that coming.  Good thing we wrote a model!
+
+<p> We can amend our delete functions to stipulate that the root stays the same.
+    The amended delete functions look as follows:
+
+<pre><b>pred remove [fs, fs': FileSystem, x: FSObject] {
+  x in (fs.live - fs.root)
+  fs'.root = fs.root
+  fs'.parent = fs.parent - x->(x.(fs.parent))
+}</b></pre>
+
+and
+
+<pre><b>pred removeAll [fs, fs': FileSystem, x: FSObject] {
+  x in (fs.live - fs.root)
+  fs'.root = fs.root
+  let subtree = x.*(fs.contents) |
+      fs'.parent = fs.parent - subtree->(subtree.(fs.parent))
+}</b></pre>
+
+<p> When we check the assertions up to a scope of 5, Alloy finds no
+    counterexamples.  We can be fairly certain that our predicates work
+    as intended.
+
+<hr WIDTH="50%">
+
+<p> As one final sanity check, let's verify that
+    <b><tt>remove</tt></b> and <b><tt>removeAll</tt></b> are
+    equivalent when the deleted object is a file:
+
+<pre><b>removeAllSame: check {
+  all fs, fs1, fs2: FileSystem, f: File |
+    remove[fs, fs1, f] && removeAll[fs, fs2, f] => fs1.live = fs2.live
+} for 5</b></pre>
+
+<p> Alloy finds no counterexamples, thus further reassuring us that
+    the remove predicates functions were written correctly and that the system we
+    are modeling does not have errors.  The final version of the model
+    is in the upper righthand frame.
+
+<hr WIDTH="100%">
+
+    <a href="index.html" target="_top">Start Over</a> .
+    <a href="frame-FS-6.html" target="_top">back</a> . <a href="frame-RC-1.html" target="_top">next</a>
+
+</body>
+</html>
+

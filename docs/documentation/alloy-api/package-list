@@ -1,0 +1,10 @@
+edu.mit.csail.sdg.alloy4
+edu.mit.csail.sdg.alloy4compiler.ast
+edu.mit.csail.sdg.alloy4compiler.parser
+edu.mit.csail.sdg.alloy4compiler.sim
+edu.mit.csail.sdg.alloy4compiler.translator
+edu.mit.csail.sdg.alloy4graph
+edu.mit.csail.sdg.alloy4viz
+edu.mit.csail.sdg.alloy4whole
+java_cup.runtime
+tmp

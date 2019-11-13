@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Alloy Tutorial Main Text</title>
+    <link   rel=stylesheet   href="style-maintext.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>File System Lesson IV</h2>
+
+    <a href="index.html" target="_top">Start Over</a> .
+    <a href="frame-FS-4.html" target="_top">back</a> . <a href="frame-FS-6.html" target="_top">next</a>
+
+<hr WIDTH="100%">
+
+<p> In this lesson, we do not add any new features to the model, but
+    instead we rewrite part of it to show you a different way to doing
+    things.  The resulting model is semantically equivalent, but is a
+    bit more concise and arguably clearer.
+
+<p> Two of the four constraints which were in the
+    <b><tt>FileSystem</b></tt> appended fact have been removed:
+
+<b><pre>
+  no root.parent
+  contents in live->live
+</pre></b>
+
+<p> These constraints have been built into the other ones.  First of
+    all, the line which used to read
+
+<b><pre>
+  root: Dir,
+</pre></b>
+
+<p> now reads
+
+<b><pre>
+  root: Dir & live,
+</pre></b>
+
+<p> This defines the root of a FileSystem to be in the set of
+    <b><tt>live</b></tt> objects of its <b><tt>FileSystem</b></tt>, and not
+    just be any old directory.  (since it is in the <a
+    href="sidenote-set-ops.html" target="sidenote"> intersection</a>
+    of <b><tt>Dir</b></tt> and <b><tt>live</b></tt>).
+
+<p> Secondly, the lines which use to read
+
+<b><pre>
+  parent: FSObject ->lone Dir,
+  contents: Dir lone-> FSObject
+</pre></b>
+
+<p> now read
+
+<b><pre>
+  parent: (live - root) ->one (Dir & live),
+  contents: Dir -> FSObject
+</pre></b>
+
+<p> This is the same trick, but a little bit messier because it has
+    been done to higher arity relations (relations with more than 2
+    entries in each row).  The <b><tt>parent</tt></b> relation maps every live object (except the root)
+    to exactly one live <b><tt>Dir</tt></b>. The <b><tt>contents</tt></b>
+    relation can be relaxed to just say it
+    maps from <b><tt>Dir</tt></b> to <b><tt>FSObject</tt></b>
+    (since later we have <nobr><b><tt>"contents = ~parent"</tt></b></nobr>
+    so the <b><tt>contents</tt></b> relation
+    will be exactly correct, and we don't need to write <b><tt>"Dir lone->FSObject"</tt></b> here).</p>
+
+<p> Also notice that the <b><tt>lone</b></tt> <a
+    href="sidenote-multiplicity.html" target="sidenote">multiplicity
+    markings</a> have been replaced by <b><tt>one</b></tt>'s.  Where a
+    <b><tt>lone</b></tt> indicated "0 or 1", a <b><tt>one</b></tt>
+    indicates "exactly 1".  Thus the first line makes sure that
+    each live non-root object has <b>exactly</b> one parent.</p>
+
+<hr WIDTH="50%">
+
+<p> In the next lesson, we add dynamic operations to the model,
+    <b><tt>move</tt></b> and <b><tt>remove</tt></b>.
+
+<hr WIDTH="50%">
+
+    <a href="index.html" target="_top">Start Over</a> .
+    <a href="frame-FS-4.html" target="_top">back</a> . <a href="frame-FS-6.html" target="_top">next</a>
+
+</body>
+</html>

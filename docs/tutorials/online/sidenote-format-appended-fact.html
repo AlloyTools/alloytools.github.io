@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <title>Syntax for appended facts</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Syntax for <i>appended facts</i></h2>
+
+<p> An appended fact is written by placing constraints in curly braces
+    immediately after a <tt><b>sig</b></tt> statement.  They can make
+    a model clearer by logically grouping related constraints
+    together.
+
+<b><pre>
+  sig name {
+    // fields of the signature
+  }{
+    // appended fact constraints
+  }
+</b></pre>
+
+<p> Any field mentioned in the appended fact has an implied "<b><tt>all
+    this:name |</b></tt>" at its beginning, and an implied
+    "<tt><b>this.</b></tt>" in front of it. Thus:
+
+<b><pre>
+  sig Person {
+      closeFriends: set Person,
+      friends: set Person
+  } {
+      closeFriends in friends
+  }
+</pre></b>
+
+<p> is really saying
+
+<b><pre>
+  sig Person {
+      closeFriends: set Person,
+      friends: set Person
+  }
+
+  fact {
+      all x:Person | x.closeFriends in x.friends
+  }
+</pre></b>
+
+<p> Consequently, appended fact can be more concise (and thus clearer)
+    than the equivalent non-appended <a
+    href="sidenote-format-fact.html">fact</a>.
+    However, there is also a danger in forgetting that <i>every
+    field</i> mentioned in an appended fact is prepended with
+    "<b><tt>this.</b></tt>".
+
+  </body>
+</html>

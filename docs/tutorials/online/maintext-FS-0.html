@@ -1,0 +1,133 @@
+<html>
+  <head>
+    <title>Alloy Tutorial Main Text</title>
+    <link   rel=stylesheet   href="style-maintext.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Lesson 0</h2>
+
+    <a href="index.html" target="_top">back</a> <a href="frame-FS-1.html" target="_top">next</a>
+
+<hr WIDTH="100%">
+
+
+<h3>Approach of this Tutorial</h3>
+
+<p> The theme to this tutorial is "lead by mistake".  We will present
+    you with an Alloy model which is well formed, but which initially
+    makes some conceptual mistakes and has some shortcomings.  We will
+    then go through the process of identifying those mistakes,
+    understanding why they occurred, and fixing them.  We will iterate
+    this process until we have a final draft.
+
+<p> We choose this approach, not only because it imitates the actual
+    modeling process, but also because it will allow us to begin with
+    a simple model, using only a small part of Alloy syntax, and
+    gradually introduce complexities and more advanced syntax as it is
+    needed.  As a result, this tutorial will not introduce you to
+    <i>every</i> Alloy command, but we will make sure you are
+    comfortable with the important ones.
+
+<hr WIDTH="50%">
+
+
+<h3>Why Write a Model?</h3>
+
+<p> The goal of a writing a model is to describe some aspect of a
+    system (but not the entire system), constrain it to exclude
+    ill-formed examples, and check properties about it.  For instance,
+    you might describe the procedure a company uses to reroute mail
+    internally, add some constraints about how the mail carriers
+    behave, and then check to see if each piece of mail either gets to
+    its destination or returned to sender.  Your modeling tool (in
+    this case, Alloy), would then either say "this property always
+    holds for problems up to size X" or "this property does not always
+    hold, and here is a counter example".
+
+<p> There are two kinds of problems that can arise:
+<ul>
+<li> <b>bugs</b> in the model itself.  We will discuss the problems of
+     overconstraining and underconstraining your model, and how to
+     find and eliminate such bugs.
+<li> <b>errors</b> in the subject you are modeling.  These are what
+     you are after, and what modeling is all about.  We will show you
+     how to make and check assertions about your system, and how to
+     track down why a given assertion failed to hold.
+</ul>
+
+<p> Alloy is similar to several other existing languages and modeling
+    techniques, but with several key differences.
+<ul>
+<li> <b>finite scope check</b> - once you go to actually analyze the
+     model, you must specify a scope (size) for your model.  The
+     analysis is <i>sound</i> (it never returns false positives) but
+     <i>incomplete</i> (since it only checks things up to a certain
+     scope).  However, it is <i>complete up to scope</i>; it never
+     misses a counterexample which is smaller than the specified
+     scope.  Small scope checks are still extremely valuable for
+     finding errors.
+<li> <b>infinite model</b> - The models you write in Alloy do not
+     reflect the fact that the analysis is finite.  That is, you
+     describe the compontents of a system and how they interact, but
+     do not specify how many components there can be (as is done in
+     traditional "model checking").
+<li> <a href="sidenote-operational-declarative.html" target="sidenote"> <b>declarative</b></a>
+     - a declarative modeler answers the question
+     "how would I recognize that X has happened", as opposed to an
+     "operational" or "imperative" modeler who asks "how can I
+     accomplish X".
+<li> <b>automatic analysis</b> - unlike some other declarative
+     specification languages (such as <i>Z</i> and <i>OCL</i>, the
+     object language of <i>UML</i>), Alloy can be automatically
+     analyzed.  You can automatically generate examples of your system
+     and counterexamples to claims made about that system.
+<li> <b>structured data</b> - Alloy supports complex data structures,
+     such as trees, and thus is a rich way to describe state
+</ul>
+
+
+
+<hr WIDTH="50%">
+<h3>How <i>Lesson I</i> Will Work</h3>
+
+<p> We begin our tutorial with a simple model of a file system.  It
+    has a notion of a "file system object" which can be either a file
+    or a directory.  Every file system object knows its parent, and
+    directories also know their contents.  We will also create the
+    notion of a "root directory", which resides at the top of the file
+    system.
+
+<p> We will begin by defining files, directories, and file system
+    objects, and make sure that they have the appropriate fields
+    (parent, contents, etc.).  We then show how to write simple facts
+    to constrain the file system and to impose simple sanity
+    constraints.  For instance: every file system object must be
+    either a file or a directory (not both, not neither); the file
+    system is connected, the root has no parent; and so on.
+
+<p> It is easy to forget simple constraints like this, since they are
+    so obvious to our intuition.  We will show you how to view example
+    file systems to make sure that they do not have any bizarre
+    behaviour that you wished to preclude.
+
+<p> We will show you how to make assertions about properties you think
+    (or hope) are true as a result of the sanity constraints you
+    wrote.  We'll show you how to check these assertions, and what to
+    do when they fail to hold.  For instance, we will verify that a
+    file system is acyclic, even though we do not explicitly force it
+    to be so.
+
+<p> The file system we write will have some shortcomings; most
+    prominently, it will be static.  In the following lessons, we will
+    introduce dynamic operations, such as move and delete.
+
+<p> By the end of the first lesson, you will have written a simple
+    static file system, constrained it to exclude ill-formed
+    file-systems, and verified some properties about it.
+
+
+<hr WIDTH="100%"> <a href="index.html" target="_top">back</a> <a href="frame-FS-1.html" target="_top">next</a>
+
+</body>
+</html>

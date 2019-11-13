@@ -1,0 +1,80 @@
+<html>
+  <head>
+    <title>Logical Operations</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Logical Operations</h2>
+
+<p> Alloy supports the standard boolean operators:
+<b><pre>
+  !F      // negations: not F
+  F && G  // conjunction: F and G
+  F || G  // disjunction: F or G
+</b></pre>
+
+<p> It's useful to have a variety of implication operators:
+<b><pre>
+  F => G         // implication: same as !F || G
+  G <=> G        // bi-implication: same as (F => G) && (G => F)
+  F => G else H  // conditional: if F then G else H; same as (F => G) && (!F=> H)
+</b></pre>
+
+<p> If you do not write sufficient parentheses, Alloy assumes that
+    certain operations bind tighter than others.  In order from tightest to loosest:
+<b><pre>
+  not (!)
+  and (&&)
+  implication/conditional (=>)
+  bi-implication (<=>)
+  or (||)
+</pre></b>
+
+<p> Thus, the following pairs of expressions are equivalent
+<b><pre>
+  !A && B        //  (!A) && B
+  A && B || C    //  (A && B) || C
+  A || B && C    //  A || (B && C)
+  A => B => C    //  (A => B) => C
+</b></pre>
+
+<p> You are permitted to add excess parentheses at your judgement.
+    Thus, <b><tt>A</b></tt>, <b><tt>(A)</b></tt>, and
+    <b><tt>((A))</b></tt> are all equivalent.
+
+<p> If you write several statements in the curly braces of the body of
+    a <a href="sidenote-format-fact.html"> <b><tt>fact</b></tt></a>,
+    <a href="sidenote-format-assert.html" > <b><tt>assert</b></tt></a>, or <a
+    href="sidenote-quantifiers.html"> quantifier</a>, those statements are implicityly conjoined
+    (<b><tt>&&</b></tt>).  That is,
+
+<b><pre>
+fact Fibbles {
+  (no X) && (all y:Y | y in Foo)
+}
+</pre></b>
+
+<p> could be written as
+
+<b><pre>
+fact Fibbles {
+  no X
+  all y:Y | y in Foo
+}
+</pre></b>
+
+<p> and
+
+<b><pre>
+all x: e | F && G && H
+</pre></b>
+
+<p> could be written as
+
+<b><pre>
+all x: e {F G H}
+</pre></b>
+
+  </body>
+</html>

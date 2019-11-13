@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>Syntax for predicates</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Syntax for <b><tt>pred</b></tt> (predicate) statements</h2>
+
+<b><pre>
+pred name [parameter1:domain1, parameter2:domain2] {
+     constraint1
+     constraint2
+     constraint3
+}
+</pre></b>
+
+<p> If the inputs satisfy all of the constraints listed in the body,
+    then the predicate evaluates to true. Otherwise it evaluates to
+    false.</p>
+
+<hr WIDTH="50%">
+
+<p> In an <a href="sidenote-operational-declarative.html" > imperative</a> model, you might ask yourself
+    "<i>how can I make X happen?</i>".  In a <a
+    href="sidenote-operational-declarative.html" >declarative</a> model (like Alloy), you ask
+    yourself "<i>how would I recognize that X has been
+    accomplished?</i>".
+
+<p> One reflection of this is that predicates in Alloy only ever
+    evaluate to <i>true</i> or <i>false</i>, while function may
+    evaluate to relations.</p>
+
+<hr WIDTH="50%">
+
+<p> A predicate returns true or false. A similar construct is a <a
+    href="sidenote-format-functions.html"> function</a> which returns a value.</p>
+
+<p> Remind me what a <a href="sidenote-relation-function.html" > function</a> is. </p>
+
+  </body>
+</html>

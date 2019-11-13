@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Combining Modules</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Combining modules with the <b><tt>open</b></tt> command</h2>
+
+<p> You can import a model named <b><tt>someExample.als</tt></b> into your model
+    by writing
+
+<pre>
+  open somePath/someExample
+</pre>
+
+<p> immediately below the <b><tt>module</tt></b> statement at the top
+    of your model.  In this case, <b><tt>somePath</tt></b> is the path
+    where <b><tt>someExample.als</tt></b> is stored.
+
+<p> This is equivalent to prepending the contents of the
+    <b><tt>someExample.als</tt></b> model to your model.
+    Consequently, you will
+    have to be careful about name conflicts.
+
+  </body>
+</html>

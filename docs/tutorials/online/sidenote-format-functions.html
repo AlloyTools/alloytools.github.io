@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <title>Syntax for functions</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Syntax for <b><tt>fun</b></tt> (function) statements</h2>
+
+<b><pre>
+fun name [parameter1: domain1, paramter2: domain2, ..., parameterN: domainN]: domain {
+    [body must evaluate to a value in Domain]
+}
+</pre></b>
+
+<p>For example:</p>
+
+<b><pre>
+fun between [lower:Int, upper:Int]: Int {
+    {answer: Int | lower&lt;answer &amp;&amp; answer&lt;upper }
+}
+</pre></b>
+
+<p> Notice that in this case we have written a set comprehension as
+    the body of the function. If there is more than one solution to
+    the comprehension, then the function will return the set of all
+    solutions.
+</p>
+
+<p> You can put constraints in the parameter list as reminders to
+    yourself, although they are not actually enforced. For example:
+</p>
+
+<b><pre>
+fun name [param: some Int]: lone Int {
+    ...
+}
+</pre></b>
+
+<hr WIDTH="50%">
+
+<p> A function evaluates to a value. A similar construct is a <a
+    href="sidenote-format-pred.html" >predicate</a> which returns
+    either true or false, but is otherwise written the same. </p>
+
+<p> Remind me what a <a href="sidenote-relation-function.html" > function</a> is. </p>
+
+  </body>
+</html>

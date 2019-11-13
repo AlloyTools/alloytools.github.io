@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Syntax for checking assertions</title>
+    <link   rel=stylesheet   href="style-sidenote.css"   type="text/css">
+  </head>
+
+  <body>
+    <h2>Syntax for <i>check</i> statements</h2>
+
+<p> With Alloy, you can automatically verify (up to a specified scope)
+    or falsify (with a counterexample) an <a
+    href="sidenote-format-assert.html"><b><tt>assert</b></tt> statement</a>,
+    by using a <b><tt>check</b></tt> command.
+
+<b><pre>
+  check name-of-assert for integer
+</pre></b>
+
+<p> The integer defines the scope -- the maximum size of each set in
+    the model that will be considered.  Specifically, it is the
+    maximum size of the top-level signatures (sets).  If there is any
+    solution in that scope or less, Alloy is guaranteed to find
+    it. Thus, we say Alloy is 'complete up to scope'.
+
+<p> For example, the statement
+
+<b><pre>
+  check acyclic for 5
+</pre></b>
+
+<p> checks the <b><tt>acyclic</tt></b> assertion, and tells Alloy to
+    only examine cases where there are at most 5 top level sigs/sets.
+
+<p> Larger scopes take longer to solve, and often result in more
+    complicated examples.  Thus it is good practice to reduce the
+    scope as low as it can go but still get a solution, before trying
+    to visualize solutions.
+
+<p> You can refine you definition of scope with the
+    <b><tt>but</tt></b> keyword.  For example:
+
+<b><pre>
+  check acyclic for 5 but 1 fileSystem, 7 FSObject
+</pre></b>
+
+<p> The <b><tt>but</tt></b> command lets you specify exceptions to the
+    main scope.  In this case, Alloy will only examine 1 file system,
+    up to 7 file system objects, and up to 5 of any other set.
+
+  </body>
+</html>
