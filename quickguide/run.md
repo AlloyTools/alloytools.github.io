@@ -4,13 +4,13 @@ title: Running the Alloy Analyzer on Mac OS X
 ---
 
 
-Just open the downloaded alloy4.dmg file (available at alloy.mit.edu), and double click on the Alloy4 icon. To keep the application, drag the icon out of the dmg window and place it somewhere in your home directory or on your desktop.
+Just open the downloaded `alloy.dmg` file (the latest version available at [Github Releases page](https://github.com/AlloyTools/org.alloytools.alloy/releases/latest)), and double click on the Alloy4 icon. To keep the application, drag the icon out of the dmg window and place it somewhere in your home directory or on your desktop.
 
 ## Running the Alloy Analyzer on other platforms
 
-Just download the alloy4.jar file (available at alloy.mit.edu) then double-click on the jar file, or type:
+Just download the jar file (the latest version available at [Github Releases page](https://github.com/AlloyTools/org.alloytools.alloy/releases/latest)) then double-click on the jar file, or type:
 
-	java -jar alloy4.jar
+	java -jar org.alloytools.alloy.dist.jar
 
 in the console.
 
