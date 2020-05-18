@@ -1,0 +1,153 @@
+---
+layout: page
+title: Recent Publications
+use_citation_js: true
+use_d3_selection: true
+---
+
+<ul id='publications' class='publications'></ul>
+
+<script>
+
+    const Cite = require('citation-js');
+
+    fetch('{{ "/assets/publications.bib" | relative_url }}')
+        .then(response => response.text())
+        .then(data => {
+            const json = Cite.input(data);
+            layout(json);
+            console.log(json);
+        });
+
+    function layout (data) {
+
+        // Create an entry for each publication
+        const publications = d3.select('#publications')
+            .selectAll('li.publication')
+            .data(data)
+            .join('li')
+            .attr('class', 'publication');
+
+        // Add the title to each entry
+        publications.selectAll('a.title')
+            .data(d => [d])
+            .join('a')
+            .attr('class', 'title')
+            .attr('href', href)
+            .text(title);
+
+        // Add the authors to each entry
+        publications.selectAll('div.authors')
+            .data(d => [d])
+            .join('div')
+            .attr('class', 'authors')
+            .text(authors);
+
+        // Add the container for each entry
+        publications.selectAll('div.container')
+            .data(d => [d])
+            .join('div')
+            .attr('class', 'container')
+            .text(container);
+
+        // Add the details container for each entry
+        const details = publications.selectAll('div.details')
+            .data(d => [d])
+            .join('div')
+            .attr('class', 'details');
+
+        // Add the abstract/bibtex buttons container for each entry
+        const btns = details.selectAll('div.buttons')
+            .data(d => [d])
+            .join('div')
+            .attr('class', 'buttons');
+
+        // Add the details display for each entry
+        const disp = details.selectAll('div.display')
+            .data(d => [d])
+            .join('div')
+            .attr('class', 'display');
+
+        // Add the buttons the the container for each entry
+        btns.selectAll('div.button')
+            .data(buttons)
+            .join('div')
+            .attr('class', 'button')
+            .html(b => b.button + '{% octicon chevron-down %}')
+            .on('click', toggle);
+
+        // Add the content to the display
+        disp.selectAll('div')
+            .data(buttons)
+            .join('div')
+            .attr('class', d => d.button)
+            .attr('id', d => d.id)
+            .style('display', 'none')
+            .text(d => d.value);
+
+        function toggle (d) {
+            const id = d.id;
+            const item = disp.select('#' + id);
+            const visible = item.style('display') === 'block';
+            item.style('display', visible ? 'none' : 'block');
+        }
+
+    }
+
+    function title (item) {
+        return item.title;
+    }
+
+    function href (item) {
+        return item.URL || item.DOI || '';
+    }
+
+    function authors (item) {
+        return item.author.map(author => Cite.get.name(author, false)).join(', ');
+    }
+
+    function container (item) {
+        const d = date(item);
+        return d
+            ? `${item['container-title']}, ${d}`
+            : `${item['container-title']}`;
+    }
+
+    function date (item) {
+        return item.issued ? Cite.get.date(item.issued) : null;
+    }
+
+    function buttons (item) {
+        const bu = [];
+        const ab = abstract(item);
+        if (ab) bu.push({
+            id: 'abstract-' + id(item),
+            button: 'abstract',
+            value: ab
+        });
+        bu.push({
+            id: 'bibtex-' + id(item),
+            button: 'bibtex',
+            value: bibtex(item)
+        });
+        return bu;
+    }
+
+    function abstract (item) {
+        const graph = item._graph;
+        if (graph) {
+            const obj = graph.find(t => t.type === '@bibtex/object');
+            if (obj) return obj.data?.properties?.abstract;
+        }
+    }
+
+    function bibtex (item) {
+        const citation = new Cite(item);
+        return citation.format('bibtex').trim();
+    }
+
+    function id (item) {
+        return item.id;
+    }
+
+</script>

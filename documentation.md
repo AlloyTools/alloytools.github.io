@@ -8,7 +8,7 @@ Alloy 4 is a self-contained executable, which includes the Kodkod model finder a
 as well as the standard Alloy library and a collection of tutorial examples. The same jar file can be incorporated 
 into other applications to use Alloy as an API, and includes the source code.
 
-To execute, simply double-click on the jar file, or type `java -jar alloy4.jar` in a console.
+To execute, simply double-click on the jar file, or type `java -jar org.alloytools.alloy.dist.jar` in a console.
 
 | ------------- | ------------- |
 | [FAQ](/faq/faq.html)  | Frequently asked questions about Alloy |
