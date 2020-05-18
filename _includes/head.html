@@ -8,4 +8,10 @@
   {% if jekyll.environment == 'production' and site.google_analytics %}
     {% include google-analytics.html %}
   {% endif %}
+  {% if page.use_citation_js or layout.use_citation_js %}
+  <script src='{{ "/assets/js/citation-0.4.0-9.min.js" | relative_url }}'></script>
+  {% endif %}
+  {% if page.use_d3_selection or layout.use_d3_selection %}
+  <script src='{{ "/assets/js/d3-selection.min.js" | relative_url }}'></script>
+  {% endif %}
 </head>

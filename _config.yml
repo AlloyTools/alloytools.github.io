@@ -29,6 +29,7 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-seo
+  - jekyll-octicons
 
 collections:
   faq:
