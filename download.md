@@ -34,4 +34,7 @@ Many of these releases no longer work on MacOS out of the box.
 - Authors: Nuno Macedo, Julien Brunel, David Chemouil, Alcino Cunha
 - Synopsis: Electrum extends Alloy with mutable signatures and fields as well as connectives from Linear Temporal Logic (with Past), it is well suited to model systems featuring both structural and behavioral aspects. Verification relies on bounded and unbounded model-checking; and the Visualizer is extended to allow interactive exploration of traces.
 
-
+#### Sterling
+- Public web page: [https://sterling-js.github.io/](https://sterling-js.github.io/)
+- Authors: Tristan Dyer, John Baugh
+- Synopsis: Sterling is a web-based visualizer for Alloy that can be customized and extended using JavaScript. It also includes enhanced views that make complex state easier to understand. The Graph View provides multiple layout options, does not restrict the movement of atoms to rows, and maintains the position of common elements when stepping through traces. The Table View provides sorting and filtering options, and skolemized variables can be displayed as highlighted rows. Using the Script View, included in the upcoming release, users can generate domain specific visualizations and extend the Sterling interface with user-defined scripts.
