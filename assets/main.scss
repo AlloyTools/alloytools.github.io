@@ -1,77 +1,91 @@
 ---
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
+
 @import "minima", "type.css", "header.css";
 
 .highlighter-rouge pre.highlight {
-	background-color: #EEE;
+  background-color: #eee;
 }
 code {
-	background-color: transparent;
+  box-sizing: border-box;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+  border-radius: 6px;
+  font-size: 85%;
+  word-break: normal;
+  white-space: pre;
+  display: inline;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  border: 0;
+  background-color: transparent;
 }
-
-
+pre {
+  background-color: #e8e8e8;
+}
 body {
-    font: 400 16px/1.5 "Droid Serif", Trebuchet, "Times New Roman", Times, serif;
-    color: #111;
-    background-color: white;
-    -webkit-text-size-adjust: 100%;
-    -webkit-font-feature-settings: "kern" 1;
-    -moz-font-feature-settings: "kern" 1;
-    -o-font-feature-settings: "kern" 1;
-    font-feature-settings: "kern" 1;
-    font-kerning: normal
+  font: 400 16px/1.5 "Droid Serif", Trebuchet, "Times New Roman", Times, serif;
+  color: #111;
+  background-color: white;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-feature-settings: "kern" 1;
+  -moz-font-feature-settings: "kern" 1;
+  -o-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
 }
 
 .post-title {
-    font-size: 1.8em;
-    letter-spacing: 0px;
-    line-height: 1.5em;
-    font-weight:bold;
+  font-size: 1.8em;
+  letter-spacing: 0px;
+  line-height: 1.5em;
+  font-weight: bold;
 }
 
 .site-header {
-    background-color: #eee;
-    min-height: 55.95px;
-    position: relative;
+  background-color: #eee;
+  min-height: 55.95px;
+  position: relative;
 }
 
 .site-title {
-    font-size: 1.6em;
-    font-weight: bold;
-    line-height: 2.5em;
-    letter-spacing: 0px;
-    margin-bottom: 0;
-    float: left;
+  font-size: 1.6em;
+  font-weight: bold;
+  line-height: 2.5em;
+  letter-spacing: 0px;
+  margin-bottom: 0;
+  float: left;
 }
 
 .site-title,
 .site-title:visited {
-    color: grey;
+  color: grey;
 }
 
 .site-nav {
-    float: right;
-    line-height: 4em;
+  float: right;
+  line-height: 4em;
 }
 
 .site-nav .page-link {
-    font-size: 1.3em;
-    line-height: 1.5;  
-    color: grey;  
+  font-size: 1.3em;
+  line-height: 1.5;
+  color: grey;
 }
 
 .site-nav .page-link:hover {
-    color: #1477cb;
+  color: #1477cb;
 }
 
 a:visited {
-    color: #1477cb;
+  color: #1477cb;
 }
 
 a:hover {
-    color: #1477cb;
-    text-decoration: none;
+  color: #1477cb;
+  text-decoration: none;
 }
 
 h1,
@@ -80,6 +94,5 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 800
+  font-weight: 800;
 }
-
