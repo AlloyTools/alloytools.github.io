@@ -1,6 +1,7 @@
 ---
 title: Web Attacks Intro
 description: A simple model of a web attack, looking at cookies and logins with different browsers
+comments: true
 ---
 
 # Web Attacks
