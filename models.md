@@ -13,8 +13,8 @@ Models for Alloy.
 {% assign contents = site.models | sort:'index' %}
 {% for page in contents %}
 <tr>
-      <td class="title" onclick="location.href='{{page.url}}'">
-      {{page.title}}
+      <td class="title" >
+            <a href="{{page.url}}">{{page.title}}</a>
       </td>
       <td>{{page.description}}</td>
 </tr>
