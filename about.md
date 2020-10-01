@@ -24,7 +24,7 @@ on the notion of relations, and was inspired by the Z specification
 language and Tarski’s relational calculus. Alloy’s syntax is designed
 to make it easy to build models incrementally, and was influenced by
 modeling languages (such as the object models of OMT and UML). Novel
-features of Alloy include a rich subtype facility for factoring out
+features of Alloy includes many new rich subtype facilities for factoring out
 common features and a uniform and powerful syntax for navigation
 expressions.
 
