@@ -2,7 +2,7 @@
 
 Alloy 6 is a new *major* version. It features new keywords and symbols that allow to specify and assess *behavioral* models natively (rather than by modeling traces explicitly as in previous versions). It also features new solving techniques as well as an upgraded Visualizer.
 
-![Alloy 6](alloy6.png)
+![Alloy 6](image/alloy6.png)
 
 
 ## Mutable signatures and fields
@@ -92,7 +92,7 @@ The meaning of these operators is as follows:
 
 Alloy 6 also features a Visualizer enhanced to display traces in a user-friendly way, by displaying variable fields and signatures with dashed lines and showing to consecutive states in two panes. Finally, the Visualizer features a sophisticated way to explore alternative instances of a specification by asking for a new static configuration, a new trace, a new initial state or a new forking trace (that is, a new trace similar to the current one until the current state but different afterwards).
 
-![Alloy 6 Visualizer](visualizer6.png)
+![Alloy 6 Visualizer](image/visualizer6.png)
 
 
 ## Compatibility with pre-6 models
