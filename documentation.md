@@ -1,14 +1,16 @@
 ---
 layout: page
-title: documentation
+title: Documentation Alloy 6
 main: docs
 ---
 
-Alloy 4 is a self-contained executable, which includes the Kodkod model finder and a variety of SAT solvers, 
+Alloy 6 is a self-contained executable, which includes the Kodkod model finder and a variety of SAT solvers, 
 as well as the standard Alloy library and a collection of tutorial examples. The same jar file can be incorporated 
 into other applications to use Alloy as an API, and includes the source code.
 
-To execute, simply double-click on the jar file, or type `java -jar org.alloytools.alloy.dist.jar` in a console.
+You can download alloy from https://github.com/AlloyTools/org.alloytools.alloy/releases/tag/v6.0.0
+
+To execute, simply double-click on the jar file, or type `java -jar org.alloytools.alloy.dist.jar` in a console. For MacOS users, there is a DMG file.
 
 | ------------- | ------------- |
 | [FAQ](/faq/faq.html)  | Frequently asked questions about Alloy |
