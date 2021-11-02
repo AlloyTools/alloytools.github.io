@@ -1,13 +1,13 @@
 # Alloy 6
 
-Alloy 6 is a new *major* version. It features new keywords and symbols that allow to specify and assess *behavioral* models natively (rather than by modeling traces explicitly as in previous versions). It also features new solving techniques as well as an upgraded Visualizer.
+Alloy 6 is a new *major* version. It features new keywords and symbols that allow to specify and assess *behavioral* models natively (rather than by modeling traces explicitly as in previous versions). It also features new solving techniques as well as an upgraded Visualizer. 
 
-![Alloy 6](image/alloy6.png)
+![Alloy 6](alloy6.png)
 
 
 ## Mutable signatures and fields
 
-Alloy 6 extends previous versions of Alloy with a `var` keyword to specify that a signature or field is *mutable*. A signature or field *not* preceded by `var` is assumed to be constant over time.
+Alloy 6 extends previous versions of Alloy with a `var` keyword to specify that a signature or field is *mutable*. A signature or field *not* preceded by `var` is said to be *static* and assumed to be constant over time.
 
 ## Value of an expression in the next state
 
@@ -25,10 +25,14 @@ The valuation of a mutable signature or field is likely to vary from state to st
 
 Analyses proceed as in Alloy by bounding signatures. In addition to placing bounds on sets assigned to type signatures, the scope specification may constrain the _time horizon_, that is the possible number of transitions of _lasso_ traces to explore (recall that traces _are_ infinite but periodic, which allows to _represent_ them as _finite_ lasso traces). To do so, Alloy features a reserved `steps` keyword to be used like type signature names in plain scopes (`steps` cannot be used anywhere else):
 
-+ If the time horizon takes the form `for M .. N steps`, only lasso traces with at least `M` transitions and at most `N` ones (*including the looping transition* starting in the last state)  will be explored.
++ If the time horizon takes the form `for M .. N steps`, only lasso traces with at least `M` transitions and at most `N` ones (*including the looping transition* starting in the last state)  will be explored (this is called *bounded model checking*).
 + If the time horizon takes the form `for N steps`, this is equivalent to `for 1 .. N steps`
 + If no time horizon is given, this is implicitly equivalent to `for 10 steps`.
-+ If the time horizon takes the form `for 1.. steps` then the time horizon will be unbounded (in that case, the selected solver must support complete model checking). Remark that, from the theoretical point of view, the analysis is guaranted to terminate; but in practice, it may be very long or fail due to unavailable memory. Such an option should therefore preferably be executed to check assertions on small models and only when checking with a bounded time horizon does not find counterexamples anymore.
++ If the time horizon takes the form `for 1.. steps` then the time horizon will be unbounded (in that case, the selected solver must support *complete* model checking). Remark that, from the theoretical point of view, the analysis is guaranted to terminate; but in practice, it may be very long or fail due to unavailable memory. Such an option should therefore preferably be executed to check assertions on small models and only when checking with a bounded time horizon does not find counterexamples anymore.
+
+## Complete model-checking
+
+As discussed just above, Alloy 6 now offers the possibility to perform *complete* model-checking, that is model-checking over all possible traces, without bounding them upfront. This is possible because the state space is finite thanks to scopes on signatures. Complete model-checking is theoretically guaranteed to terminate, but may fail due to lack of memory or may run for too long. To perform complete model-checking, the user must install a specific model-checker. Currently, NuSMV and nuXmv are supported (notice that they can also be used for bounded model checking). 
 
 ## Meaning of temporal connectives
 
@@ -90,9 +94,9 @@ The meaning of these operators is as follows:
 
 ## Extended Visualizer
 
-Alloy 6 also features a Visualizer enhanced to display traces in a user-friendly way, by displaying variable fields and signatures with dashed lines and showing to consecutive states in two panes. Finally, the Visualizer features a sophisticated way to explore alternative instances of a specification by asking for a new static configuration, a new trace, a new initial state or a new forking trace (that is, a new trace similar to the current one until the current state but different afterwards).
+Alloy 6 also features a Visualizer enhanced to display traces in a user-friendly way, by displaying variable fields and signatures with dashed lines and showing two consecutive states in two panes. Finally, the Visualizer features a sophisticated way to explore alternative instances of a specification by asking for a new static configuration, a new trace, a new initial state or a new forking trace (that is, a new trace similar to the current one until the current state but different afterwards).
 
-![Alloy 6 Visualizer](image/visualizer6.png)
+![Alloy 6 Visualizer](visualizer6.png)
 
 
 ## Compatibility with pre-6 models
