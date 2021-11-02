@@ -12,10 +12,11 @@ To execute, simply double-click on the jar file, or type `java -jar org.alloytoo
 
 | ------------- | ------------- |
 | [FAQ](/faq/faq.html)  | Frequently asked questions about Alloy |
-| [reference](download/alloy-language-reference.pdf) | Download language reference for Alloy 4 (PDF) |
-| [comparisons](download/comparisons.pdf) | Comparisons to Z, B, VDM and OCL (PDF) |
-| [grammar](download/alloy4-grammar.txt)| A grammar for Alloy 4 in plain text (TXT), also see the [cup file](https://github.com/AlloyTools/org.alloytools.alloy/blob/master/org.alloytools.alloy.application/src/main/java/edu/mit/csail/sdg/alloy4compiler/parser/Alloy.cup)|
+| [reference](spec.html) | Language reference for Alloy 6 |
+| [grammar](https://github.com/AlloyTools/org.alloytools.alloy/blob/master/org.alloytools.alloy.core/parser/Alloy.cup)| Alloy Grammar in Java CUP|
+| [lex](https://github.com/AlloyTools/org.alloytools.alloy/blob/master/org.alloytools.alloy.core/parser/Alloy.flex)| Alloy Lexical tokens in flex|
 | [quick guide](quickguide) | Overview of new features in Alloy 4 |
+| [comparisons](download/comparisons.pdf) | Comparisons to Z, B, VDM and OCL (PDF) |
 | [Alloy API](documentation/alloy-api/index.html) | Documentation for Alloy API |
 | [Alloy API Examples](documentation/alloy-api-examples.html) | examples of using [the compiler](code/ExampleUsingTheCompiler.java.html), [the ast](code/ExampleUsingTheAPI.java.html), [the evaluator](code/EvaluatorExample.java.html)|
 | [online tutorial](tutorials/online) | A step-by-step walkthrough and tutorial for Alloy 4|
