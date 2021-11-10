@@ -2,7 +2,7 @@
 
 Alloy 6 is a new *major* version. It features new keywords and symbols that allow to specify and assess *behavioral* models natively (rather than by modeling traces explicitly as in previous versions). It also features new solving techniques as well as an upgraded Visualizer. 
 
-![Alloy 6](alloy6.png)
+![Alloy 6](image/alloy6.png)
 
 
 ## Mutable signatures and fields
@@ -15,7 +15,7 @@ The value of an expression `e` in the next state is denoted by `e'` (`e` followe
 
 ## Instances are traces
 
-Instances are now *infinite* sequences of states (traces), where a state is a valuation for signatures and fields. The considered traces are represented as *lasso* traces: that is, finite sequences featuring a loop from the last state back to a former state. Because the last state can be looped back to itself, this is completely general.
+Instances are now *traces*, that is *infinite* sequences of states, where a state is a valuation for signatures and fields. The considered traces are represented as *lasso* traces: that is, finite sequences featuring a loop from the last state back to a former state. Because the last state can be looped back to itself, this is completely general. The Visualizer shows a depiction of the currently-displayed lasso trace, between the toolbar and the visualization pane (see below).
 
 > An instance for a model that does not feature variable signatures or fields can be thought of as a trace made of a single state with a loop to itself. In such a case, notice the Visualizer works exactly as in older versions of Alloy.
 
@@ -94,10 +94,9 @@ The meaning of these operators is as follows:
 
 ## Extended Visualizer
 
-Alloy 6 also features a Visualizer enhanced to display traces in a user-friendly way, by displaying variable fields and signatures with dashed lines and showing two consecutive states in two panes. Finally, the Visualizer features a sophisticated way to explore alternative instances of a specification by asking for a new static configuration, a new trace, a new initial state or a new forking trace (that is, a new trace similar to the current one until the current state but different afterwards).
+Alloy 6 also features a Visualizer enhanced to display traces in a user-friendly way. The visualization pane shows variable fields and signatures with dashed lines. It is split into two contiguous panes which show two consecutive states (the lasso trace depicted above shows where you are by coloring the states in white). Finally, the Visualizer features a sophisticated way to explore alternative instances of a specification by asking for a new static configuration, a new trace, a new initial state or a new forking trace (that is, a new trace similar to the current one until the current state but different afterwards).
 
-![Alloy 6 Visualizer](visualizer6.png)
-
+![Alloy 6 Visualizer](image/visualizer6.png)
 
 ## Compatibility with pre-6 models
 
