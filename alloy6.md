@@ -32,7 +32,15 @@ Analyses proceed as in Alloy by bounding signatures. In addition to placing boun
 
 ## Complete model-checking
 
-As discussed just above, Alloy 6 now offers the possibility to perform *complete* model-checking, that is model-checking over all possible traces, without bounding them upfront. This is possible because the state space is finite thanks to scopes on signatures. Complete model-checking is theoretically guaranteed to terminate, but may fail due to lack of memory or may run for too long. To perform complete model-checking, the user must install a specific model-checker. Currently, NuSMV and nuXmv are supported (notice that they can also be used for bounded model checking). 
+As discussed just above, Alloy 6 now offers the possibility to perform *complete* model-checking, that is model-checking over all possible traces, without bounding them upfront (as explained above, the time scope must be set to `1.. steps`). This is possible because the state space is finite thanks to scopes on signatures. Complete model-checking is theoretically guaranteed to terminate, but may fail due to lack of memory or may run for too long. Currently, [NuSMV](https://nusmv.fbk.eu/) and [nuXmv](https://nuxmv.fbk.eu/) are supported (notice that they can also be used for bounded model checking): they must be installed by the user.
+
+## Decomposed analysis
+
+The `Options` menu also features an entry labelled `Decompose strategy` which allows the user to customize the way followed by the solver to explore traces by leveraging multiple CPU cores:
+
+* The `batch` strategy analyses a problem to be solved by feeding it to a solver.
+* The `parallel` strategy leverages (signature and field) dependencies in the model to split the problem to be solved into several smaller problems. These sub-problems are then fed *in parallel* to the solver. This approach can be very effective when a problem is expected to be satisfiable as an instance may be found faster than on the original problem. On the other hand, a problem that is expected to be unsatisfiable (e.g. a `check` expected to find no counterexample) may be solved in more time than with the `batch` strategy.
+* The `hybrid` strategy is like the `parallel`, except that a non-decomposed problem is also analyzed in parallel.
 
 ## Meaning of temporal connectives
 
