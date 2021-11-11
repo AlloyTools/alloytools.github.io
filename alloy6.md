@@ -94,7 +94,13 @@ The meaning of these operators is as follows:
 
 ## Extended Visualizer
 
-Alloy 6 also features a Visualizer enhanced to display traces in a user-friendly way. The visualization pane shows variable fields and signatures with dashed lines. It is split into two contiguous panes which show two consecutive states (the lasso trace depicted above shows where you are by coloring the states in white). Finally, the Visualizer features a sophisticated way to explore alternative instances of a specification by asking for a new static configuration, a new trace, a new initial state or a new forking trace (that is, a new trace similar to the current one until the current state but different afterwards).
+Alloy 6 also features a Visualizer enhanced to display traces in a user-friendly way. The visualization pane shows variable fields and signatures with dashed lines. It is split into two contiguous panes which show two consecutive states. The lasso trace depicted above the two states shows where you are in the trace by coloring the states in white. Finally, the Visualizer features a sophisticated way to explore alternative instances of a specification:
+
+
+* `New config` yields a trace where the configuration (that is, the valuation of *static* parts) changed
+* `New trace` yields a new trace under the same configuration
+* `New init` yields a trace with a different initial state, under the same configuration
+* `New fork` yields a new trace which is similar to the current one until the currently-displayed state but differs afterwards. 
 
 ![Alloy 6 Visualizer](image/visualizer6.png)
 
