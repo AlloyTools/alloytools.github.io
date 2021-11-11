@@ -1,6 +1,6 @@
 # Alloy 6
 
-Alloy 6 is a new *major* version. It features new keywords and symbols that allow to specify and assess *behavioral* models natively (rather than by modeling traces explicitly as in previous versions). It also features new solving techniques as well as an upgraded Visualizer. A full reference for the language is available [here](https://alloytools.org/spec.html).
+Alloy 6 is a new *major* version. It features new keywords and symbols that allow to specify and assess *behavioral* models natively (rather than by modeling traces explicitly as in previous versions). It also features new solving techniques as well as an upgraded Visualizer. A full reference for the language is available [here](https://alloytools.org/spec.html). Notice there are a few **syntactic changes** with respect to older versions of Alloy (see the bottom of this page).
 
 ![Alloy 6](image/alloy6.png)
 
