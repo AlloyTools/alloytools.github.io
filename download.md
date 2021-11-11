@@ -15,7 +15,12 @@ features. To execute, simply double-click on the jar file, or type
 ### released versions
 
 |----------- | ------------|
-| [Latest build](https://github.com/AlloyTools/org.alloytools.alloy/releases) | Alloy 5 (includes the version for macOS High Sierra)|
+| [Latest build](https://github.com/AlloyTools/org.alloytools.alloy/releases) | Alloy 6 (includes the version for macOS High Sierra)|
+
+### previous release
+
+|----------- | ------------|
+| [Alloy 5.1.0](https://github.com/AlloyTools/org.alloytools.alloy/releases/tag/v5.1.0) | Alloy 5.1.0 (includes the version for macOS High Sierra)|
 
 ### old releases
 
