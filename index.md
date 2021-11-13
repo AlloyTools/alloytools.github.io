@@ -12,5 +12,5 @@ Alloy is an open source language and analyzer for software modeling. It has been
 
 ## Alloy 6
 
-[Alloy 6](alloy6.html) is a major new release that supports mutable models and their accompanying traces.
+2011/11/04. [Alloy 6](alloy6.html) is a major [new release](https://alloytools.org/download.html) that adds mutable state, a temporal logic and accompanying solvers. Specifying the behavior of systems gets easier in many cases.
 
