@@ -1,8 +1,8 @@
 # Alloy 6
 
-Alloy 6 is a new *major* version. It features new keywords and symbols that allow to specify and assess *behavioral* models natively (rather than by modeling traces explicitly as in previous versions). It also features new solving techniques as well as an upgraded Visualizer. 
+Alloy 6 is a new *major* version. It features new keywords and symbols that allow to specify and assess *behavioral* models natively (rather than by modeling traces explicitly as in previous versions). It also features new solving techniques as well as an upgraded Visualizer. A full reference for the language is available [here](https://alloytools.org/spec.html). Notice there are a few **syntactic changes** with respect to older versions of Alloy (see the bottom of this page).
 
-![Alloy 6](alloy6.png)
+![Alloy 6](image/alloy6.png)
 
 
 ## Mutable signatures and fields
@@ -15,7 +15,7 @@ The value of an expression `e` in the next state is denoted by `e'` (`e` followe
 
 ## Instances are traces
 
-Instances are now *infinite* sequences of states (traces), where a state is a valuation for signatures and fields. The considered traces are represented as *lasso* traces: that is, finite sequences featuring a loop from the last state back to a former state. Because the last state can be looped back to itself, this is completely general.
+Instances are now *traces*, that is *infinite* sequences of states, where a state is a valuation for signatures and fields. The considered traces are represented as *lasso* traces: that is, finite sequences featuring a loop from the last state back to a former state. Because the last state can be looped back to itself, this is completely general. The Visualizer shows a depiction of the currently-displayed lasso trace, between the toolbar and the visualization pane (see below).
 
 > An instance for a model that does not feature variable signatures or fields can be thought of as a trace made of a single state with a loop to itself. In such a case, notice the Visualizer works exactly as in older versions of Alloy.
 
@@ -32,7 +32,15 @@ Analyses proceed as in Alloy by bounding signatures. In addition to placing boun
 
 ## Complete model-checking
 
-As discussed just above, Alloy 6 now offers the possibility to perform *complete* model-checking, that is model-checking over all possible traces, without bounding them upfront. This is possible because the state space is finite thanks to scopes on signatures. Complete model-checking is theoretically guaranteed to terminate, but may fail due to lack of memory or may run for too long. To perform complete model-checking, the user must install a specific model-checker. Currently, NuSMV and nuXmv are supported (notice that they can also be used for bounded model checking). 
+As discussed just above, Alloy 6 now offers the possibility to perform *complete* model-checking, that is model-checking over all possible traces, without bounding them upfront (as explained above, the time scope must be set to `1.. steps`). This is possible because the state space is finite thanks to scopes on signatures. Complete model-checking is theoretically guaranteed to terminate, but may fail due to lack of memory or may run for too long. Currently, [NuSMV](https://nusmv.fbk.eu/) and [nuXmv](https://nuxmv.fbk.eu/) are supported (notice that they can also be used for bounded model checking): they must be installed by the user.
+
+## Decomposed analysis
+
+The `Options` menu also features an entry labelled `Decompose strategy` which allows the user to customize the way followed by the solver to explore traces by leveraging multiple CPU cores:
+
+* The `batch` strategy analyses a problem to be solved by feeding it to a solver.
+* The `parallel` strategy leverages (signature and field) dependencies in the model to split the problem to be solved into several smaller problems. These sub-problems are then fed *in parallel* to the solver. This approach can be very effective when a problem is expected to be satisfiable as an instance may be found faster than on the original problem. On the other hand, a problem that is expected to be unsatisfiable (e.g. a `check` expected to find no counterexample) may be solved in more time than with the `batch` strategy.
+* The `hybrid` strategy is like the `parallel`, except that a non-decomposed problem is also analyzed in parallel.
 
 ## Meaning of temporal connectives
 
@@ -94,10 +102,15 @@ The meaning of these operators is as follows:
 
 ## Extended Visualizer
 
-Alloy 6 also features a Visualizer enhanced to display traces in a user-friendly way, by displaying variable fields and signatures with dashed lines and showing two consecutive states in two panes. Finally, the Visualizer features a sophisticated way to explore alternative instances of a specification by asking for a new static configuration, a new trace, a new initial state or a new forking trace (that is, a new trace similar to the current one until the current state but different afterwards).
+Alloy 6 also features a Visualizer enhanced to display traces in a user-friendly way. The visualization pane shows variable fields and signatures with dashed lines. It is split into two contiguous panes which show two consecutive states. The lasso trace depicted above the two states shows where you are in the trace by coloring the states in white. Finally, the Visualizer features a sophisticated way to explore alternative instances of a specification:
 
-![Alloy 6 Visualizer](visualizer6.png)
 
+* `New config` yields a trace where the configuration (that is, the valuation of *static* parts) changed
+* `New trace` yields a new trace under the same configuration
+* `New init` yields a trace with a different initial state, under the same configuration
+* `New fork` yields a new trace which is similar to the current one until the currently-displayed state but differs afterwards. 
+
+![Alloy 6 Visualizer](image/visualizer6.png)
 
 ## Compatibility with pre-6 models
 
