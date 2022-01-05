@@ -16,7 +16,7 @@ To execute, simply double-click on the jar file, or type `java -jar org.alloytoo
 | [FAQ](/faq/faq.html)  | Frequently asked questions about Alloy |
 | [reference](spec.html) | Language reference for Alloy 6 |
 | [grammar](https://github.com/AlloyTools/org.alloytools.alloy/blob/master/org.alloytools.alloy.core/parser/Alloy.cup)| Alloy Grammar in Java CUP|
-| [lex](https://github.com/AlloyTools/org.alloytools.alloy/blob/master/org.alloytools.alloy.core/parser/Alloy.flex)| Alloy Lexical tokens in flex|
+| [lex](https://github.com/AlloyTools/org.alloytools.alloy/blob/master/org.alloytools.alloy.core/parser/Alloy.lex)| Alloy Lexical tokens in flex|
 | [quick guide](quickguide) | Overview of new features in Alloy 4 |
 | [comparisons](download/comparisons.pdf) | Comparisons to Z, B, VDM and OCL (PDF) |
 | [Alloy API](documentation/alloy-api/index.html) | Documentation for Alloy API |
