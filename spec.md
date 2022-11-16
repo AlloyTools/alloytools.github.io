@@ -194,7 +194,7 @@ represents a numeric constant, according to the lexical rules above
     binOp ::= || | or | && | and | <=> | iff | => | implies | 
         & | + | - | ++ | <: | :> | . | until | releases | since | triggered | ;
     arrowOp ::= [mult | set] -> [mult | set]
-    compareOp ::= in | = | < | > | =< | =>
+    compareOp ::= in | = | < | > | =< | >=
     letDecl ::= name = expr
     block ::= { expr* }
     blockOrBar ::= block | bar expr
@@ -227,7 +227,7 @@ order, tightest first:
   - expression quantifiers and multiplicities: `no`, `some`, `lone`,
     `one`, `set`;
   - comparison negation operators: `!` and `not`;
-  - comparison operators: `in`, `=`, `<`, `>`, `=`, `=<`, `=>`.
+  - comparison operators: `in`, `=`, `<`, `>`, `=`, `=<`, `>=`.
 
 Note, in particular, that dot join binds more tightly than box join, so
 `a.b[c]` is parsed as `(a.b)[c]`.
@@ -1756,7 +1756,7 @@ Elementary boolean expressions are formed by comparing two relational or
 integer expressions using comparison operators:
 
     expr ::= expr [! | not] compareOp expr
-    compareOp ::= in | = | < | > | =< | =>
+    compareOp ::= in | = | < | > | =< | >=
 
 The relational comparison operators are defined as follows:
 
