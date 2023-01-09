@@ -20,3 +20,8 @@ Models for Alloy.
 </tr>
 {% endfor %}
 </table>
+
+There is a public repository to host Alloy models -
+[AlloyTools/models](https://github.com/AlloyTools/models). This repository
+holds public models to be used as entertainment, examples, tutorials,
+utilities, and proofs.
