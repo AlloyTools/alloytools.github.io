@@ -6,7 +6,7 @@ title:  Utility Modules
 Alloy 4 contains a number of utility modules that provide common operations on graphs, integers, etc. Here is a list of the modules and a short description for each module:
 
 | **module util/boolean** | Creates a Bool type with two singleton subtypes: True and False.|
-| **module util/graph[node]** | Utilities for common operations and contraints on graphs.|
+| **module util/graph[node]** | Utilities for common operations and constraints on graphs.|
 | **module util/integer** | Utilities for using integers in Alloy.|
 | **module util/natural** |  Utilities for using the set of nonnegative integers (0, 1, 2, ...).|
 | **module util/ordering[element]**|  Creates a single linear ordering over the atoms in elem.|

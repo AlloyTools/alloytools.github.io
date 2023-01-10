@@ -3238,7 +3238,7 @@ Research Paper Current Issue| Next Issue| Archive| Adv Search&lt;&lt; Previous A
 Journal of Inorganic ...
 YU Zu - jim.org.cn - 2009
 
-A security domain model to assess software for exploitable covert channels
+A security domain model to assess software for exploitable convert channels
 
 Proceedings of the third ...
 CE Irvine... AB Shaffer M Auguston - dl.acm.org - 2008

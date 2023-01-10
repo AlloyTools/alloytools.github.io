@@ -1397,7 +1397,7 @@ cannot be used anywhere else):
   - If the time horizon takes the form `for 1.. steps` then the time
     horizon will be unbounded (in that case, the selected solver must
     support complete model checking). Remark that, from the theoretical
-    point of view, the analysis is guaranted to terminate; but in
+    point of view, the analysis is guaranteed to terminate; but in
     practice, it may be very long or fail due to unavailable memory.
     Such an option should therefore preferably be executed to check
     assertions on small models and only when checking with a bounded

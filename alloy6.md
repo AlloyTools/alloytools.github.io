@@ -28,7 +28,7 @@ Analyses proceed as in Alloy by bounding signatures. In addition to placing boun
 + If the time horizon takes the form `for M .. N steps`, only lasso traces with at least `M` transitions and at most `N` ones (*including the looping transition* starting in the last state)  will be explored (this is called *bounded model checking*).
 + If the time horizon takes the form `for N steps`, this is equivalent to `for 1 .. N steps`
 + If no time horizon is given, this is implicitly equivalent to `for 10 steps`.
-+ If the time horizon takes the form `for 1.. steps` then the time horizon will be unbounded (in that case, the selected solver must support *complete* model checking). Remark that, from the theoretical point of view, the analysis is guaranted to terminate; but in practice, it may be very long or fail due to unavailable memory. Such an option should therefore preferably be executed to check assertions on small models and only when checking with a bounded time horizon does not find counterexamples anymore.
++ If the time horizon takes the form `for 1.. steps` then the time horizon will be unbounded (in that case, the selected solver must support *complete* model checking). Remark that, from the theoretical point of view, the analysis is guaranteed to terminate; but in practice, it may be very long or fail due to unavailable memory. Such an option should therefore preferably be executed to check assertions on small models and only when checking with a bounded time horizon does not find counterexamples anymore.
 
 ## Complete model-checking
 
