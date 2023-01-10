@@ -19,7 +19,7 @@ The "some" formula may be equivalently expressed as:
 
 	x' in A && no x'.r
 
-`x'` is the skolem reation in this case. The existential quantifier "some" is not needed because the analysis will search for the existence of the skolem realtion _x'_.
+`x'` is the skolem relation in this case. The existential quantifier "some" is not needed because the analysis will search for the existence of the skolem relation _x'_.
 
 ## Determining the names of skolem relations
 

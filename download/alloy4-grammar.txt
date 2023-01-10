@@ -1,7 +1,7 @@
 Core Alloy4 Syntax (minus some obscure compatibility syntax retained for Alloy3)
 ================================================================================
 
-Precendence (from LOW to HIGH)
+Precedence (from LOW to HIGH)
 
 1)    let    all a:X|F   no a:X|F   some a:X|F   lone a:X|F   one a:x|F   sum a:x|F
 2)    ||
