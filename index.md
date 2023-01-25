@@ -12,5 +12,8 @@ Alloy is an open source language and analyzer for software modeling. It has been
 
 ## Alloy 6
 
-2021/11/04. Alloy 6 is a major [new release](https://alloytools.org/download.html) that adds mutable state, a temporal logic and accompanying solvers. Specifying the behavior of systems gets easier in many cases. **Please read the [announcement](alloy6.html) in detail to learn about important syntactic changes.**
+2021/11/04. Alloy 6 is a major [new release](https://alloytools.org/download.html) that adds mutable state, a temporal logic and accompanying solvers. Specifying the behavior of systems gets easier in many cases. **Please read the [announcement](alloy6.html) in detail to learn about important syntactic changes.** 
 
+## Learning Alloy 6
+
+[Formal Software Design with Alloy 6](https://haslab.github.io/formal-software-design/) is a completely new book (work in progress) specifically dedicated to learning Alloy, including the new Alloy 6 features.
