@@ -4,7 +4,6 @@
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 layout: home
 ---
-
 ## welcome
 
 Alloy is an open source language and analyzer for software modeling. It has been used in a wide range of applications, from finding holes in security mechanisms to designing telephone switching networks. This site provides language documentation, tool downloads, and a repository of links to case studies and applications. As the open source community grows, this site will also provide access to extensions of the Alloy Analyzer, and tools built on top of it and on top of Kodkod, its model finding engine.
@@ -17,3 +16,5 @@ Alloy is an open source language and analyzer for software modeling. It has been
 ## Learning Alloy 6
 
 [Formal Software Design with Alloy 6](https://haslab.github.io/formal-software-design/) is a completely new book (work in progress) specifically dedicated to learning Alloy, including the new Alloy 6 features.
+
+<div style="display:none">SHA for JDEPLOY 10386f1b4531f26c1b97138791151464bb6f66b5a1301438db9f29437d0d236d</div>
