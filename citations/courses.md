@@ -8,7 +8,7 @@ This page contains a list of courses that include Alloy. If you are teaching or 
 
 
 | -------------- | ---------------- |
-| [Logic for Systems.](http://cs.brown.edu/courses/cs195y/) | Dr. Tim Nelson, Brown University, Spring 2014., 2015., 2016.
+| [Logic for Systems.](http://cs.brown.edu/courses/cs171/) | Dr. Tim Nelson, Brown University, Spring 2014&ndash;2023.
 | [Enterprise and service-oriented architecture.](http://isa.epfl.ch/imoniteur_ISAP/!itffichecours.htm?ww_i_matiere=2258965&ww_x_anneeAcad=213638028&ww_i_section=249847&ww_i_niveau=6683147&ww_c_langue=en)| Wegmann Alain, EPFL, Spring 2014., 2015., 2016.
 | [Métodos Formais em Engenharia de Software: Análise e Teste de Software.](http://www4.di.uminho.pt/~rcm/mestrados/mei/PT/MFES.html)| Prof. Manuel Alcino Cunha, University of Minho, Portugal, 2014., 2015.|
 | [Métodos Formais em Engenharia de Software: Especificação e Modelação.](http://www4.di.uminho.pt/~rcm/mestrados/mei/PT/MFES.html)|Prof. Jose Nuno Oliviera, University of Minho, Portugal, 2014., 2015.|
