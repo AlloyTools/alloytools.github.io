@@ -1839,7 +1839,7 @@ The meaning of the binary operators is as follows:
     are true, or when `F` is false and `H` is true.
 
 The logical connectives may be written interchangeably as symbols: `&&`
-for `and`, `||` for `or`, `=>`\> for `implies` and `<=>` for `iff`.
+for `and`, `||` for `or`, `=>` for `implies` and `<=>` for `iff`.
 
 A *block* is a sequence of constraints enclosed in braces:
 
