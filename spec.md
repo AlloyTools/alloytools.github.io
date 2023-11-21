@@ -1762,9 +1762,8 @@ The relational comparison operators are defined as follows:
 
   - The expression `e1 in e2` is true when the relation that `e1`
     evaluates to is a subset of the relation that `e2` evaluates to.
-  - The expression `e1 = e2` is true when the relation that `e1`
-    evaluates to the same relation as `e2`, that is `e1 in e2` and `e2
-    in e1`.
+  - The expression `e1 = e2` is true when `e1` evaluates to the same
+    relation as `e2`, that is `e1 in e2` and `e2 in e1`.
 
 Note that relational equality is extensional: two relations are equal
 when they contain the same tuples.
