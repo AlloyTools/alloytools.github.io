@@ -1,8 +1,16 @@
 ---
 layout: page
-title: book on alloy
+title: books on alloy
 main: book
 ---
+
+## formal software design with alloy (alloy 6+ online book)
+
+
+
+
+
+## software abstractions -- logic, language, and analysis (alloy pre-6 book)
 
 <div style="float:right;width:200px; margin-left:20px;">
 <a href="https://mitpress.mit.edu/books/software-abstractions"><img  src="image/cover.jpg"/></a>
