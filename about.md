@@ -45,6 +45,28 @@ Alloy was created in the [Software Design Group](http://sdg.csail.mit.edu) at [M
 Major contributions to earlier versions of Alloy were made by: Emina Torlak, Eunsuk Kang, Joe Near, Felix
 Chang, Jonathan Edwards, Robert Seater, Derek Rayside, Greg Dennis, Ilya Shlyakhter, Mana Taghdiri, Mandana Vaziri, Sarfraz Khurshid, Manu Sridharan, and Denis Kuperberg.
 
+### alloy board
+
+The future of Alloy is monitored by the Alloy Board, composed of:
+
+* Daniel Jackson
+* Tim Nelson
+* Peter Kriens
+* Aleksandar Milicevic
+* Emina Torlak
+* Cesare Tinelli
+* Sarfraz Khurshid
+* Pamela Zave
+* Eunsuk Kang
+* Hillel Wayne
+* Alcino Cunha
+* David Chemouil
+* Derek Rayside
+* John Baugh
+* Julien Brunel
+* Matthew Di Ferrante
+* Nuno Macedo
+
 ### acknowledgements
 
 Alloy is the product of a research project funded by the National Science Foundation under Grant Nos. [0325283](http://www.nsf.gov/awardsearch/showAward.do?AwardNumber=0325283), [0541183](http://www.nsf.gov/awardsearch/showAward.do?AwardNumber=0541183), [0438897](http://www.nsf.gov/awardsearch/showAward.do?AwardNumber=0438897) and [0707612](http://www.nsf.gov/awardsearch/showAward.do?AwardNumber=0707612); by the [Air Force Research Laboratory](http://www.wpafb.af.mil/AFRL/) (AFRL/IF) and the Disruptive Technology Office (DTO) in the National Intelligence Community Information Assurance Research (NICIAR) Program; and by the [Nokia Corporation](http://www.nokia.com) as part of a collaboration between [Nokia Research](http://research.nokia.com/) and [MIT CSAIL](http://www.csail.mit.edu/). 
