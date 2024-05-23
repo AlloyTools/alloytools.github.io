@@ -21,4 +21,4 @@ April 30 & May, 2018.
 
 The first [Alloy Workshop](http://alloy.mit.edu/workshop-2006) was held in 2006.
 
-The [International Conference of Alloy, ASM, B, VDM and Z Users (ABZ) conference](http://www.irit.fr/ABZ2014/) has an Alloy track, and is held every other year.
+The [International Conference of Alloy, ASM, B, VDM and Z Users (ABZ) conference]([http://www.irit.fr/ABZ2014/](https://abz-conf.org/)) has an Alloy track, and is held every year.
