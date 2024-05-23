@@ -4,13 +4,15 @@ title: download
 main: download
 ---
 
-Alloy is a self-contained executable, which includes the Kodkod
+Alloy is a self-contained executable, which includes the Pardinus/Kodkod
 model finder and a variety of SAT solvers, as well as the standard
 Alloy library and a collection of tutorial examples. The same jar file
 can be incorporated into other applications to use Alloy as an API,
 and includes the source code. See the release notes for details of new
 features. To execute, simply double-click on the jar file, or type
 `java -jar org.alloytools.alloy.dist.jar` in a console.
+
+Since Alloy 6, the tool can also perform temporal model-checking. at the time of this writing, this relies on external tools [NuSMV](https://nusmv.fbk.eu/) or [nuXmv](https://nuxmv.fbk.eu/) (preferred from an efficiency point of view) that should be installed by the user and mad available in the PATH.
 
 ### released versions
 
@@ -34,7 +36,7 @@ Many of these releases no longer work on MacOS out of the box.
 
 ### Alloy extensions
 
-#### Electrum
+#### Electrum (DEPRECATED)
 - Public web page: [http://haslab.github.io/Electrum](http://haslab.github.io/Electrum)
 - Authors: Nuno Macedo, Julien Brunel, David Chemouil, Alcino Cunha
 - Synopsis: Electrum extends Alloy with mutable signatures and fields as well as connectives from Linear Temporal Logic (with Past), it is well suited to model systems featuring both structural and behavioral aspects. Verification relies on bounded and unbounded model-checking; and the Visualizer is extended to allow interactive exploration of traces.
