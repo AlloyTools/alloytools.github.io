@@ -43,7 +43,7 @@ Alloy was created in the [Software Design Group](http://sdg.csail.mit.edu) at [M
 ### former team members
 
 Major contributions to earlier versions of Alloy were made by: Emina Torlak, Eunsuk Kang, Joe Near, Felix
-Chang, Jonathan Edwards, Robert Seater, Derek Rayside, Greg Dennis, Ilya Shlyakhter, Mana Taghdiri, Mandana Vaziri, Sarfraz Khurshid, and Manu Sridharan.
+Chang, Jonathan Edwards, Robert Seater, Derek Rayside, Greg Dennis, Ilya Shlyakhter, Mana Taghdiri, Mandana Vaziri, Sarfraz Khurshid, Manu Sridharan, and Denis Kuperberg.
 
 ### acknowledgements
 
