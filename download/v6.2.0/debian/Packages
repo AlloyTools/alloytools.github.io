@@ -1,0 +1,14 @@
+Architecture: amd64
+Built-With: Hydraulic Conveyor
+Depends: libxi6, zlib1g, libasound2 | liboss4-salsa-asound2, libx11-6, libgcc-s1, libxext6, libc6, libxtst6, libxrender1, libstdc++6
+Description: Alloy
+Installed-Size: 93444
+Maintainer: Alloytools <nobody@nowhere>
+Package: org.alloytools.alloy
+Priority: optional
+Provides: org.alloytools.alloy
+Section: misc
+Version: 6.2.0
+Filename: debian/org.alloytools.alloy_6.2.0_amd64.deb
+Size: 49645596
+SHA256: 3ab6d4301fb755c43bf15f2e8e4474d1c43e7c9ea848cde01d71983e5466df50
