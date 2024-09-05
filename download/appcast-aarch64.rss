@@ -1,0 +1,21 @@
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/" version="2.0">
+    <channel>
+        <title>Alloy Changelog</title>
+        <link>https://alloytools.org/download/appcast-aarch64.rss</link>
+        <description>Most recent changes with links to updates.</description>
+        <language>en</language>
+        <item>
+            <title>Version 6.2.0.0</title>
+            <link>https://alloytools.org/download/</link>
+            <sparkle:version>6.2.0.0</sparkle:version>
+            <description>
+                <![CDATA[ New release: version 6.2.0.0 ]]>
+            </description>
+            <pubDate>Tue, 9 Jul 2024 10:29:55 GMT</pubDate>
+            <enclosure url="https://alloytools.org/download/alloy-6.2.0-mac-aarch64.zip" 
+                       length="46275252" 
+                       type="application/octet-stream" 
+                       sparkle:edSignature="FhYP00lBLoKFJrdmY5Jafd49sZqHJnF6+ZBhmGkPEAuxFy/XzL0A44vmDk+Qedg7OqCu8KyuIiWBr/xToXgaCQ=="/>
+        </item>
+    </channel>
+</rss>

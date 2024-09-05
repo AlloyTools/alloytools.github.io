@@ -1,0 +1,28 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Architectures: amd64
+Components: main
+Date: Tue, 9 Jul 2024 10:29:51 GMT
+Description: Public archive for Alloy
+Origin: Alloy
+Suite: debian
+MD5Sum:
+ 19701a55e5745e037ed20980423084ee               516 Packages
+ 36add97fd4f5caecf02017d51ae2925d               420 Packages.xz
+SHA1:
+ 08edb5f0b03cba1ccbfb481dc0e87c8fe78233c8               516 Packages
+ b34b28390236c24b17bcaaa64f473f6a2f76a655               420 Packages.xz
+SHA256:
+ 8dc71088d714d2e7d28b61c0325040a0589d0d26ee879eeda1f465c290040ac4               516 Packages
+ 84e99bad6fcaac09a1c01cb92fd2a9ad140c8ae6f7efaf3c7d2aea2015f6fba3               420 Packages.xz
+SHA512:
+ dcdff0573d0ceef125521143cb0b4c1908eceb4b9d3712973952e5d152cca9dae7231de45db6faf57cb7881c268ad5f62e727d804933d232fd1c3dc6ed78c9d7               516 Packages
+ 0fa9850cb34d6307970b7212cf62788b18d636ea2fe172b272ae5f42461d257bc90fe4ba3ec6d074c0f80c7d339b4ec00442f5caa473d1d2d62d8caae60653c0               420 Packages.xz
+-----BEGIN PGP SIGNATURE-----
+Version: BCPG v1.77.00
+
+iF4EARMIAAYFAmaNER8ACgkQH8/smwk77s6QOAD+Iz5r64HR3sbjVsxn01UmuYXN
+TaqzysiCEuuGyf8D4hUA/3BTB2er8/hR3y/B6Wl7cta6gox/+5u4QUWXBo6BOECS
+=G3Ym
+-----END PGP SIGNATURE-----
