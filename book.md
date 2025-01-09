@@ -4,10 +4,6 @@ title: books on alloy
 main: book
 ---
 
-## formal software design with alloy (alloy 6+ online book)
-
-This online book presents the Alloy language and tool, including the latest features introduced in Alloy 6 (temporal modeling, enhanced analysis and visualization). It features tutorial-style chapters as well as insets presenting more sophisticated topics or technical details.
-
 
 
 ## software abstractions -- logic, language, and analysis (alloy pre-6 book)
