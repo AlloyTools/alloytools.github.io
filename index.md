@@ -4,6 +4,7 @@
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 layout: home
 ---
+
 ## Alloy
 
 Alloy is an open source language and analyzer for software modeling. It has been used in a wide range of applications, from finding holes in security mechanisms to designing telephone switching networks. This site provides language documentation, tool downloads, and a repository of links to case studies and applications. As the open source community grows, this site will also provide access to extensions of the Alloy Analyzer, and tools built on top of it and on top of Kodkod, its model finding engine.
@@ -12,7 +13,7 @@ Alloy is an open source language and analyzer for software modeling. It has been
 
 The last release to date (2025/01/09) is [Alloy 6.2.0](https://alloytools.org/download.html) .
 
-## Alloy 6
+## Alloy 6
 
 Alloy 6 is a major revision w.r.t Alloy 4, that adds mutable state, a temporal logic and accompanying solvers as well as an improved Visualizer. Specifying the behavior of systems gets easier in many cases. 
 
