@@ -17,7 +17,7 @@ Since Alloy 6, the tool can also perform temporal model-checking. at the time of
 ### released versions
 
 |----------- | ------------|
-| [Latest build](https://github.com/AlloyTools/org.alloytools.alloy/releases) | Alloy 6 (includes the version for macOS High Sierra)|
+| [Latest build](https://github.com/AlloyTools/org.alloytools.alloy/releases) | Alloy 6.2.0 (includes the version for macOS High Sierra)|
 
 ### previous release
 
