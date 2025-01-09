@@ -4,7 +4,7 @@ title: download
 main: download
 ---
 
-Alloy is a self-contained executable, which includes the Kodkod
+Alloy is a self-contained executable, which includes the Pardinus/Kodkod
 model finder and a variety of SAT solvers, as well as the standard
 Alloy library and a collection of tutorial examples. The same jar file
 can be incorporated into other applications to use Alloy as an API,
@@ -12,10 +12,12 @@ and includes the source code. See the release notes for details of new
 features. To execute, simply double-click on the jar file, or type
 `java -jar org.alloytools.alloy.dist.jar` in a console.
 
+Since Alloy 6, the tool can also perform temporal model-checking. at the time of this writing, this relies on external tools [NuSMV](https://nusmv.fbk.eu/) or [nuXmv](https://nuxmv.fbk.eu/) (preferred from an efficiency point of view) that should be installed by the user and mad available in the PATH.
+
 ### released versions
 
 |----------- | ------------|
-| [Latest build](https://github.com/AlloyTools/org.alloytools.alloy/releases) | Alloy 6 (includes the version for macOS High Sierra)|
+| [Latest build](https://github.com/AlloyTools/org.alloytools.alloy/releases) | Alloy 6.2.0 (includes the version for macOS High Sierra)|
 
 ### previous release
 
@@ -34,10 +36,6 @@ Many of these releases no longer work on MacOS out of the box.
 
 ### Alloy extensions
 
-#### Electrum
-- Public web page: [http://haslab.github.io/Electrum](http://haslab.github.io/Electrum)
-- Authors: Nuno Macedo, Julien Brunel, David Chemouil, Alcino Cunha
-- Synopsis: Electrum extends Alloy with mutable signatures and fields as well as connectives from Linear Temporal Logic (with Past), it is well suited to model systems featuring both structural and behavioral aspects. Verification relies on bounded and unbounded model-checking; and the Visualizer is extended to allow interactive exploration of traces.
 
 #### Sterling
 - Public web page: [https://sterling-js.github.io/](https://sterling-js.github.io/)

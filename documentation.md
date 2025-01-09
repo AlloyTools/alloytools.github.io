@@ -4,13 +4,17 @@ title: Documentation Alloy 6
 main: docs
 ---
 
-Alloy 6 is a self-contained executable, which includes the Kodkod model finder and a variety of SAT solvers, 
+Alloy 6 is a self-contained executable, which includes the Pardinus/Kodkod model finder and a variety of SAT solvers, 
 as well as the standard Alloy library and a collection of tutorial examples. The same jar file can be incorporated 
 into other applications to use Alloy as an API, and includes the source code.
 
 You can download alloy from https://github.com/AlloyTools/org.alloytools.alloy/releases/tag/v6.0.0
 
 To execute, simply double-click on the jar file, or type `java -jar org.alloytools.alloy.dist.jar` in a console. For MacOS users, there is a DMG file.
+
+Since Alloy 6, the tool can also perform temporal model-checking. at the time of this writing, this relies on external tools [NuSMV](https://nusmv.fbk.eu/) or [nuXmv](https://nuxmv.fbk.eu/) (preferred from an efficiency point of view) that should be installed by the user and mad available in the PATH.
+
+
 
 | ------------- | ------------- |
 | [FAQ](/faq/faq.html)  | Frequently asked questions about Alloy |
