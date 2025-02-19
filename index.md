@@ -21,6 +21,9 @@ Alloy 6 is a major revision w.r.t Alloy 4, that adds mutable state, a temporal l
 
 ## Learning Alloy 6
 
-[Formal Software Design with Alloy 6](https://haslab.github.io/formal-software-design/) is a completely new online book specifically dedicated to learning Alloy, including the new Alloy 6 features.
+[Practical Alloy -- A hands-on guide to formal software design](https://practicalalloy.github.io/) is a new (draft) online book on **Alloy 6+**, by Alcino Cunha, Nuno Macedo, Julien Brunel and David Chemouil.
+
+
+[Formal Software Design with Alloy 6](https://haslab.github.io/formal-software-design/) is a *deprecated* online book specifically dedicated to learning Alloy, including the new Alloy 6 features.
 
 <div style="display:none">SHA for JDEPLOY 10386f1b4531f26c1b97138791151464bb6f66b5a1301438db9f29437d0d236d</div>
