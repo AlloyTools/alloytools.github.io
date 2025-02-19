@@ -15,8 +15,8 @@ To execute, simply double-click on the jar file, or type `java -jar org.alloytoo
 Since Alloy 6, the tool can also perform temporal model-checking. at the time of this writing, this relies on external tools [NuSMV](https://nusmv.fbk.eu/) or [nuXmv](https://nuxmv.fbk.eu/) (preferred from an efficiency point of view) that should be installed by the user and mad available in the PATH.
 
 
-
 | ------------- | ------------- |
+| [Formal Software Design with Alloy 6](https://haslab.github.io/formal-software-design/) | outdated online book specifically dedicated to learning Alloy 6 |
 | [FAQ](/faq/faq.html)  | Frequently asked questions about Alloy |
 | [reference](spec.html) | Language reference for Alloy 6 |
 | [grammar](https://github.com/AlloyTools/org.alloytools.alloy/blob/master/org.alloytools.alloy.core/parser/Alloy.cup)| Alloy Grammar in Java CUP|
