@@ -4,7 +4,13 @@ title: books on alloy
 main: book
 ---
 
+## practical alloy -- a hands-on guide to formal software design
 
+<div style="float:right;width:200px; margin-left:20px;">
+<a href="https://practicalalloy.github.io"><img  src="image/practicalalloy.jpg"/></a>
+</div>
+
+This online book presents the Alloy language and tool, including the latest features introduced in Alloy 6 (temporal modeling, enhanced analysis and visualization). It features tutorial-style chapters as well as insets presenting more sophisticated topics or technical details.
 
 ## software abstractions -- logic, language, and analysis (alloy pre-6 book)
 
