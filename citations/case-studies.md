@@ -19,6 +19,7 @@ Selected papers that describe applications of Alloy:
 ## Enterprise Modeling
 
 | ------------------------ | ------------| ------------|
+| [Conceptual model visual simulation and the inductive learning of missing domain constraints](https://www.sciencedirect.com/science/article/abs/pii/S0169023X2200043X)|Data & Knowledge Engineering Journal| Mattia Fumagalli et al., 2022|
 | A model-driven environment for service design, simulation and prototyping.| Exploring Services Science|Biljana Bajić-Bizumić & Claude Petitpierre & Hieu Chi Huynh et al. - 2013 _- Springer_|
 | Simulation-Driven Approach for Business Rules Discovery.| Advanced Information Systems Engineering Workshops|Biljana Bajić-Bizumić & Irina Rychkova & Alain Wegmann - 2013|
 | Support for Domain Constraints in the Validation of Ontologically Well-Founded Conceptual Models.|Enterprise, Business-Process and Information Systems Modeling |John Guerson & João Paulo A Almeida & Giancarlo Guizzardi - 2014 |
